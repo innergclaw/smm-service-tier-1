@@ -1,6 +1,6 @@
-# ShopNasGFX SMM Service Tier 1
+# OWNYOURWEB AI-Powered Marketing System
 
-A polished, responsive landing page for the ShopNasGFX starter social media management offer.
+A polished, responsive landing page for the OWNYOURWEB Systems AI-powered marketing offer at one price: $250 per month.
 
 ## Live site
 
@@ -18,4 +18,4 @@ Then visit `http://localhost:4173`.
 
 ## Lead form
 
-The application form prepares a complete email to `shopnasgfx@gmail.com` using the visitor's default email app. This keeps the static GitHub Pages build dependency-free.
+The application form prepares a complete email to `hello@ownyourweb.xyz` using the visitor's default email app. This keeps the static GitHub Pages build dependency-free.
