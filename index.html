@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#f2eedf" />
+  <meta name="description" content="ShopNasGFX Tier 1 social media management: 12 custom posts, captions, hashtags, approvals, revisions, and a monthly report for $250 per month." />
+  <meta property="og:title" content="SMM Service Tier 1 | ShopNasGFX" />
+  <meta property="og:description" content="A simple monthly visibility system for small businesses ready to look active, credible, and ready for customers." />
+  <meta property="og:type" content="website" />
+  <title>SMM Service Tier 1 | ShopNasGFX</title>
+  <style>
+    :root {
+      --cream: #f2eedf;
+      --cream-2: #e8e3d1;
+      --ink: #181a17;
+      --muted: #66695f;
+      --lime: #c9ff46;
+      --line: rgba(24, 26, 23, .15);
+      --glass: rgba(255, 255, 250, .48);
+      --glass-dark: rgba(24, 26, 23, .90);
+      --shadow: 0 28px 70px rgba(40, 42, 34, .12);
+      --ease-out: cubic-bezier(.23, 1, .32, 1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 9% 7%, rgba(201,255,70,.30), transparent 23rem),
+        radial-gradient(circle at 90% 23%, rgba(255,191,112,.20), transparent 27rem),
+        var(--cream);
+      font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      letter-spacing: -.015em;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed; inset: 0; pointer-events: none; opacity: .20;
+      background-image: linear-gradient(rgba(24,26,23,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(24,26,23,.08) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(to bottom, black, transparent 80%);
+    }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 3px solid #b35f35; outline-offset: 3px; }
+    ::selection { color: var(--ink); background: var(--lime); }
+    button, input, select, textarea { font: inherit; }
+    .shell { width: min(1480px, calc(100% - 64px)); margin: 0 auto; position: relative; }
+    .glass {
+      background: var(--glass);
+      border: 1px solid rgba(255,255,255,.72);
+      box-shadow: inset 0 0 0 1px rgba(24,26,23,.04), var(--shadow);
+      backdrop-filter: blur(22px) saturate(135%);
+      -webkit-backdrop-filter: blur(22px) saturate(135%);
+    }
+    nav {
+      margin-top: 24px; height: 72px; border-radius: 22px;
+      display: flex; align-items: center; justify-content: space-between; padding: 0 18px 0 24px;
+      position: sticky; top: 18px; z-index: 10;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: -.04em; }
+    .mark { width: 38px; height: 38px; border-radius: 12px; background: var(--ink); display: grid; place-items: center; color: var(--lime); font-size: 13px; box-shadow: 0 8px 20px rgba(24,26,23,.18); }
+    .brand small { display: block; font-size: 8px; letter-spacing: .16em; font-weight: 700; color: var(--muted); margin-top: 3px; }
+    .navlinks { display: flex; align-items: center; gap: 28px; font-size: 13px; font-weight: 700; }
+    .navlinks a:not(.button):hover { opacity: .55; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 12px; background: var(--ink); color: #fff; border: 0; border-radius: 14px; min-height: 48px; padding: 0 19px; font-size: 13px; font-weight: 800; transition: transform 160ms var(--ease-out), box-shadow 180ms ease; }
+    .button:active { transform: scale(.97); }
+    .button.lime { background: var(--lime); color: var(--ink); }
+    .button .arrow { font-size: 18px; line-height: 1; }
+    .hero { min-height: 760px; padding: 82px 0 70px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 62px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.26); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 800; }
+    .eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 5px rgba(201,255,70,.25); }
+    h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; letter-spacing: -.072em; line-height: .89; font-size: clamp(64px, 6.65vw, 108px); margin: 27px 0 28px; max-width: 930px; }
+    h1 em { font-weight: 400; color: var(--muted); }
+    .lead { max-width: 720px; font-size: 18px; line-height: 1.55; color: var(--muted); margin: 0 0 30px; }
+    .actions { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .actions .button { min-height: 58px; padding: 0 25px; border-radius: 16px; }
+    .text-link { font-weight: 800; font-size: 13px; padding: 16px; border-bottom: 1px solid var(--ink); }
+    .proofline { margin-top: 34px; display: flex; gap: 24px; align-items: center; color: var(--muted); font-size: 12px; }
+    .proofline b { color: var(--ink); }
+    .avatars { display: flex; }
+    .avatars span { width: 30px; height: 30px; border-radius: 50%; display: grid; place-items:center; border: 2px solid var(--cream); margin-left: -7px; background: var(--ink); color: var(--lime); font-size: 9px; font-weight: 900; }
+    .avatars span:first-child { margin: 0; background:#bd6c44; color:white; }
+    .avatars span:nth-child(2) { background:#e1bfc5; color:var(--ink); }
+    .hero-visual { position: relative; min-height: 590px; display: grid; place-items: center; }
+    .orb { position: absolute; width: 420px; height: 420px; border-radius: 50%; background: linear-gradient(145deg, rgba(201,255,70,.9), rgba(201,255,70,.12)); filter: blur(.2px); top: 55px; right: -60px; box-shadow: inset 30px 20px 60px rgba(255,255,255,.38); }
+    .system-card { width: min(440px, 100%); padding: 18px; border-radius: 32px; transform: rotate(2.5deg); position: relative; z-index: 2; }
+    .system-inner { background: var(--glass-dark); color: white; border-radius: 24px; padding: 28px; box-shadow: 0 34px 75px rgba(24,26,23,.26); }
+    .system-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+    .system-top span { font-size: 11px; text-transform: uppercase; letter-spacing: .15em; color: #c7c9bf; }
+    .live { color: var(--lime)!important; }
+    .live::before { content:""; display:inline-block; width:6px; height:6px; background:var(--lime); border-radius:50%; margin-right:7px; }
+    .system-inner h2 { font-family: Georgia, serif; font-size: 42px; line-height: .98; letter-spacing: -.05em; font-weight: 500; margin: 0 0 30px; }
+    .post-stack { display: grid; gap: 10px; }
+    .post { border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.08); border-radius: 15px; padding: 14px; display: grid; grid-template-columns: 44px 1fr auto; align-items: center; gap: 12px; }
+    .thumb { width: 44px; height: 44px; border-radius: 10px; background: linear-gradient(135deg, var(--lime), #7d9434); display:grid; place-items:center; color: var(--ink); font-weight:900; }
+    .post:nth-child(2) .thumb { background: linear-gradient(135deg,#f1b47b,#9c4e31); color:white; }
+    .post:nth-child(3) .thumb { background: linear-gradient(135deg,#d9d5c7,#7a7b75); color: var(--ink); }
+    .post b { display:block; font-size: 12px; margin-bottom: 4px; }
+    .post small { color:#9ea198; font-size: 10px; }
+    .status { border-radius:999px; padding:6px 8px; font-size:8px; text-transform:uppercase; letter-spacing:.09em; background:rgba(201,255,70,.12); color:var(--lime); }
+    .system-footer { display:flex; justify-content:space-between; align-items:flex-end; border-top:1px solid rgba(255,255,255,.12); padding-top:22px; margin-top:24px; }
+    .metric strong { font-family:Georgia,serif; font-size:42px; font-weight:400; }
+    .metric small { display:block; color:#9ea198; font-size:10px; letter-spacing:.1em; text-transform:uppercase; }
+    .stamp { width:68px; height:68px; border:1px solid rgba(201,255,70,.5); color:var(--lime); border-radius:50%; display:grid; place-items:center; text-align:center; font-size:8px; text-transform:uppercase; letter-spacing:.1em; transform:rotate(-8deg); }
+    .float-note { position:absolute; z-index:3; right:-10px; bottom:54px; border-radius:18px; padding:14px 17px; font-size:11px; font-weight:800; transform:rotate(-4deg); }
+    .float-note span { display:block; color:var(--muted); margin-top:4px; font-weight:600; }
+    .client-strip { border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:18px 0; overflow:hidden; }
+    .client-strip .row { display:flex; justify-content:space-between; gap:30px; white-space:nowrap; text-transform:uppercase; font-weight:800; font-size:10px; letter-spacing:.13em; color:var(--muted); }
+    .row i { color:var(--ink); font-style:normal; }
+    .section { padding: 110px 0; }
+    .section-head { display:grid; grid-template-columns:.65fr 1.35fr; gap:50px; margin-bottom:48px; }
+    .kicker { font-size:11px; text-transform:uppercase; letter-spacing:.14em; font-weight:800; color:var(--muted); padding-top:9px; }
+    h3 { font-family:Georgia,serif; font-size:clamp(42px,5vw,76px); font-weight:500; line-height:.97; letter-spacing:-.055em; margin:0; }
+    .pain-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+    .panel { border-radius:28px; padding:36px; }
+    .panel.dark { background:var(--ink); color:white; border:1px solid rgba(255,255,255,.08); box-shadow:var(--shadow); }
+    .panel-label { font-size:10px; text-transform:uppercase; letter-spacing:.14em; color:var(--muted); margin-bottom:60px; }
+    .dark .panel-label { color:#a6a99f; }
+    .panel h4 { font-family:Georgia,serif; font-size:36px; line-height:1.03; letter-spacing:-.04em; font-weight:500; margin:0 0 22px; }
+    .panel p { color:var(--muted); line-height:1.65; margin:0; max-width:560px; }
+    .dark p { color:#b8bbb1; }
+    .before-after { margin-top:34px; display:flex; flex-wrap:wrap; gap:8px; }
+    .chip { border:1px solid rgba(255,255,255,.14); background:rgba(255,255,255,.06); border-radius:999px; padding:9px 12px; font-size:10px; }
+    .light .chip { border-color:var(--line); background:rgba(255,255,255,.3); }
+    .number { font-family:Georgia,serif; font-size:84px; line-height:.8; color:var(--lime); float:right; }
+    .offer { background: var(--ink); color:white; border-radius:40px; padding:64px; overflow:hidden; position:relative; }
+    .offer::after { content:"$250"; position:absolute; right:-16px; bottom:-72px; font-family:Georgia,serif; font-size:260px; color:rgba(255,255,255,.035); letter-spacing:-.09em; }
+    .offer-grid { display:grid; grid-template-columns:.85fr 1.15fr; gap:70px; position:relative; z-index:1; }
+    .offer h3 { max-width:540px; }
+    .offer p { color:#afb2a8; font-size:16px; line-height:1.6; }
+    .price { font-family:Georgia,serif; font-size:88px; letter-spacing:-.07em; line-height:1; margin:20px 0 6px; }
+    .price small { font-family:Inter,sans-serif; font-size:13px; letter-spacing:0; color:#afb2a8; }
+    .setup { font-size:11px; text-transform:uppercase; letter-spacing:.12em; color:var(--lime); }
+    .includes { display:grid; grid-template-columns:1fr 1fr; gap:10px; align-content:start; }
+    .include { border:1px solid rgba(255,255,255,.12); background:rgba(255,255,255,.06); border-radius:16px; padding:17px; font-size:12px; display:flex; gap:10px; align-items:center; }
+    .include::before { content:"+"; width:22px; height:22px; border-radius:50%; background:var(--lime); color:var(--ink); display:grid; place-items:center; font-weight:900; }
+    .include.cta { grid-column:1/-1; background:var(--lime); color:var(--ink); justify-content:space-between; font-weight:900; margin-top:9px; }
+    .include.cta::before { display:none; }
+    .process { display:grid; grid-template-columns:repeat(5,1fr); gap:12px; }
+    .step { border-top:1px solid var(--ink); padding-top:18px; }
+    .step .n { font-family:Georgia,serif; color:var(--muted); font-size:24px; }
+    .step h4 { font-size:14px; margin:34px 0 10px; }
+    .step p { font-size:12px; line-height:1.55; color:var(--muted); }
+    .ideal-grid { display:grid; grid-template-columns:.8fr 1.2fr; gap:56px; align-items:start; }
+    .ideal-copy p { color:var(--muted); line-height:1.65; font-size:16px; max-width:540px; }
+    .industry-cloud { display:flex; flex-wrap:wrap; gap:10px; }
+    .industry { padding:13px 17px; border:1px solid var(--line); border-radius:999px; background:rgba(255,255,255,.34); font-size:12px; font-weight:800; transition:transform 160ms var(--ease-out), background-color 160ms ease; }
+    .value-panel { min-height:520px; border-radius:40px; padding:64px; background:var(--ink); color:white; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end; }
+    .value-panel::before { content:""; position:absolute; width:520px; height:520px; right:-100px; top:-180px; border-radius:50%; background:rgba(201,255,70,.6); filter:blur(75px); opacity:.48; }
+    .value-panel::after { content:"CONSISTENCY"; position:absolute; right:-30px; bottom:-88px; font:500 180px Georgia,serif; letter-spacing:-.08em; color:rgba(255,255,255,.045); }
+    .value-panel > * { position:relative; z-index:1; }
+    .value-panel h3 { max-width:900px; font-size:clamp(52px,6vw,92px); }
+    .value-panel h3 em { color:var(--lime); font-weight:400; }
+    .value-panel p { max-width:720px; margin:25px 0 0; color:#bec1b8; line-height:1.65; font-size:17px; }
+    .faq-wrap { display:grid; grid-template-columns:.7fr 1.3fr; gap:60px; }
+    details { border-bottom:1px solid var(--line); padding:21px 0; }
+    summary { cursor:pointer; font-weight:800; font-size:15px; list-style:none; display:flex; justify-content:space-between; }
+    summary::after { content:"+"; color:var(--muted); }
+    details[open] summary::after { content:"−"; }
+    details p { color:var(--muted); line-height:1.6; font-size:13px; max-width:700px; }
+    .apply { margin-bottom:40px; display:grid; grid-template-columns:.8fr 1.2fr; gap:60px; padding:56px; border-radius:36px; }
+    .apply h3 { font-size:58px; }
+    .apply p { color:var(--muted); line-height:1.6; }
+    form { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+    label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.12em; display:block; color:var(--muted); }
+    input, select, textarea { margin-top:7px; width:100%; border:1px solid var(--line); background:rgba(255,255,255,.35); border-radius:12px; padding:13px; color:var(--ink); outline:none; }
+    input:focus, select:focus, textarea:focus { border-color:var(--ink); }
+    .wide { grid-column:1/-1; }
+    textarea { resize:vertical; min-height:88px; }
+    form .button { cursor:pointer; }
+    footer { padding:32px 0 46px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; font-size:11px; color:var(--muted); }
+    @media (hover:hover) and (pointer:fine) {
+      .button:hover { transform:translateY(-2px); box-shadow:0 12px 24px rgba(24,26,23,.18); }
+      .industry:hover { transform:translateY(-2px); background:rgba(201,255,70,.45); }
+    }
+    @media (max-width: 980px) {
+      .shell { width:min(100% - 32px, 760px); }
+      .navlinks a:not(.button) { display:none; }
+      .hero { grid-template-columns:1fr; padding-top:60px; gap:12px; }
+      .hero-visual { min-height:560px; }
+      .orb { right:-120px; }
+      .section-head,.offer-grid,.faq-wrap,.apply,.ideal-grid { grid-template-columns:1fr; }
+      .pain-grid { grid-template-columns:1fr; }
+      .process { grid-template-columns:1fr 1fr; }
+      .offer { padding:38px 24px; }
+      .apply { padding:32px 24px; gap:28px; }
+    }
+    @media (max-width: 620px) {
+      nav { height:64px; margin-top:12px; }
+      .navlinks .button { min-height:40px; font-size:11px; padding:0 12px; }
+      h1 { font-size:56px; }
+      .lead { font-size:16px; }
+      .hero { padding-top:48px; }
+      .hero-visual { min-height:510px; }
+      .system-card { transform:none; }
+      .system-inner { padding:20px; }
+      .system-inner h2 { font-size:34px; }
+      .float-note { display:none; }
+      .section { padding:76px 0; }
+      .section-head { gap:20px; }
+      .process,.includes,form { grid-template-columns:1fr; }
+      .wide,.include.cta { grid-column:auto; }
+      .offer::after { display:none; }
+      .price { font-size:70px; }
+      .apply h3 { font-size:44px; }
+      .value-panel { min-height:480px; padding:36px 24px; border-radius:28px; }
+      footer { align-items:flex-start; gap:14px; flex-direction:column; }
+    }
+    @media (prefers-reduced-motion:reduce) {
+      html { scroll-behavior:auto; }
+      *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="shell">
+    <nav class="glass" aria-label="Main navigation">
+      <a class="brand" href="#top"><span class="mark">SMM</span><span>ShopNasGFX<small>Social Media Management</small></span></a>
+      <div class="navlinks">
+        <a href="#offer">What’s included</a><a href="#process">How it works</a><a href="#faq">FAQ</a>
+        <a class="button lime" href="#apply">Start my setup <span class="arrow">↗</span></a>
+      </div>
+    </nav>
+  </header>
+
+  <main id="top">
+    <section class="shell hero">
+      <div>
+        <span class="eyebrow"><i></i>Now accepting Tier 1 clients</span>
+        <h1>Show up like your business <em>means it.</em></h1>
+        <p class="lead">12 custom posts every month—with captions, hashtags, approvals, revisions, and a clear report. Your brand stays active. You stay focused on the business.</p>
+        <div class="actions">
+          <a class="button lime" href="#apply">Start my social media setup <span class="arrow">↗</span></a>
+          <a class="text-link" href="#offer">See what’s included</a>
+        </div>
+        <div class="proofline"><div class="avatars"><span>RE</span><span>SA</span><span>MED</span></div><span>Built for <b>local brands</b> ready to look official online.</span></div>
+      </div>
+      <div class="hero-visual" aria-label="A preview of the monthly content system">
+        <div class="orb"></div>
+        <article class="system-card glass">
+          <div class="system-inner">
+            <div class="system-top"><span>Monthly content board</span><span class="live">In progress</span></div>
+            <h2>Your page,<br />finally in rhythm.</h2>
+            <div class="post-stack">
+              <div class="post"><div class="thumb">01</div><div><b>Brand authority</b><small>Caption + hashtag set</small></div><span class="status">Approved</span></div>
+              <div class="post"><div class="thumb">02</div><div><b>Service spotlight</b><small>Offer-led content</small></div><span class="status">Review</span></div>
+              <div class="post"><div class="thumb">03</div><div><b>Customer trust</b><small>Testimonial post</small></div><span class="status">Draft</span></div>
+            </div>
+            <div class="system-footer"><div class="metric"><strong>12</strong><small>Polished posts / month</small></div><div class="stamp">clear<br/>consistent<br/>credible</div></div>
+          </div>
+        </article>
+        <div class="float-note glass">3 posts every week<span>No more page going quiet.</span></div>
+      </div>
+    </section>
+
+    <div class="client-strip"><div class="shell row"><i>Realtors</i><span>•</span><i>Salons</i><span>•</span><i>Med Spas</i><span>•</span><i>Contractors</i><span>•</span><i>Fitness Brands</i><span>•</span><i>Nonprofits</i><span>•</span><i>Beauty Brands</i></div></div>
+
+    <section class="shell section" id="problem">
+      <div class="section-head"><div class="kicker">01 / The real problem</div><h3>Your business may be good. But if your page looks inactive, people hesitate.</h3></div>
+      <div class="pain-grid">
+        <article class="panel dark"><span class="number">×</span><div class="panel-label">Before / scattered presence</div><h4>Good business.<br/>Quiet page.</h4><p>Rushed captions, random posting, and long gaps can make a serious business look less established than it really is.</p><div class="before-after"><span class="chip">No clear rhythm</span><span class="chip">Last-minute captions</span><span class="chip">Low trust</span></div></article>
+        <article class="panel light glass"><span class="number">✓</span><div class="panel-label">After / managed visibility</div><h4>Clear content.<br/>Consistent trust.</h4><p>A structured monthly system keeps your brand visible, your messaging clear, and every post organized for approval.</p><div class="before-after"><span class="chip">3× weekly</span><span class="chip">Custom copy</span><span class="chip">Monthly recap</span></div></article>
+      </div>
+    </section>
+
+    <section class="shell offer" id="offer">
+      <div class="offer-grid">
+        <div><div class="kicker" style="color:var(--lime)">02 / The starter system</div><h3>Everything you need to stay visible—nothing you don’t.</h3><p>A focused social media package for small businesses that want polish and consistency without an agency-sized retainer.</p><div class="price">$250<small> / month</small></div><div class="setup">+ $150 one-time setup</div></div>
+        <div class="includes">
+          <div class="include">12 branded posts / month</div><div class="include">3 posts every week</div><div class="include">Custom captions</div><div class="include">Hashtag support</div><div class="include">Client approval portal</div><div class="include">Reasonable revisions</div><div class="include">Monthly performance report</div><div class="include">First-month planning</div>
+          <a href="#apply" class="include cta">Apply for social media support <span>↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell section" id="process">
+      <div class="section-head"><div class="kicker">03 / A simple workflow</div><h3>One clear system, from first brief to monthly report.</h3></div>
+      <div class="process">
+        <div class="step"><span class="n">01</span><h4>Fill out your intake</h4><p>Share your business, audience, goals, and current social pages.</p></div>
+        <div class="step"><span class="n">02</span><h4>Get set up</h4><p>We organize your portal, brand notes, payment, and direction.</p></div>
+        <div class="step"><span class="n">03</span><h4>Review content</h4><p>Your posts, captions, and hashtags arrive together for review.</p></div>
+        <div class="step"><span class="n">04</span><h4>Approve + publish</h4><p>Request revisions, approve the batch, and get ready to post.</p></div>
+        <div class="step"><span class="n">05</span><h4>See the report</h4><p>Get a clean recap of what was made and what worked best.</p></div>
+      </div>
+    </section>
+
+    <section class="shell section" id="clients">
+      <div class="ideal-grid">
+        <div class="ideal-copy"><div class="kicker">04 / Built for local business</div><h3>Made for brands ready to look more official.</h3><p>Tier 1 works best for service-based businesses with a real offer and a page that needs a dependable rhythm, clearer messaging, and more visible proof of life.</p></div>
+        <div class="industry-cloud" aria-label="Ideal client industries"><span class="industry">Realtors</span><span class="industry">Salons</span><span class="industry">Med spas</span><span class="industry">Contractors</span><span class="industry">Dentists</span><span class="industry">Insurance agents</span><span class="industry">Fitness brands</span><span class="industry">Nonprofits</span><span class="industry">Beauty brands</span><span class="industry">Coaches</span><span class="industry">Community programs</span><span class="industry">Local services</span></div>
+      </div>
+    </section>
+
+    <section class="shell section" id="value">
+      <div class="value-panel"><div class="kicker" style="color:var(--lime)">05 / More than posting</div><h3>This is consistency <em>with structure.</em></h3><p>Clear content, thoughtful captions, and an organized approval system help customers see that your business is active, credible, and ready to serve. You run the business. We keep the page alive.</p></div>
+    </section>
+
+    <section class="shell section faq-wrap" id="faq">
+      <div><div class="kicker">06 / Good to know</div><h3>Questions before you start?</h3></div>
+      <div>
+        <details open><summary>Do you post the content for me?</summary><p>Posting can be handled based on your selected workflow. Choose scheduled support or final delivery if you prefer to post everything yourself.</p></details>
+        <details><summary>Do I need professional photos?</summary><p>No. We can work with your current brand assets, service photos, testimonials, graphics, and business information.</p></details>
+        <details><summary>How many revisions are included?</summary><p>The starter package includes reasonable revisions on approved posts. Full redesigns or new concepts can be scoped as an add-on.</p></details>
+        <details><summary>Is this package for Reels?</summary><p>Tier 1 focuses on static posts and captions. Reels scripts, video ideas, and editing are available as upgrades.</p></details>
+        <details><summary>What happens after I apply?</summary><p>Your business details are reviewed first. If Tier 1 is a good fit, you receive the next steps for payment, onboarding, and setup.</p></details>
+      </div>
+    </section>
+
+    <section class="shell apply glass" id="apply">
+      <div><div class="kicker">Let’s get your page moving</div><h3>Ready to stop letting your page sit quiet?</h3><p>Tell us about your business. We’ll review your needs and confirm whether Tier 1 is the right fit.</p></div>
+      <form id="lead-form">
+        <label>Name<input name="name" autocomplete="name" placeholder="Your name" required /></label>
+        <label>Business name<input name="business" placeholder="Business name" required /></label>
+        <label>Email<input type="email" name="email" autocomplete="email" placeholder="you@business.com" required /></label>
+        <label>Phone<input type="tel" name="phone" autocomplete="tel" placeholder="(000) 000-0000" /></label>
+        <label class="wide">Website or social link<input type="url" name="social" placeholder="https://" /></label>
+        <label>Industry<select name="industry"><option>Select one</option><option>Realtor</option><option>Salon / Beauty</option><option>Med spa</option><option>Contractor</option><option>Fitness</option><option>Nonprofit</option><option>Other local service</option></select></label>
+        <label>Monthly content needs<select name="needs"><option>12 posts / month</option><option>More than 12 posts</option><option>Not sure yet</option></select></label>
+        <label class="wide">Anything we should know?<textarea name="message" placeholder="Tell us what is happening with your social media right now..."></textarea></label>
+        <button class="button lime wide" type="submit">Prepare my application <span class="arrow">↗</span></button>
+      </form>
+    </section>
+  </main>
+
+  <footer class="shell"><a class="brand" href="#top"><span class="mark">SMM</span><span>ShopNasGFX</span></a><a href="mailto:shopnasgfx@gmail.com">shopnasgfx@gmail.com</a><span>© 2026 ShopNasGFX Social Media Management</span></footer>
+  <script>
+    document.querySelectorAll('details').forEach((detail) => {
+      detail.addEventListener('toggle', () => {
+        if (!detail.open) return;
+        document.querySelectorAll('details[open]').forEach((other) => {
+          if (other !== detail) other.removeAttribute('open');
+        });
+      });
+    });
+
+    document.getElementById('lead-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const form = new FormData(event.currentTarget);
+      const subject = `SMM Tier 1 Application — ${form.get('business')}`;
+      const body = [
+        'SMM SERVICE TIER 1 APPLICATION', '',
+        `Name: ${form.get('name')}`,
+        `Business: ${form.get('business')}`,
+        `Email: ${form.get('email')}`,
+        `Phone: ${form.get('phone') || 'Not provided'}`,
+        `Website / Social: ${form.get('social') || 'Not provided'}`,
+        `Industry: ${form.get('industry')}`,
+        `Monthly content need: ${form.get('needs')}`, '',
+        'Additional details:', form.get('message') || 'None provided'
+      ].join('\n');
+      window.location.href = `mailto:shopnasgfx@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+  </script>
+</body>
+</html>
