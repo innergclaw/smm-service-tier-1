@@ -168,9 +168,13 @@
     form .button { cursor:pointer; }
     .honeypot { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
     footer { padding:32px 0 46px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; font-size:11px; color:var(--muted); }
+    .back-to-top { position:fixed; right:22px; bottom:22px; z-index:20; display:grid; width:48px; height:48px; place-items:center; border:1px solid rgba(24,26,23,.16); border-radius:14px; color:var(--ink); background:rgba(255,255,250,.72); box-shadow:0 14px 36px rgba(24,26,23,.16); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); font-size:22px; font-weight:800; opacity:0; pointer-events:none; transform:translateY(10px); transition:opacity 180ms ease, transform 180ms var(--ease-out), background-color 180ms ease; }
+    .back-to-top.visible { opacity:1; pointer-events:auto; transform:translateY(0); }
+    .back-to-top:active { transform:scale(.97); }
     @media (hover:hover) and (pointer:fine) {
       .button:hover { transform:translateY(-2px); box-shadow:0 12px 24px rgba(24,26,23,.18); }
       .industry:hover { transform:translateY(-2px); background:rgba(201,255,70,.45); }
+      .back-to-top:hover { background:var(--lime); transform:translateY(-2px); }
     }
     @media (max-width: 980px) {
       .shell { width:min(100% - 32px, 760px); }
@@ -202,6 +206,7 @@
       .price { font-size:70px; }
       .apply h3 { font-size:44px; }
       .value-panel { min-height:480px; padding:36px 24px; border-radius:28px; }
+      .back-to-top { right:14px; bottom:14px; width:44px; height:44px; border-radius:12px; }
       footer { align-items:flex-start; gap:14px; flex-direction:column; }
     }
     @media (prefers-reduced-motion:reduce) {
@@ -321,6 +326,7 @@
   </main>
 
   <footer class="shell"><a class="brand" href="#top"><span class="mark">AI</span><span>OWNYOURWEB Systems</span></a><a href="mailto:hello@ownyourweb.xyz">hello@ownyourweb.xyz</a><span>© 2026 OWNYOURWEB Systems</span></footer>
+  <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
   <script>
     document.querySelectorAll('details').forEach((detail) => {
       detail.addEventListener('toggle', () => {
@@ -330,6 +336,11 @@
         });
       });
     });
+
+    const backToTop = document.querySelector('.back-to-top');
+    const syncBackToTop = () => backToTop.classList.toggle('visible', window.scrollY > 480);
+    window.addEventListener('scroll', syncBackToTop, { passive: true });
+    syncBackToTop();
 
   </script>
 </body>
