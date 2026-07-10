@@ -160,7 +160,7 @@
     .portal-intro { display:grid; grid-template-columns:.75fr 1.25fr; gap:54px; align-items:end; margin-bottom:34px; }
     .portal-intro h3 { max-width:920px; }
     .portal-intro-copy p { margin:0 0 22px; max-width:660px; color:var(--muted); font-size:16px; line-height:1.65; }
-    .portal-points { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:24px; }
+    .portal-points { display:flex; flex-wrap:wrap; gap:8px; }
     .portal-points span { border:1px solid var(--line); border-radius:999px; padding:9px 12px; background:rgba(255,255,255,.35); font-size:10px; font-weight:800; }
     .portal-window { overflow:hidden; border:1px solid rgba(24,26,23,.13); border-radius:28px; background:var(--ink); box-shadow:0 34px 80px rgba(24,26,23,.18); }
     .portal-window-bar { min-height:48px; display:flex; align-items:center; justify-content:space-between; gap:16px; padding:0 18px; color:#b8bbb1; border-bottom:1px solid rgba(255,255,255,.1); font-size:9px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; }
@@ -246,7 +246,6 @@
       .portal-preview-grid { grid-template-columns:1fr; }
       .portal-window { border-radius:20px; }
       .portal-window-copy { align-items:flex-start; flex-direction:column; padding:20px; }
-      .portal-window-copy .button { width:100%; }
       .wide,.include.cta { grid-column:auto; }
       .offer::after { display:none; }
       .price { font-size:70px; }
@@ -349,12 +348,12 @@
     <section class="shell section portal-showcase" id="portal-preview">
       <div class="portal-intro">
         <div><div class="kicker">04 / Your client workspace</div><h3>See every post before it goes live.</h3></div>
-        <div class="portal-intro-copy"><p>Your private portal keeps the entire monthly workflow visible. Review content, request a revision, message your manager, and understand performance without chasing updates through email.</p><div class="portal-points"><span>Content approvals</span><span>Revision tracking</span><span>Private messaging</span><span>Monthly reports</span></div><a class="button lime" href="portal/">Open the client portal <span class="arrow">↗</span></a></div>
+        <div class="portal-intro-copy"><p>Your private portal keeps the entire monthly workflow visible. Review content, request a revision, message your manager, and understand performance without chasing updates through email.</p><div class="portal-points"><span>Content approvals</span><span>Revision tracking</span><span>Private messaging</span><span>Monthly reports</span></div></div>
       </div>
       <article class="portal-window">
         <div class="portal-window-bar"><div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div><span>OWNYOURWEB Client Portal · Dashboard</span></div>
         <img src="marketing-rollout/screenshots/05-client-dashboard.png" width="1402" height="603" loading="lazy" alt="OWNYOURWEB client dashboard showing content progress, approvals, billing, messages, and reports" />
-        <div class="portal-window-copy"><div><strong>Your month, organized.</strong><p>One dashboard for content progress, approvals, requests, messages, reports, and billing.</p></div><a class="button lime" href="portal/">Client login <span class="arrow">↗</span></a></div>
+        <div class="portal-window-copy"><div><strong>Your month, organized.</strong><p>One dashboard for content progress, approvals, requests, messages, reports, and billing.</p></div></div>
       </article>
       <div class="portal-preview-grid">
         <article class="portal-preview-card"><img src="marketing-rollout/screenshots/06-content-calendar.png" width="1402" height="603" loading="lazy" alt="Monthly content calendar with approval and revision statuses" /><div><b>Review content clearly.</b><p>Open each post, check its caption and schedule, then approve it or request a focused revision.</p></div></article>
