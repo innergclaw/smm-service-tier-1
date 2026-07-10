@@ -120,9 +120,11 @@
     .stamp { width:68px; height:68px; border:1px solid rgba(201,255,70,.5); color:var(--lime); border-radius:50%; display:grid; place-items:center; text-align:center; font-size:8px; text-transform:uppercase; letter-spacing:.1em; transform:rotate(-8deg); }
     .float-note { position:absolute; z-index:3; right:-10px; bottom:54px; border-radius:18px; padding:14px 17px; font-size:11px; font-weight:800; transform:rotate(-4deg); }
     .float-note span { display:block; color:var(--muted); margin-top:4px; font-weight:600; }
-    .client-strip { border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:18px 0; overflow:hidden; }
-    .client-strip .row { display:flex; justify-content:space-between; gap:30px; white-space:nowrap; text-transform:uppercase; font-weight:800; font-size:10px; letter-spacing:.13em; color:var(--muted); }
-    .row i { color:var(--ink); font-style:normal; }
+    .client-strip { border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:18px 0; overflow:hidden; -webkit-mask-image:linear-gradient(to right, transparent, #000 5%, #000 95%, transparent); mask-image:linear-gradient(to right, transparent, #000 5%, #000 95%, transparent); }
+    .client-marquee { display:flex; width:max-content; will-change:transform; animation:client-marquee 26s linear infinite; }
+    .client-marquee-group { display:flex; flex:0 0 auto; align-items:center; justify-content:space-around; width:max-content; min-width:100vw; gap:30px; padding:0 30px; white-space:nowrap; text-transform:uppercase; font-weight:800; font-size:10px; letter-spacing:.13em; color:var(--muted); }
+    .client-marquee-group i { color:var(--ink); font-style:normal; }
+    @keyframes client-marquee { to { transform:translate3d(-50%,0,0); } }
     .section { padding: 110px 0; }
     .section-head { display:grid; grid-template-columns:.65fr 1.35fr; gap:50px; margin-bottom:48px; }
     .kicker { font-size:11px; text-transform:uppercase; letter-spacing:.14em; font-weight:800; color:var(--muted); padding-top:9px; }
@@ -259,6 +261,10 @@
     @media (prefers-reduced-motion:reduce) {
       html { scroll-behavior:auto; }
       *,*::before,*::after { animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
+      .client-strip { -webkit-mask-image:none; mask-image:none; }
+      .client-marquee { width:100%; animation:none!important; transform:none!important; }
+      .client-marquee-group { width:100%; justify-content:center; flex-wrap:wrap; padding:0 18px; white-space:normal; }
+      .client-marquee-group[aria-hidden="true"] { display:none; }
     }
   </style>
 </head>
@@ -308,7 +314,12 @@
       </div>
     </section>
 
-    <div class="client-strip"><div class="shell row"><i>Realtors</i><span>•</span><i>Salons</i><span>•</span><i>Med Spas</i><span>•</span><i>Contractors</i><span>•</span><i>Fitness Brands</i><span>•</span><i>Nonprofits</i><span>•</span><i>Beauty Brands</i></div></div>
+    <div class="client-strip" aria-label="Built for Realtors, Salons, Med Spas, Contractors, Fitness Brands, Nonprofits, and Beauty Brands">
+      <div class="client-marquee">
+        <div class="client-marquee-group"><i>Realtors</i><span>•</span><i>Salons</i><span>•</span><i>Med Spas</i><span>•</span><i>Contractors</i><span>•</span><i>Fitness Brands</i><span>•</span><i>Nonprofits</i><span>•</span><i>Beauty Brands</i><span>•</span></div>
+        <div class="client-marquee-group" aria-hidden="true"><i>Realtors</i><span>•</span><i>Salons</i><span>•</span><i>Med Spas</i><span>•</span><i>Contractors</i><span>•</span><i>Fitness Brands</i><span>•</span><i>Nonprofits</i><span>•</span><i>Beauty Brands</i><span>•</span></div>
+      </div>
+    </div>
 
     <section class="shell section" id="problem">
       <div class="section-head"><div class="kicker">01 / The real problem</div><h3>Your business may be good. But if your page looks inactive, people hesitate.</h3></div>
