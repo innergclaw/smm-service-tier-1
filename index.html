@@ -125,7 +125,8 @@
     @keyframes client-marquee { to { transform:translate3d(-50%,0,0); } }
     .section { padding: 110px 0; }
     .section-head { display:grid; grid-template-columns:.65fr 1.35fr; gap:50px; margin-bottom:48px; }
-    .kicker { font-size:11px; text-transform:uppercase; letter-spacing:.14em; font-weight:800; color:var(--muted); padding-top:9px; }
+    .kicker { display:inline-block; align-self:start; justify-self:start; width:fit-content; max-width:100%; padding:4px 6px 3px; color:var(--ink); background:var(--lime); font-size:12px; line-height:1.05; text-transform:uppercase; letter-spacing:.16em; font-weight:900; box-decoration-break:clone; -webkit-box-decoration-break:clone; }
+    .kicker + h3 { margin-top:18px; }
     h3 { font-family:Georgia,serif; font-size:clamp(42px,5vw,76px); font-weight:500; line-height:.97; letter-spacing:-.055em; margin:0; }
     .pain-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
     .panel { border-radius:28px; padding:36px; }
@@ -326,7 +327,7 @@
 
     <section class="shell offer" id="offer">
       <div class="offer-grid">
-        <div><div class="kicker" style="color:var(--lime)">02 / The AI-powered system</div><h3>Everything you need to stay visible—nothing you don’t.</h3><p>A focused marketing system under OWNYOURWEB Systems for small businesses that want AI-assisted efficiency, human-reviewed polish, and consistency without an agency-sized retainer.</p><div class="price">$250<small> / month</small></div></div>
+        <div><div class="kicker">02 / The AI-powered system</div><h3>Everything you need to stay visible—nothing you don’t.</h3><p>A focused marketing system under OWNYOURWEB Systems for small businesses that want AI-assisted efficiency, human-reviewed polish, and consistency without an agency-sized retainer.</p><div class="price">$250<small> / month</small></div></div>
         <div class="includes">
           <div class="include">12 branded posts / month</div><div class="include">3 posts every week</div><div class="include">Custom captions</div><div class="include">Hashtag support</div><div class="include">Client approval portal</div><div class="include">Reasonable revisions</div><div class="include">Monthly performance report</div><div class="include">First-month planning</div>
           <a href="https://innergclaw.github.io/smm-service-tier-1/#apply" class="include cta">Apply for AI-powered marketing support <span>↗</span></a>
@@ -369,7 +370,7 @@
     </section>
 
     <section class="shell section" id="value">
-      <div class="value-panel"><div class="kicker" style="color:var(--lime)">06 / More than posting</div><h3>This is consistency <em>with structure.</em></h3><p>Clear content, thoughtful captions, and an organized approval system help customers see that your business is active, credible, and ready to serve. You run the business. We keep the page alive.</p></div>
+      <div class="value-panel"><div class="kicker">06 / More than posting</div><h3>This is consistency <em>with structure.</em></h3><p>Clear content, thoughtful captions, and an organized approval system help customers see that your business is active, credible, and ready to serve. You run the business. We keep the page alive.</p></div>
     </section>
 
     <section class="shell section faq-wrap" id="faq">
