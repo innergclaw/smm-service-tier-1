@@ -6,6 +6,9 @@ A polished, responsive landing page for the OWNYOURWEB Systems AI-powered market
 
 The site is published with GitHub Pages from the repository root.
 
+- Marketing site: `/`
+- Interactive client portal demonstration: `/portal/`
+
 ## Local preview
 
 Open `index.html` in a browser or run a simple static server from this folder:
