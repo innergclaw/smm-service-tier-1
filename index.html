@@ -164,6 +164,7 @@
     label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.12em; display:block; color:var(--muted); }
     input, select, textarea { margin-top:7px; width:100%; border:1px solid var(--line); background:rgba(255,255,255,.35); border-radius:12px; padding:13px; color:var(--ink); outline:none; }
     input:focus, select:focus, textarea:focus { border-color:var(--ink); }
+    .field-hint { display:block; margin-top:7px; color:var(--muted); font-size:10px; line-height:1.45; letter-spacing:0; text-transform:none; font-weight:600; }
     .wide { grid-column:1/-1; }
     textarea { resize:vertical; min-height:88px; }
     form .button { cursor:pointer; }
@@ -317,7 +318,7 @@
         <label>Business name<input name="business" placeholder="Business name" required /></label>
         <label>Email<input type="email" name="email" autocomplete="email" placeholder="you@business.com" required /></label>
         <label>Phone<input type="tel" name="phone" autocomplete="tel" placeholder="(000) 000-0000" /></label>
-        <label class="wide">Website or social link<input type="url" name="social" placeholder="https://" /></label>
+        <label class="wide">Website or social profile<input id="social-profile" type="text" name="social" inputmode="url" autocomplete="url" autocapitalize="none" spellcheck="false" placeholder="yourbusiness.com or @yourhandle" aria-describedby="social-profile-help" /><span class="field-hint" id="social-profile-help">Type your website, profile link, or social handle—no copying and pasting required.</span></label>
         <label>Industry<select name="industry"><option>Select one</option><option>Realtor</option><option>Salon / Beauty</option><option>Med spa</option><option>Contractor</option><option>Fitness</option><option>Nonprofit</option><option>Other local service</option></select></label>
         <label>Monthly content needs<select name="needs"><option>12 posts / month</option><option>More than 12 posts</option><option>Not sure yet</option></select></label>
         <label class="wide">Anything we should know?<textarea name="message" placeholder="Tell us what is happening with your social media right now..."></textarea></label>
@@ -342,6 +343,16 @@
     const syncBackToTop = () => backToTop.classList.toggle('visible', window.scrollY > 480);
     window.addEventListener('scroll', syncBackToTop, { passive: true });
     syncBackToTop();
+
+    const leadForm = document.querySelector('#lead-form');
+    const socialProfile = document.querySelector('#social-profile');
+    leadForm.addEventListener('submit', () => {
+      const entry = socialProfile.value.trim();
+      const looksLikeDomain = /^(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)+(?:[/?#].*)?$/i.test(entry);
+      if (entry && looksLikeDomain && !/^https?:\/\//i.test(entry)) {
+        socialProfile.value = `https://${entry}`;
+      }
+    });
 
   </script>
 </body>
