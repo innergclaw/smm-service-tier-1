@@ -57,7 +57,7 @@ Every client-owned row must include a non-null `client_id` foreign key. Server-s
 
 ## Demonstration credentials
 
-- Client: `maya@luxebeautystudio.com` / `Demo250!`
+- Client: `client@luxebeautystudio.com` / `Demo250!`
 - Administrator: `admin@ownyourweb.xyz` / `Demo250!`
 
 These credentials only switch local demonstration roles and are not secure authentication.
