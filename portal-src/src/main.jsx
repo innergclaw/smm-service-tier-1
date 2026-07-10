@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./styles.css";
 
 const GOLD = "#C7A35A";
-const STORAGE_KEY = "owy-portal-demo-v1";
+const STORAGE_KEY = "owy-portal-demo-v2";
 
 const samplePosts = [
   { id: 1, date: "2026-07-03", time: "10:00 AM", platform: "Instagram", type: "Carousel", category: "Education", campaign: "July Glow", title: "Summer Skin Reset", status: "Approved", caption: "Your summer routine should feel lighter, smarter, and made for your skin.", cta: "Book your consultation", hashtags: "#LuxeBeauty #SummerSkin", feedback: "Approved as presented.", versions: 1 },
