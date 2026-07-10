@@ -199,13 +199,14 @@
     .apply h3 { font-size:58px; }
     .apply p { color:var(--muted); line-height:1.6; }
     form { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-    label { font-size:9px; font-weight:800; text-transform:uppercase; letter-spacing:.12em; display:block; color:var(--muted); }
-    input, select, textarea { margin-top:7px; width:100%; border:1px solid var(--line); background:rgba(255,255,255,.35); border-radius:12px; padding:13px; color:var(--ink); outline:none; }
+    label { font-size:12px; line-height:1.35; font-weight:800; text-transform:uppercase; letter-spacing:.1em; display:block; color:var(--muted); }
+    input, select, textarea { margin-top:8px; width:100%; min-height:52px; border:1px solid var(--line); background:rgba(255,255,255,.35); border-radius:12px; padding:14px 15px; color:var(--ink); font-size:16px; line-height:1.4; outline:none; }
+    input::placeholder, textarea::placeholder { color:#777a70; font-size:15px; opacity:1; }
     input:focus, select:focus, textarea:focus { border-color:var(--ink); }
-    .field-hint { display:block; margin-top:7px; color:var(--muted); font-size:10px; line-height:1.45; letter-spacing:0; text-transform:none; font-weight:600; }
+    .field-hint { display:block; margin-top:8px; color:var(--muted); font-size:12px; line-height:1.5; letter-spacing:0; text-transform:none; font-weight:600; }
     .wide { grid-column:1/-1; }
-    textarea { resize:vertical; min-height:88px; }
-    form .button { cursor:pointer; }
+    textarea { resize:vertical; min-height:112px; }
+    form .button { min-height:54px; font-size:15px; cursor:pointer; }
     .honeypot { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
     footer { padding:32px 0 46px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; font-size:11px; color:var(--muted); }
     .back-to-top { position:fixed; right:22px; bottom:22px; z-index:20; display:grid; width:48px; height:48px; place-items:center; border:1px solid rgba(24,26,23,.16); border-radius:14px; color:var(--ink); background:rgba(255,255,250,.72); box-shadow:0 14px 36px rgba(24,26,23,.16); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); font-size:22px; font-weight:800; opacity:0; pointer-events:none; transform:translateY(10px); transition:opacity 180ms ease, transform 180ms var(--ease-out), background-color 180ms ease; }
