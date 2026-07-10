@@ -18,4 +18,4 @@ Then visit `http://localhost:4173`.
 
 ## Lead form
 
-The application form prepares a complete email to `hello@ownyourweb.xyz` using the visitor's default email app. This keeps the static GitHub Pages build dependency-free.
+The application form submits directly to the configured Formspree intake endpoint, so visitors can apply without opening an email app.

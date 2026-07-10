@@ -169,6 +169,7 @@
     .wide { grid-column:1/-1; }
     textarea { resize:vertical; min-height:88px; }
     form .button { cursor:pointer; }
+    .honeypot { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
     footer { padding:32px 0 46px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; font-size:11px; color:var(--muted); }
     @media (hover:hover) and (pointer:fine) {
       .button:hover { transform:translateY(-2px); box-shadow:0 12px 24px rgba(24,26,23,.18); }
@@ -309,7 +310,9 @@
 
     <section class="shell apply glass" id="apply">
       <div><div class="kicker">Let’s get your page moving</div><h3>Ready to stop letting your page sit quiet?</h3><p>Tell us about your business. We’ll review your needs and confirm whether the OWNYOURWEB AI Marketing System is the right fit.</p></div>
-      <form id="lead-form">
+      <form id="lead-form" action="https://formspree.io/f/xojogjbg" method="post" accept-charset="UTF-8">
+        <input type="hidden" name="_subject" value="New OWNYOURWEB AI Marketing System Application" />
+        <label class="honeypot" aria-hidden="true">Leave this field empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
         <label>Name<input name="name" autocomplete="name" placeholder="Your name" required /></label>
         <label>Business name<input name="business" placeholder="Business name" required /></label>
         <label>Email<input type="email" name="email" autocomplete="email" placeholder="you@business.com" required /></label>
@@ -334,23 +337,6 @@
       });
     });
 
-    document.getElementById('lead-form').addEventListener('submit', (event) => {
-      event.preventDefault();
-      const form = new FormData(event.currentTarget);
-      const subject = `OWNYOURWEB AI Marketing Application — ${form.get('business')}`;
-      const body = [
-        'OWNYOURWEB AI-POWERED MARKETING SYSTEM APPLICATION', '',
-        `Name: ${form.get('name')}`,
-        `Business: ${form.get('business')}`,
-        `Email: ${form.get('email')}`,
-        `Phone: ${form.get('phone') || 'Not provided'}`,
-        `Website / Social: ${form.get('social') || 'Not provided'}`,
-        `Industry: ${form.get('industry')}`,
-        `Monthly content need: ${form.get('needs')}`, '',
-        'Additional details:', form.get('message') || 'None provided'
-      ].join('\n');
-      window.location.href = `mailto:hello@ownyourweb.xyz?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    });
   </script>
 </body>
 </html>
