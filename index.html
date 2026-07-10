@@ -69,8 +69,6 @@
     .button.lime { background: var(--lime); color: var(--ink); }
     .button .arrow { font-size: 18px; line-height: 1; }
     .hero { min-height: 760px; padding: 82px 0 70px; display: grid; grid-template-columns: 1.2fr .8fr; gap: 62px; align-items: center; }
-    .eyebrow { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border: 1px solid var(--line); border-radius: 999px; background: rgba(255,255,255,.26); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; font-weight: 800; }
-    .eyebrow i { width: 7px; height: 7px; border-radius: 50%; background: var(--lime); box-shadow: 0 0 0 5px rgba(201,255,70,.25); }
     h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; letter-spacing: -.072em; line-height: .89; font-size: clamp(64px, 6.65vw, 108px); margin: 27px 0 28px; max-width: 930px; }
     h1 em { font-weight: 400; color: var(--muted); }
     .lead { max-width: 720px; font-size: 18px; line-height: 1.55; color: var(--muted); margin: 0 0 30px; }
@@ -84,7 +82,6 @@
     .avatars span:first-child { margin: 0; background:#bd6c44; color:white; }
     .avatars span:nth-child(2) { background:#e1bfc5; color:var(--ink); }
     .hero-visual { position: relative; min-height: 590px; display: grid; place-items: center; }
-    .orb { position: absolute; width: 420px; height: 420px; border-radius: 50%; background: linear-gradient(145deg, rgba(201,255,70,.9), rgba(201,255,70,.12)); filter: blur(.2px); top: 55px; right: -60px; box-shadow: inset 30px 20px 60px rgba(255,255,255,.38); }
     .system-card { width: min(440px, 100%); padding: 18px; border-radius: 32px; transform: rotate(2.5deg); position: relative; z-index: 2; }
     .system-inner { background: var(--glass-dark); color: white; border-radius: 24px; padding: 28px; box-shadow: 0 34px 75px rgba(24,26,23,.26); }
     .system-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
@@ -180,7 +177,6 @@
       .navlinks a:not(.button) { display:none; }
       .hero { grid-template-columns:1fr; padding-top:60px; gap:12px; }
       .hero-visual { min-height:560px; }
-      .orb { right:-120px; }
       .section-head,.offer-grid,.faq-wrap,.apply,.ideal-grid { grid-template-columns:1fr; }
       .pain-grid { grid-template-columns:1fr; }
       .process { grid-template-columns:1fr 1fr; }
@@ -228,7 +224,6 @@
   <main id="top">
     <section class="shell hero">
       <div>
-        <span class="eyebrow"><i></i>Now accepting AI Marketing System clients</span>
         <h1>Show up like your business <em>means it.</em></h1>
         <p class="lead">12 custom posts every month—with captions, hashtags, approvals, revisions, and a clear report. Your brand stays active. You stay focused on the business.</p>
         <div class="actions">
@@ -238,7 +233,6 @@
         <div class="proofline"><div class="avatars"><span>RE</span><span>SA</span><span>MED</span></div><span>Built for <b>local brands</b> ready to look official online.</span></div>
       </div>
       <div class="hero-visual" aria-label="A preview of the monthly content system">
-        <div class="orb"></div>
         <article class="system-card glass">
           <div class="system-inner">
             <div class="system-top"><span>Monthly content board</span><span class="live">In progress</span></div>
