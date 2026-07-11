@@ -208,6 +208,24 @@
     textarea { resize:vertical; min-height:112px; }
     form .button { min-height:54px; font-size:15px; cursor:pointer; }
     .honeypot { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
+    .other-services { padding-top:80px; padding-bottom:90px; }
+    .other-services-head { display:grid; grid-template-columns:.7fr 1.3fr; gap:50px; align-items:end; margin-bottom:34px; }
+    .other-services-head h3 { max-width:820px; }
+    .other-services-head p { margin:20px 0 0; max-width:620px; color:var(--muted); font-size:14px; line-height:1.6; }
+    .service-flow { display:flex; gap:16px; overflow-x:auto; padding:6px 2px 24px; scroll-snap-type:x mandatory; scroll-padding-inline:2px; overscroll-behavior-inline:contain; touch-action:pan-x; -webkit-overflow-scrolling:touch; scrollbar-width:thin; scrollbar-color:var(--ink) transparent; }
+    .service-flow::-webkit-scrollbar { height:6px; }
+    .service-flow::-webkit-scrollbar-track { background:transparent; }
+    .service-flow::-webkit-scrollbar-thumb { border-radius:999px; background:var(--ink); }
+    .other-service-card { flex:0 0 min(680px, 88vw); min-height:360px; scroll-snap-align:start; scroll-snap-stop:always; overflow:hidden; border:1px solid rgba(24,26,23,.15); border-radius:30px; padding:38px; display:flex; flex-direction:column; justify-content:space-between; box-shadow:0 24px 58px rgba(24,26,23,.13); transition:transform 150ms var(--ease-out), box-shadow 170ms ease; }
+    .other-service-card:active { transform:scale(.985); }
+    .other-service-card.logo-service { color:#fff; background:var(--ink); }
+    .other-service-card.web-service { color:var(--ink); background:var(--lime); }
+    .service-card-top { display:flex; align-items:center; justify-content:space-between; gap:18px; font-size:10px; font-weight:900; letter-spacing:.14em; text-transform:uppercase; }
+    .service-card-number { width:42px; height:42px; border:1px solid currentColor; border-radius:50%; display:grid; place-items:center; }
+    .service-card-copy h4 { margin:0; max-width:560px; font-family:Georgia,serif; font-size:clamp(42px,5vw,68px); line-height:.93; letter-spacing:-.055em; font-weight:500; }
+    .service-card-copy p { margin:20px 0 0; max-width:520px; color:inherit; opacity:.68; font-size:13px; line-height:1.6; }
+    .service-card-link { margin-top:34px; padding-top:18px; border-top:1px solid currentColor; display:flex; align-items:center; justify-content:space-between; gap:18px; font-size:11px; font-weight:900; letter-spacing:.1em; text-transform:uppercase; }
+    .service-card-link span:last-child { font-size:22px; line-height:1; }
     footer { padding:32px 0 46px; border-top:1px solid var(--line); display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:18px; font-size:11px; color:var(--muted); }
     .footer-credit { width:100%; margin-top:10px; padding-top:22px; border-top:1px solid var(--line); color:var(--muted); text-align:center; font-size:10px; font-weight:800; letter-spacing:.14em; }
     .footer-credit a { color:var(--ink); border-bottom:1px solid currentColor; transition:color 120ms ease, background-color 120ms ease; }
@@ -222,12 +240,13 @@
       .menu-dropdown .menu-apply:hover { background:#d4ff69; }
       .portal-preview-card:hover { transform:translateY(-3px); box-shadow:0 26px 60px rgba(24,26,23,.14); }
       .footer-credit a:hover { color:var(--ink); background:var(--lime); }
+      .other-service-card:hover { transform:translateY(-3px); box-shadow:0 30px 68px rgba(24,26,23,.17); }
     }
     @media (max-width: 980px) {
       .shell { width:min(100% - 32px, 760px); }
       .hero { grid-template-columns:1fr; padding-top:60px; gap:12px; }
       .hero-visual { min-height:560px; }
-      .section-head,.offer-grid,.faq-wrap,.apply,.ideal-grid,.portal-intro { grid-template-columns:1fr; }
+      .section-head,.offer-grid,.faq-wrap,.apply,.ideal-grid,.portal-intro,.other-services-head { grid-template-columns:1fr; }
       .pain-grid { grid-template-columns:1fr; }
       .process { grid-template-columns:1fr 1fr; }
       .offer { padding:38px 24px; }
@@ -251,6 +270,10 @@
       .portal-preview-grid { grid-template-columns:1fr; }
       .portal-window { border-radius:20px; }
       .portal-window-copy { align-items:flex-start; flex-direction:column; padding:20px; }
+      .other-services { padding-top:62px; padding-bottom:68px; }
+      .other-services-head { gap:20px; }
+      .other-service-card { flex-basis:88vw; min-height:320px; border-radius:24px; padding:28px; }
+      .service-card-copy h4 { font-size:42px; }
       .wide,.include.cta { grid-column:auto; }
       .offer::after { display:none; }
       .price { font-size:70px; }
@@ -403,6 +426,23 @@
         <label class="wide">Anything we should know?<textarea name="message" placeholder="Tell us what is happening with your social media right now..."></textarea></label>
         <button class="button lime wide" type="submit">Prepare my application <span class="arrow">↗</span></button>
       </form>
+    </section>
+
+    <section class="shell other-services" aria-labelledby="other-services-title">
+      <div class="other-services-head">
+        <div><div class="kicker">Other services</div><h3 id="other-services-title">Build the rest of your brand.</h3></div>
+        <p>Swipe through additional creative and digital services from the OWNYOURWEB ecosystem.</p>
+      </div>
+      <div class="service-flow" role="list" aria-label="Other services" tabindex="0">
+        <a class="other-service-card logo-service" role="listitem" href="https://shopnasgfx.com/" target="_blank" rel="noopener noreferrer">
+          <div class="service-card-top"><span>Brand identity</span><span class="service-card-number">01</span></div>
+          <div class="service-card-copy"><h4>Logo Design Services</h4><p>Distinctive identity design built to make your business recognizable, credible, and ready to show up professionally.</p><div class="service-card-link"><span>Visit ShopNasGFX.com</span><span aria-hidden="true">↗</span></div></div>
+        </a>
+        <a class="other-service-card web-service" role="listitem" href="https://ownyourweb.xyz/" target="_blank" rel="noopener noreferrer">
+          <div class="service-card-top"><span>Digital infrastructure</span><span class="service-card-number">02</span></div>
+          <div class="service-card-copy"><h4>Website + Online Systems</h4><p>Owned websites, launch pages, funnels, and connected web systems designed to help your business move online.</p><div class="service-card-link"><span>Visit OwnYourWeb.xyz</span><span aria-hidden="true">↗</span></div></div>
+        </a>
+      </div>
     </section>
   </main>
 
