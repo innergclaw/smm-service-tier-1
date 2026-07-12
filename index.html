@@ -452,7 +452,17 @@
 
   <footer class="shell"><a class="brand" href="#top"><span class="mark">AI</span><span>OWNYOURWEB Systems</span></a><a href="mailto:ownyourwebsmm@gmail.com">ownyourwebsmm@gmail.com</a><span>© 2026 OWNYOURWEB Systems</span><div class="footer-credit">POWERED BY <a href="https://www.instagram.com/shopnasgfx/" target="_blank" rel="noopener noreferrer">SHOPNASGFX</a> + <a href="https://www.instagram.com/heraestheticc/" target="_blank" rel="noopener noreferrer">HER AESTHETICC</a></div></footer>
   <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
-  <script type="module" src="./interaction-sounds.js"></script>
+  <script type="module">
+    import { bind, play } from 'https://cdn.jsdelivr.net/npm/cuelume@0.1.0/dist/index.js';
+
+    const soundTargets = 'a[href], button:not([disabled]), input[type="button"], input[type="submit"], [role="button"], summary';
+    document.querySelectorAll(soundTargets).forEach((element) => {
+      if (!element.hasAttribute('data-cuelume-toggle')) element.setAttribute('data-cuelume-toggle', 'press');
+    });
+    bind();
+    document.addEventListener('cuelume:success', () => play('success'));
+    document.addEventListener('cuelume:error', () => play('whisper'));
+  </script>
   <script>
     const siteMenu = document.querySelector('.site-menu');
     const menuTrigger = document.querySelector('.menu-trigger');
