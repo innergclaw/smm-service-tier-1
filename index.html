@@ -207,6 +207,9 @@
     .wide { grid-column:1/-1; }
     textarea { resize:vertical; min-height:112px; }
     form .button { min-height:54px; font-size:15px; cursor:pointer; }
+    .form-status { grid-column:1/-1; min-height:20px; margin:0; color:var(--muted); font-size:13px; line-height:1.5; }
+    .form-status.success { color:#2d6a22; font-weight:800; }
+    .form-status.error { color:#a92f20; font-weight:800; }
     .honeypot { position:absolute; left:-9999px; width:1px; height:1px; overflow:hidden; }
     .other-services { padding-top:80px; padding-bottom:90px; }
     .other-services-head { display:grid; grid-template-columns:.7fr 1.3fr; gap:50px; align-items:end; margin-bottom:34px; }
@@ -425,6 +428,7 @@
         <label>Monthly content needs<select name="needs"><option>12 posts / month</option><option>More than 12 posts</option><option>Not sure yet</option></select></label>
         <label class="wide">Anything we should know?<textarea name="message" placeholder="Tell us what is happening with your social media right now..."></textarea></label>
         <button class="button lime wide" type="submit">Prepare my application <span class="arrow">↗</span></button>
+        <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>
     </section>
 
@@ -448,6 +452,7 @@
 
   <footer class="shell"><a class="brand" href="#top"><span class="mark">AI</span><span>OWNYOURWEB Systems</span></a><a href="mailto:ownyourwebsmm@gmail.com">ownyourwebsmm@gmail.com</a><span>© 2026 OWNYOURWEB Systems</span><div class="footer-credit">POWERED BY <a href="https://www.instagram.com/shopnasgfx/" target="_blank" rel="noopener noreferrer">SHOPNASGFX</a> + <a href="https://www.instagram.com/heraestheticc/" target="_blank" rel="noopener noreferrer">HER AESTHETICC</a></div></footer>
   <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
+  <script type="module" src="./interaction-sounds.js"></script>
   <script>
     const siteMenu = document.querySelector('.site-menu');
     const menuTrigger = document.querySelector('.menu-trigger');
@@ -495,11 +500,42 @@
 
     const leadForm = document.querySelector('#lead-form');
     const socialProfile = document.querySelector('#social-profile');
-    leadForm.addEventListener('submit', () => {
+    const formStatus = document.querySelector('#form-status');
+    const leadSubmit = leadForm.querySelector('button[type="submit"]');
+    leadForm.addEventListener('submit', async (event) => {
+      event.preventDefault();
       const entry = socialProfile.value.trim();
       const looksLikeDomain = /^(?:www\.)?[a-z0-9-]+(?:\.[a-z0-9-]+)+(?:[/?#].*)?$/i.test(entry);
       if (entry && looksLikeDomain && !/^https?:\/\//i.test(entry)) {
         socialProfile.value = `https://${entry}`;
+      }
+
+      const originalLabel = leadSubmit.innerHTML;
+      leadSubmit.disabled = true;
+      leadSubmit.textContent = 'Sending application…';
+      formStatus.className = 'form-status';
+      formStatus.textContent = 'Sending your application securely…';
+
+      try {
+        const response = await fetch(leadForm.action, {
+          method: 'POST',
+          body: new FormData(leadForm),
+          headers: { Accept: 'application/json' }
+        });
+        if (!response.ok) throw new Error('Form submission failed');
+
+        leadForm.reset();
+        formStatus.className = 'form-status success';
+        formStatus.textContent = 'Application received. OWNYOURWEB will review your business and follow up with the next step.';
+        document.dispatchEvent(new CustomEvent('cuelume:success'));
+      } catch (error) {
+        formStatus.className = 'form-status error';
+        formStatus.textContent = 'The application could not be sent. Please try again or email ownyourwebsmm@gmail.com.';
+        document.dispatchEvent(new CustomEvent('cuelume:error'));
+        console.error('OWNYOURWEB application submission failed:', error);
+      } finally {
+        leadSubmit.disabled = false;
+        leadSubmit.innerHTML = originalLabel;
       }
     });
 
