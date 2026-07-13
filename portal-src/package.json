@@ -8,10 +8,11 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@supabase/supabase-js": "2.110.3",
     "react": "19.2.6",
     "react-dom": "19.2.6"
   },
   "devDependencies": {
-    "vite": "8.0.13"
+    "vite": "8.1.4"
   }
 }

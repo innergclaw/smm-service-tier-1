@@ -1,12 +1,24 @@
-# Production integration boundary
+# Production integration status
 
-The GitHub Pages build is an interactive product demonstration. GitHub Pages serves static files and cannot safely provide server sessions, database authorization, private uploads, payment webhooks, or secret API keys.
+The GitHub Pages portal now uses Supabase Auth for real email/password accounts, email verification, password recovery, persisted sessions, secure logout, and database-backed client/admin roles. GitHub Pages remains a static host, so all private data services must enforce authorization through Supabase Row Level Security or another server-side boundary.
+
+## Connected now
+
+- Supabase email/password sign-up and sign-in
+- Required email verification
+- Password-reset and password-update flow
+- Persisted, automatically refreshed sessions
+- Secure logout
+- `portal_profiles` table keyed to `auth.users`
+- New accounts default to the client role
+- Administrator role cannot be chosen at registration
+- Row Level Security limits profile reads and permitted profile updates to the authenticated user
 
 Before real clients are invited, connect the portal to a server-backed application with the following components.
 
 ## Required services
 
-- Authentication: verified email, invitation links, password resets, secure sessions, and client/admin roles.
+- Authentication follow-up: configure the production Site URL and allowed redirect URL in Supabase, customize verification/reset email templates, and assign administrator roles through a trusted database operation.
 - Relational database: PostgreSQL or an equivalent database with server-enforced row permissions.
 - File storage: private buckets, signed URLs, malware scanning, MIME validation, and size limits.
 - Messaging: client-scoped conversations, server authorization, attachment handling, and email notifications.
@@ -55,9 +67,6 @@ Every client-owned row must include a non-null `client_id` foreign key. Server-s
 - Destructive operations require confirmation and should use soft deletion where recovery matters.
 - Uploaded objects are private and addressed through short-lived signed URLs.
 
-## Demonstration credentials
+## Live portal URL
 
-- Client: `client@luxebeautystudio.com` / `Demo250!`
-- Administrator: `admin@ownyourweb.xyz` / `Demo250!`
-
-These credentials only switch local demonstration roles and are not secure authentication.
+`https://innergclaw.github.io/smm-service-tier-1/portal/`

@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/portal-src/node_modules/
 /.pnp
 .pnp.*
 .yarn/*

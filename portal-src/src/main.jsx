@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
+import { PORTAL_URL, supabase } from "./supabase";
 
 const GOLD = "#C9FF46";
 const STORAGE_KEY = "owy-portal-demo-v2";
@@ -67,51 +68,107 @@ function IntegrationNotice({ service, children }) {
   return <div className="integration-note"><strong>{service} connection required</strong><span>{children}</span></div>;
 }
 
-function Login({ onLogin, modal }) {
-  const [role, setRole] = useState("client");
-  const [email, setEmail] = useState("client@luxebeautystudio.com");
-  const [password, setPassword] = useState("Demo250!");
-  const [remember, setRemember] = useState(true);
+function Login({ recoveryMode, clearRecovery }) {
+  const [mode, setMode] = useState(recoveryMode ? "update" : "signin");
+  const [fullName, setFullName] = useState("");
+  const [businessName, setBusinessName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [terms, setTerms] = useState(false);
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const [loading, setLoading] = useState(false);
-  const submit = (e) => {
-    e.preventDefault(); setError("");
-    if (!email.includes("@") || password.length < 6) { setError("Enter a valid email and a password with at least six characters."); return; }
-    setLoading(true);
-    setTimeout(() => { setLoading(false); onLogin({ role, name: role === "client" ? "Client" : "Avery Morgan", remember }); }, 500);
+
+  useEffect(() => { if (recoveryMode) setMode("update"); }, [recoveryMode]);
+
+  const changeMode = (next) => {
+    setMode(next); setError(""); setNotice(""); setPassword(""); setConfirmPassword("");
   };
-  const switchRole = (next) => { setRole(next); setEmail(next === "client" ? "client@luxebeautystudio.com" : "admin@ownyourweb.xyz"); setPassword("Demo250!"); setError(""); };
+
+  const submit = async (e) => {
+    e.preventDefault(); setError(""); setNotice("");
+    if (mode !== "update" && !/^\S+@\S+\.\S+$/.test(email)) { setError("Enter a valid email address."); return; }
+    if (mode === "reset") {
+      setLoading(true);
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(email.trim(), { redirectTo: PORTAL_URL });
+      setLoading(false);
+      if (resetError) { setError(resetError.message); return; }
+      setNotice("Password reset link sent. Check your email to continue.");
+      return;
+    }
+    if (password.length < 8) { setError("Use a password with at least eight characters."); return; }
+    if ((mode === "signup" || mode === "update") && password !== confirmPassword) { setError("Passwords do not match."); return; }
+    if (mode === "signup" && (!fullName.trim() || !businessName.trim())) { setError("Your name and business name are required."); return; }
+    if (mode === "signup" && !terms) { setError("Confirm that you agree to the portal terms and privacy policy."); return; }
+
+    setLoading(true);
+    if (mode === "signup") {
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email: email.trim(),
+        password,
+        options: {
+          emailRedirectTo: PORTAL_URL,
+          data: { full_name: fullName.trim(), business_name: businessName.trim() },
+        },
+      });
+      setLoading(false);
+      if (signUpError) { setError(signUpError.message); return; }
+      if (!data.session) setNotice("Account created. Check your email and click the verification link before signing in.");
+      return;
+    }
+    if (mode === "update") {
+      const { error: updateError } = await supabase.auth.updateUser({ password });
+      setLoading(false);
+      if (updateError) { setError(updateError.message); return; }
+      setNotice("Password updated. You can now continue to your portal.");
+      clearRecovery();
+      return;
+    }
+    const { error: signInError } = await supabase.auth.signInWithPassword({ email: email.trim(), password });
+    setLoading(false);
+    if (signInError) setError("Unable to sign in. Check your email, password, and email verification status.");
+  };
+
+  const title = mode === "signup" ? "Create your client account" : mode === "reset" ? "Reset your password" : mode === "update" ? "Choose a new password" : "Sign in to your portal";
+  const intro = mode === "signup" ? "Use your business email to open your secure Own Your Web workspace." : mode === "reset" ? "We will email you a secure password-reset link." : mode === "update" ? "Enter a new password for your Own Your Web account." : "Access your private client workspace.";
   return <main className="auth-shell">
     <div className="auth-brand"><span className="brand-seal">OYM</span><div><b>OWNYOURWEB</b><small>Client Portal</small></div></div>
     <section className="auth-panel">
       <div className="auth-copy"><p className="overline">AI-powered client operations</p><h1>Everything your brand needs, in one clear workspace.</h1><p>Review content, share feedback, track requests, and understand performance without chasing email threads.</p><div className="auth-proof"><span>Content approvals</span><span>Private collaboration</span><span>Monthly reporting</span></div></div>
       <form className="login-card" onSubmit={submit} noValidate>
-        <div className="demo-flag">Interactive demonstration</div>
-        <h2>Sign in to your portal</h2><p className="muted">Choose a role to explore the complete workspace.</p>
-        <div className="role-switch" aria-label="Choose demonstration role"><button type="button" className={role === "client" ? "active" : ""} onClick={() => switchRole("client")}>Client</button><button type="button" className={role === "admin" ? "active" : ""} onClick={() => switchRole("admin")}>Administrator</button></div>
-        <label>Email address<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" /></label>
-        <label>Password<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password" /></label>
-        <div className="login-options"><label className="check"><input type="checkbox" checked={remember} onChange={(e) => setRemember(e.target.checked)} /> Remember me</label><button type="button" className="text-button" onClick={() => modal("Reset your password", "In production, this sends a single-use reset link through the connected authentication provider. The GitHub Pages demo does not send email.")}>Forgot password?</button></div>
+        <div className="demo-flag">Secure client access</div>
+        <h2>{title}</h2><p className="muted">{intro}</p>
+        {mode !== "reset" && mode !== "update" && <div className="role-switch auth-switch" aria-label="Choose authentication action"><button type="button" className={mode === "signin" ? "active" : ""} onClick={() => changeMode("signin")}>Sign in</button><button type="button" className={mode === "signup" ? "active" : ""} onClick={() => changeMode("signup")}>Create account</button></div>}
+        {mode === "signup" && <><label>Full name<input type="text" value={fullName} onChange={(e) => setFullName(e.target.value)} autoComplete="name" /></label><label>Business name<input type="text" value={businessName} onChange={(e) => setBusinessName(e.target.value)} autoComplete="organization" /></label></>}
+        {mode !== "update" && <label>Email address<input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" /></label>}
+        {mode !== "reset" && <label>{mode === "update" ? "New password" : "Password"}<input type="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete={mode === "signin" ? "current-password" : "new-password"} /></label>}
+        {(mode === "signup" || mode === "update") && <label>Confirm password<input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} autoComplete="new-password" /></label>}
+        {mode === "signup" && <label className="check auth-consent"><input type="checkbox" checked={terms} onChange={(e) => setTerms(e.target.checked)} /> I agree to use this private portal for my Own Your Web client account.</label>}
+        {mode === "signin" && <div className="login-options"><span className="auth-security">Encrypted session</span><button type="button" className="text-button" onClick={() => changeMode("reset")}>Forgot password?</button></div>}
         {error && <p className="form-error" role="alert">{error}</p>}
-        <Button type="submit" className="full" disabled={loading}>{loading ? <><span className="spinner" /> Signing in…</> : `Continue as ${role === "client" ? "client" : "administrator"}`}</Button>
-        <div className="auth-links"><button type="button" className="text-button" onClick={() => modal("New-client invitation", "Production invitation links will be signed, expire automatically, and require email verification before account access.")}>Accept an invitation</button><button type="button" className="text-button" onClick={() => modal("Email verification", "A secure authentication provider must verify ownership of the email address before production access is granted.")}>Verify email</button></div>
-        <IntegrationNotice service="Secure authentication">Connect Supabase Auth, Clerk, Auth0, or an equivalent provider before inviting real clients. Demo credentials are not production security.</IntegrationNotice>
+        {notice && <p className="auth-success" role="status">{notice}</p>}
+        <Button type="submit" className="full" disabled={loading}>{loading ? <><span className="spinner" /> Working…</> : mode === "signup" ? "Create client account" : mode === "reset" ? "Send reset link" : mode === "update" ? "Update password" : "Sign in securely"}</Button>
+        {(mode === "reset" || mode === "update") && <div className="auth-links"><button type="button" className="text-button" onClick={() => { clearRecovery(); changeMode("signin"); }}>Back to sign in</button></div>}
+        <div className="integration-note"><strong>Email verification enabled</strong><span>New accounts must verify their email before accessing the private workspace. Administrator access is assigned separately and cannot be selected during registration.</span></div>
       </form>
     </section>
   </main>;
 }
 
-function Sidebar({ role, page, setPage, open, setOpen, logout }) {
+function Sidebar({ role, profile, page, setPage, open, setOpen, logout }) {
   const nav = role === "client" ? clientNav : adminNav;
+  const displayName = profile?.full_name || (role === "client" ? "Client" : "Administrator");
+  const initials = displayName.split(/\s+/).filter(Boolean).slice(0, 2).map((part) => part[0]).join("").toUpperCase() || "CL";
   return <aside className={cx("sidebar", open && "open")}>
     <div className="side-brand"><span className="brand-seal">OYM</span><div><b>OWNYOURWEB</b><small>Client Portal</small></div></div>
     <nav aria-label="Portal navigation">{nav.map((item) => <button key={item} className={page === item ? "active" : ""} onClick={() => { setPage(item); setOpen(false); }}><span className="nav-mark" />{item}{item === "Messages" && <span className="nav-count">1</span>}{item === "Content" && role === "client" && <span className="nav-count">3</span>}</button>)}</nav>
-    <div className="sidebar-foot"><div className="role-card"><span>{role === "client" ? "CL" : "AM"}</span><div><b>{role === "client" ? "Client" : "Avery Morgan"}</b><small>{role === "client" ? "Client account" : "Administrator"}</small></div></div><button className="logout" onClick={logout}>Secure logout</button></div>
+    <div className="sidebar-foot"><div className="role-card"><span>{initials}</span><div><b>{displayName}</b><small>{role === "client" ? "Client account" : "Administrator"}</small></div></div><button className="logout" onClick={logout}>Secure logout</button></div>
   </aside>;
 }
 
-function Topbar({ page, role, setOpen, notify }) {
-  return <header className="topbar"><button className="menu-button" onClick={() => setOpen((v) => !v)} aria-label="Open navigation">Menu</button><div><p className="breadcrumb">{role === "client" ? "The Luxe Beauty Studio" : "Administrator workspace"}</p><h2>{page}</h2></div><div className="top-actions"><span className="demo-chip">Demo environment</span><button className="notification-button" onClick={() => notify("You have three content approvals and one unread message.")}>Notifications <b>4</b></button></div></header>;
+function Topbar({ page, role, profile, setOpen, notify }) {
+  return <header className="topbar"><button className="menu-button" onClick={() => setOpen((v) => !v)} aria-label="Open navigation">Menu</button><div><p className="breadcrumb">{role === "client" ? (profile?.business_name || "Client workspace") : "Administrator workspace"}</p><h2>{page}</h2></div><div className="top-actions"><span className="demo-chip">Secure portal</span><button className="notification-button" onClick={() => notify("You have three content approvals and one unread message.")}>Notifications <b>4</b></button></div></header>;
 }
 
 function Metric({ label, value, note }) { return <Card className="metric-card"><span>{label}</span><strong>{value}</strong>{note && <small>{note}</small>}</Card>; }
@@ -121,10 +178,12 @@ function ProgressTracker() {
   return <Card><div className="card-head"><div><p className="overline">July production</p><h3>Content progress</h3></div><Status>Client Review</Status></div><div className="progress-track">{stages.map((stage, i) => <div className={i < 3 ? "done" : i === 3 ? "current" : ""} key={stage}><span>{i + 1}</span><small>{stage}</small></div>)}</div></Card>;
 }
 
-function ClientDashboard({ state, setPage }) {
+function ClientDashboard({ state, setPage, profile }) {
   const awaiting = state.posts.filter((p) => p.status === "Awaiting Client Approval").length;
   const revisions = state.posts.filter((p) => p.status === "Revision Requested").length;
-  return <div className="page-stack"><section className="welcome"><div><p className="overline">Friday, July 10</p><h1>Welcome back, Client.</h1><p>The Luxe Beauty Studio · July 2026 content cycle</p></div><div className="subscription"><span>Subscription</span><b>Active · $250/month</b><small>Next payment August 1, 2026</small></div></section>
+  const firstName = profile?.full_name?.trim().split(/\s+/)[0] || "Client";
+  const businessName = profile?.business_name || "Your business";
+  return <div className="page-stack"><section className="welcome"><div><p className="overline">Client workspace</p><h1>Welcome back, {firstName}.</h1><p>{businessName} · Current content cycle</p></div><div className="subscription"><span>Subscription</span><b>Active · $250/month</b><small>Manage details in Billing</small></div></section>
     <div className="metric-grid"><Metric label="Posts planned" value="12" note="Instagram + Facebook"/><Metric label="Awaiting approval" value={awaiting} note="Your review is needed"/><Metric label="Revision requests" value={revisions} note="One round in progress"/><Metric label="Onboarding" value="100%" note="Profile complete"/></div>
     <Card className="action-card"><div><p className="overline">Recommended next step</p><h3>Three posts are ready for your approval.</h3><p>Review the July batch by Monday to keep the publishing schedule on track.</p></div><div className="action-buttons"><Button onClick={() => setPage("Content")}>Review content</Button><Button variant="secondary" onClick={() => setPage("Messages")}>Message your manager</Button></div></Card>
     <div className="dashboard-grid"><ProgressTracker/><Card><div className="card-head"><div><p className="overline">Latest activity</p><h3>Workspace updates</h3></div><button className="text-button" onClick={() => setPage("Messages")}>Open messages</button></div><div className="activity-list"><article><span>JL</span><div><b>Jordan sent a message</b><p>“Your July approval batch is ready…”</p><small>Yesterday at 4:18 PM</small></div></article><article><span>R</span><div><b>Monthly report available</b><p>June performance report</p><small>July 2 at 10:30 AM</small></div></article><article><span>$</span><div><b>Invoice paid</b><p>$250 · July subscription</p><small>July 1 at 8:05 AM</small></div></article></div></Card></div>
@@ -243,21 +302,71 @@ function CreateContent({ state, updateState, notify, modal }) {
   return <div className="page-stack"><section className="page-intro"><div><p className="overline">Administrator workflow</p><h1>Create content</h1><p>Add a post, prepare client-visible notes, and set the approval deadline.</p></div><Button variant="secondary" onClick={()=>modal("AI caption assistant", "Connect an approved AI provider to generate drafts from client brand data. Every output must remain in draft until administrator and client approval.")}>Open AI assistant</Button></section><form className="content-form" onSubmit={submit}><Card><div className="card-head"><div><p className="overline">Content details</p><h3>Calendar entry</h3></div></div><div className="form-grid"><label>Client<select><option>The Luxe Beauty Studio</option></select></label><label>Platform<select value={form.platform} onChange={f("platform")}><option>Instagram</option><option>Facebook</option><option>Both platforms</option></select></label><label>Content date<input type="date" value={form.date} onChange={f("date")}/></label><label>Content time<input type="time" value={form.time} onChange={f("time")}/></label><label>Content format<select value={form.format} onChange={f("format")}><option>Graphic</option><option>Carousel</option><option>Photo</option><option>Video</option></select></label><label>Content pillar<input value={form.pillar} onChange={f("pillar")}/></label><label>Campaign<input value={form.campaign} onChange={f("campaign")}/></label><label>Status<select value={form.status} onChange={f("status")}>{["Idea","In Production","Internal Review","Awaiting Client Approval","Revision Requested","Approved","Scheduled","Published","Paused"].map(x=><option key={x}>{x}</option>)}</select></label><label className="field-wide">Post title<input value={form.title} onChange={f("title")}/></label><label className="field-wide">Caption<textarea value={form.caption} onChange={f("caption")}/></label><label>Hashtags or keywords<input value={form.hashtags} onChange={f("hashtags")}/></label><label>Call to action<input value={form.cta} onChange={f("cta")}/></label><label>Approval deadline<input type="date" value={form.deadline} onChange={f("deadline")}/></label><label>Media upload<input type="file" accept="image/*,video/*"/></label><label className="field-wide">Client-visible notes<textarea value={form.visibleNotes} onChange={f("visibleNotes")}/></label><label className="field-wide">Internal notes<textarea value={form.internalNotes} onChange={f("internalNotes")}/></label></div></Card><aside><Card><p className="overline">AI assistance</p><h3>Human review required</h3><p>AI-generated captions, topics, keywords, and platform adaptations remain drafts until reviewed by an Own Your Web administrator.</p>{["Generate caption draft","Suggest content topics","Rewrite in brand voice","Recommend keywords","Adapt for Facebook"].map(x=><button type="button" className="ai-action" key={x} onClick={()=>modal(x,"Connect an AI provider and approved client context before enabling this tool.")}>{x}<span>Future integration</span></button>)}</Card><Button type="submit" className="full">Add to calendar</Button><Button variant="secondary" className="full" onClick={()=>notify("Duplicate-and-adapt workflow prepared for the selected platform.")}>Duplicate for another platform</Button></aside></form></div>;
 }
 
+function PortalLoading() {
+  return <main className="auth-loading"><span className="brand-seal">OYM</span><div><b>Opening your secure workspace</b><small>Verifying your session…</small></div></main>;
+}
+
 function App() {
   const [state,setState]=useState(loadState);
-  const [session,setSession]=useState(()=>{try{return JSON.parse(localStorage.getItem("owy-session")||"null");}catch{return null;}});
+  const [session,setSession]=useState(null);
+  const [profile,setProfile]=useState(null);
+  const [authReady,setAuthReady]=useState(false);
+  const [profileReady,setProfileReady]=useState(false);
+  const [recoveryMode,setRecoveryMode]=useState(false);
   const [page,setPage]=useState("Dashboard"); const [menuOpen,setMenuOpen]=useState(false); const [toast,setToast]=useState(null); const [modalData,setModalData]=useState(null);
+
   useEffect(()=>persist(state),[state]);
+  useEffect(() => {
+    let mounted = true;
+    supabase.auth.getSession().then(({ data }) => {
+      if (!mounted) return;
+      setSession(data.session);
+      setAuthReady(true);
+    });
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, nextSession) => {
+      if (event === "PASSWORD_RECOVERY") setRecoveryMode(true);
+      setSession(nextSession);
+      setAuthReady(true);
+    });
+    return () => { mounted = false; subscription.unsubscribe(); };
+  }, []);
+
+  useEffect(() => {
+    let mounted = true;
+    if (!session?.user) {
+      setProfile(null); setProfileReady(true); setPage("Dashboard");
+      return () => { mounted = false; };
+    }
+    setProfileReady(false);
+    supabase.from("portal_profiles").select("id,email,full_name,business_name,role,account_status").eq("id", session.user.id).maybeSingle().then(({ data, error }) => {
+      if (!mounted) return;
+      const safeProfile = data || {
+        id: session.user.id,
+        email: session.user.email || "",
+        full_name: session.user.user_metadata?.full_name || "Client",
+        business_name: session.user.user_metadata?.business_name || "",
+        role: "client",
+        account_status: error ? "pending" : "active",
+      };
+      setProfile(safeProfile);
+      setPage(safeProfile.role === "administrator" ? "Admin Dashboard" : "Dashboard");
+      setProfileReady(true);
+    });
+    return () => { mounted = false; };
+  }, [session?.user?.id]);
+
   const notify=(message,type="success")=>{setToast({message,type});setTimeout(()=>setToast(null),3200);};
   const modal=(title,text)=>setModalData({title,text});
-  const login=(user)=>{setSession(user);if(user.remember)localStorage.setItem("owy-session",JSON.stringify(user));setPage(user.role==="client"?"Dashboard":"Admin Dashboard");};
-  const logout=()=>{localStorage.removeItem("owy-session");setSession(null);setPage("Dashboard");};
-  if(!session)return <><Login onLogin={login} modal={modal}/>{modalData&&<InfoModal {...modalData} close={()=>setModalData(null)}/>}</>;
-  const role=session.role;
+  const logout=async()=>{await supabase.auth.signOut();setSession(null);setProfile(null);setPage("Dashboard");};
+  if(!authReady || (session && !profileReady))return <PortalLoading/>;
+  if(recoveryMode || !session)return <Login recoveryMode={recoveryMode} clearRecovery={()=>setRecoveryMode(false)}/>;
+  if(profile?.account_status === "paused")return <main className="auth-loading"><span className="brand-seal">OYM</span><div><b>Account access is paused</b><small>Contact ownyourwebsmm@gmail.com for help.</small><Button onClick={logout}>Secure logout</Button></div></main>;
+  if(profile?.account_status === "pending")return <main className="auth-loading"><span className="brand-seal">OYM</span><div><b>Your account is being prepared</b><small>Your email is verified. Contact Own Your Web if you need immediate access.</small><Button onClick={logout}>Secure logout</Button></div></main>;
+  const role=profile?.role === "administrator" ? "admin" : "client";
   const pages={
-    Dashboard:<ClientDashboard state={state} setPage={setPage}/>, Onboarding:<Onboarding state={state} updateState={setState} notify={notify}/>, Content:<Content state={state} updateState={setState} notify={notify}/>, "Brand Library":<BrandLibrary state={state} updateState={setState} notify={notify} role={role}/>, Requests:<Requests state={state} updateState={setState} notify={notify} role={role}/>, Messages:<Messages state={state} updateState={setState} notify={notify} role={role}/>, Analytics:<Analytics notify={notify} role={role}/>, Billing:<Billing notify={notify}/>, Notifications:<Notifications state={state} updateState={setState} notify={notify}/>, "Admin Dashboard":<AdminDashboard state={state} setPage={setPage}/>, Clients:<AdminClients notify={notify} setPage={setPage}/>, "Create Content":<CreateContent state={state} updateState={setState} notify={notify} modal={modal}/>
+    Dashboard:<ClientDashboard state={state} setPage={setPage} profile={profile}/>, Onboarding:<Onboarding state={state} updateState={setState} notify={notify}/>, Content:<Content state={state} updateState={setState} notify={notify}/>, "Brand Library":<BrandLibrary state={state} updateState={setState} notify={notify} role={role}/>, Requests:<Requests state={state} updateState={setState} notify={notify} role={role}/>, Messages:<Messages state={state} updateState={setState} notify={notify} role={role}/>, Analytics:<Analytics notify={notify} role={role}/>, Billing:<Billing notify={notify}/>, Notifications:<Notifications state={state} updateState={setState} notify={notify}/>, "Admin Dashboard":<AdminDashboard state={state} setPage={setPage}/>, Clients:<AdminClients notify={notify} setPage={setPage}/>, "Create Content":<CreateContent state={state} updateState={setState} notify={notify} modal={modal}/>
   };
-  return <div className="app-shell"><Sidebar role={role} page={page} setPage={setPage} open={menuOpen} setOpen={setMenuOpen} logout={logout}/>{menuOpen&&<button className="mobile-scrim" aria-label="Close navigation" onClick={()=>setMenuOpen(false)}/>}<div className="main-shell"><Topbar page={page} role={role} setOpen={setMenuOpen} notify={notify}/><main className="page"><div className="page-view" key={page}>{pages[page] || <AdminDashboard state={state} setPage={setPage}/>}</div></main></div>{toast&&<div className={cx("toast",toast.type)} role="status"><span/>{toast.message}</div>}{modalData&&<InfoModal {...modalData} close={()=>setModalData(null)}/>}</div>;
+  return <div className="app-shell"><Sidebar role={role} profile={profile} page={page} setPage={setPage} open={menuOpen} setOpen={setMenuOpen} logout={logout}/>{menuOpen&&<button className="mobile-scrim" aria-label="Close navigation" onClick={()=>setMenuOpen(false)}/>}<div className="main-shell"><Topbar page={page} role={role} profile={profile} setOpen={setMenuOpen} notify={notify}/><main className="page"><div className="page-view" key={page}>{pages[page] || <AdminDashboard state={state} setPage={setPage}/>}</div></main></div>{toast&&<div className={cx("toast",toast.type)} role="status"><span/>{toast.message}</div>}{modalData&&<InfoModal {...modalData} close={()=>setModalData(null)}/>}</div>;
 }
 
 function InfoModal({title,text,close}) { return <div className="modal-backdrop" onMouseDown={(e)=>e.target===e.currentTarget&&close()}><article className="info-modal"><p className="overline">Integration notice</p><h2>{title}</h2><p>{text}</p><Button onClick={close}>Understood</Button></article></div>; }
