@@ -107,6 +107,7 @@ button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,te
 .auth-security{display:inline-flex;align-items:center;gap:7px;color:var(--muted);font-size:.7rem}
 .auth-security::before{content:"";width:7px;height:7px;background:var(--green);box-shadow:0 0 0 4px rgba(60,112,39,.1)}
 .auth-success{margin:0 0 14px;padding:11px 12px;border-left:3px solid var(--green);color:#28491c;background:#eaf5e5;font-size:.76rem;line-height:1.5}
+.auth-email-hint{margin:-5px 0 16px;color:var(--muted);font-size:.66rem;line-height:1.45;text-align:center}
 .auth-loading{display:flex;min-height:100vh;align-items:center;justify-content:center;gap:14px;padding:24px;color:var(--white);background:radial-gradient(circle at 50% 20%,rgba(201,255,70,.16),transparent 25rem),var(--black)}
 .auth-loading>div{display:grid;gap:4px;max-width:420px}
 .auth-loading b{font-size:.92rem}

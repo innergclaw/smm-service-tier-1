@@ -101,7 +101,7 @@ function Login({ recoveryMode, clearRecovery, authCallbackError }) {
     });
     setLoading(false);
     if (resendError) { setError(resendError.message); return; }
-    setNotice("A fresh verification link was sent. Use the newest email and open it within the allowed time.");
+    setNotice("A fresh verification link was sent. Use the newest email and open it within the allowed time. Check Spam or Junk if it is not in your inbox.");
   };
 
   const submit = async (e) => {
@@ -132,7 +132,7 @@ function Login({ recoveryMode, clearRecovery, authCallbackError }) {
       });
       setLoading(false);
       if (signUpError) { setError(signUpError.message); return; }
-      if (!data.session) setNotice("Account created. Check your email and click the verification link before signing in.");
+      if (!data.session) setNotice("Account created. Check your email and click the verification link before signing in. Check Spam or Junk if it is not in your inbox.");
       return;
     }
     if (mode === "update") {
@@ -168,6 +168,7 @@ function Login({ recoveryMode, clearRecovery, authCallbackError }) {
         {notice && <p className="auth-success" role="status">{notice}</p>}
         <Button type="submit" className="full" disabled={loading}>{loading ? <><span className="spinner" /> Working…</> : mode === "signup" ? "Create client account" : mode === "reset" ? "Send reset link" : mode === "update" ? "Update password" : "Sign in securely"}</Button>
         {(mode === "signin" || mode === "signup") && <div className="auth-links"><button type="button" className="text-button" onClick={resendVerification} disabled={loading}>Resend verification email</button></div>}
+        {(mode === "signin" || mode === "signup") && <p className="auth-email-hint">Confirming a new account? Check your Spam or Junk folder if the verification email is not in your inbox.</p>}
         {(mode === "reset" || mode === "update") && <div className="auth-links"><button type="button" className="text-button" onClick={() => { clearRecovery(); changeMode("signin"); }}>Back to sign in</button></div>}
         <div className="integration-note"><strong>Email verification enabled</strong><span>New accounts must verify their email before accessing the private workspace. Administrator access is assigned separately and cannot be selected during registration.</span></div>
       </form>

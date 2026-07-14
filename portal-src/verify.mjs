@@ -16,7 +16,7 @@ for (const label of ["Dashboard", "Onboarding", "Content", "Brand Library", "Req
   assert.ok(source.includes(`\"${label}\"`), `Missing portal area: ${label}`);
 }
 
-for (const marker of ["The Luxe Beauty Studio", "Instagram", "Facebook", "$450", "$250.00", "OWY-INV-2026-0701", "Email verification enabled", "Cloud file storage", "Stripe-ready billing"]) {
+for (const marker of ["The Luxe Beauty Studio", "Instagram", "Facebook", "$450", "$250.00", "OWY-INV-2026-0701", "Email verification enabled", "Spam or Junk", "Cloud file storage", "Stripe-ready billing"]) {
   assert.ok(source.includes(marker), `Missing required demonstration marker: ${marker}`);
 }
 
