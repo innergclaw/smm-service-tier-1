@@ -1,7 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
 import { createRoot } from "react-dom/client";
 import "./styles.css";
-import { PORTAL_URL, supabase } from "./supabase";
+import { AUTH_CALLBACK_ERROR, PORTAL_URL, supabase } from "./supabase";
 
 const GOLD = "#C9FF46";
 const STORAGE_KEY = "owy-portal-demo-v2";
@@ -68,7 +68,7 @@ function IntegrationNotice({ service, children }) {
   return <div className="integration-note"><strong>{service} connection required</strong><span>{children}</span></div>;
 }
 
-function Login({ recoveryMode, clearRecovery }) {
+function Login({ recoveryMode, clearRecovery, authCallbackError }) {
   const [mode, setMode] = useState(recoveryMode ? "update" : "signin");
   const [fullName, setFullName] = useState("");
   const [businessName, setBusinessName] = useState("");
@@ -76,7 +76,11 @@ function Login({ recoveryMode, clearRecovery }) {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [terms, setTerms] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(() => authCallbackError
+    ? authCallbackError.code === "otp_expired"
+      ? "That verification link is invalid or has expired. Enter your email below and send a new link."
+      : authCallbackError.description
+    : "");
   const [notice, setNotice] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -84,6 +88,20 @@ function Login({ recoveryMode, clearRecovery }) {
 
   const changeMode = (next) => {
     setMode(next); setError(""); setNotice(""); setPassword(""); setConfirmPassword("");
+  };
+
+  const resendVerification = async () => {
+    setError(""); setNotice("");
+    if (!/^\S+@\S+\.\S+$/.test(email)) { setError("Enter the email address used to create the account."); return; }
+    setLoading(true);
+    const { error: resendError } = await supabase.auth.resend({
+      type: "signup",
+      email: email.trim(),
+      options: { emailRedirectTo: PORTAL_URL },
+    });
+    setLoading(false);
+    if (resendError) { setError(resendError.message); return; }
+    setNotice("A fresh verification link was sent. Use the newest email and open it within the allowed time.");
   };
 
   const submit = async (e) => {
@@ -149,6 +167,7 @@ function Login({ recoveryMode, clearRecovery }) {
         {error && <p className="form-error" role="alert">{error}</p>}
         {notice && <p className="auth-success" role="status">{notice}</p>}
         <Button type="submit" className="full" disabled={loading}>{loading ? <><span className="spinner" /> Working…</> : mode === "signup" ? "Create client account" : mode === "reset" ? "Send reset link" : mode === "update" ? "Update password" : "Sign in securely"}</Button>
+        {(mode === "signin" || mode === "signup") && <div className="auth-links"><button type="button" className="text-button" onClick={resendVerification} disabled={loading}>Resend verification email</button></div>}
         {(mode === "reset" || mode === "update") && <div className="auth-links"><button type="button" className="text-button" onClick={() => { clearRecovery(); changeMode("signin"); }}>Back to sign in</button></div>}
         <div className="integration-note"><strong>Email verification enabled</strong><span>New accounts must verify their email before accessing the private workspace. Administrator access is assigned separately and cannot be selected during registration.</span></div>
       </form>
@@ -359,7 +378,7 @@ function App() {
   const modal=(title,text)=>setModalData({title,text});
   const logout=async()=>{await supabase.auth.signOut();setSession(null);setProfile(null);setPage("Dashboard");};
   if(!authReady || (session && !profileReady))return <PortalLoading/>;
-  if(recoveryMode || !session)return <Login recoveryMode={recoveryMode} clearRecovery={()=>setRecoveryMode(false)}/>;
+  if(recoveryMode || !session)return <Login recoveryMode={recoveryMode} clearRecovery={()=>setRecoveryMode(false)} authCallbackError={AUTH_CALLBACK_ERROR}/>;
   if(profile?.account_status === "paused")return <main className="auth-loading"><span className="brand-seal">OYM</span><div><b>Account access is paused</b><small>Contact ownyourwebsmm@gmail.com for help.</small><Button onClick={logout}>Secure logout</Button></div></main>;
   if(profile?.account_status === "pending")return <main className="auth-loading"><span className="brand-seal">OYM</span><div><b>Your account is being prepared</b><small>Your email is verified. Contact Own Your Web if you need immediate access.</small><Button onClick={logout}>Secure logout</Button></div></main>;
   const role=profile?.role === "administrator" ? "admin" : "client";

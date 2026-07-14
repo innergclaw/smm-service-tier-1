@@ -20,11 +20,13 @@ for (const marker of ["The Luxe Beauty Studio", "Instagram", "Facebook", "$250",
   assert.ok(source.includes(marker), `Missing required demonstration marker: ${marker}`);
 }
 
-for (const marker of ["signUp", "signInWithPassword", "resetPasswordForEmail", "updateUser", "onAuthStateChange", "portal_profiles"]) {
+for (const marker of ["signUp", "signInWithPassword", "resetPasswordForEmail", "resend", "updateUser", "onAuthStateChange", "portal_profiles"]) {
   assert.ok(source.includes(marker), `Missing production authentication behavior: ${marker}`);
 }
 
 assert.ok(authClient.includes("sb_publishable_"), "Portal must use a publishable Supabase key");
+assert.ok(authClient.includes("ownyourweb.marketing/portal/"), "Custom-domain portal redirect must be configured");
+assert.ok(authClient.includes("innergclaw.github.io/smm-service-tier-1/portal/"), "GitHub Pages portal redirect must remain supported");
 assert.ok(!authClient.includes("service_role"), "A service-role key must never be included in the browser build");
 assert.ok(!source.includes("Demo250!"), "Demonstration passwords must not remain in production authentication");
 
