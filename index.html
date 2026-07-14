@@ -199,12 +199,15 @@
     .value-panel p { max-width:720px; margin:25px 0 0; color:#bec1b8; line-height:1.65; font-size:17px; }
     .faq-wrap { display:grid; grid-template-columns:.7fr 1.3fr; gap:60px; }
     details { border-bottom:1px solid var(--line); padding:21px 0; }
-    summary { cursor:pointer; font-weight:800; font-size:15px; list-style:none; display:flex; justify-content:space-between; }
+    summary { cursor:pointer; min-height:44px; font-weight:800; font-size:15px; list-style:none; display:flex; align-items:center; justify-content:space-between; gap:24px; }
+    summary::-webkit-details-marker { display:none; }
+    summary:focus-visible { outline:2px solid var(--ink); outline-offset:6px; }
     summary::after { content:"+"; color:var(--muted); }
     details[open] summary::after { content:"−"; }
-    details p { color:var(--muted); line-height:1.6; font-size:13px; max-width:700px; }
-    details[open] p { animation:faq-answer-in 240ms var(--ease-out) both; }
-    @keyframes faq-answer-in { from { opacity:0; transform:translate3d(0,-7px,0); } to { opacity:1; transform:translate3d(0,0,0); } }
+    .faq-panel { transform-origin:top; }
+    .faq-panel p { margin:0; padding:6px 42px 3px 0; color:var(--muted); line-height:1.6; font-size:13px; max-width:700px; }
+    details[open] .faq-panel { animation:faq-panel-in 280ms var(--ease-out) both; }
+    @keyframes faq-panel-in { from { opacity:0; filter:blur(4px); transform:translate3d(0,-8px,0) scaleY(.96); } to { opacity:1; filter:blur(0); transform:translate3d(0,0,0) scaleY(1); } }
     .apply { scroll-margin-top: 116px; margin-bottom:40px; display:grid; grid-template-columns:.8fr 1.2fr; gap:60px; padding:56px; border-radius:36px; }
     .apply h3 { font-size:58px; }
     .apply p { color:var(--muted); line-height:1.6; }
@@ -245,6 +248,24 @@
     .back-to-top { position:fixed; right:22px; bottom:22px; z-index:20; display:grid; width:48px; height:48px; place-items:center; border:1px solid rgba(24,26,23,.16); border-radius:14px; color:var(--ink); background:rgba(255,255,250,.72); box-shadow:0 14px 36px rgba(24,26,23,.16); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); font-size:22px; font-weight:800; opacity:0; pointer-events:none; transform:translateY(10px); transition:opacity 180ms ease, transform 180ms var(--ease-out), background-color 180ms ease; }
     .back-to-top.visible { opacity:1; pointer-events:auto; transform:translateY(0); }
     .back-to-top:active { transform:scale(.97); }
+    .js .section-materialize {
+      opacity:0;
+      filter:blur(18px) saturate(.72);
+      clip-path:inset(7% 3% 7% 3%);
+      transform:translate3d(0,76px,0) scale(.985);
+      transform-origin:50% 24%;
+      transition-property:opacity,filter,clip-path,transform;
+      transition-duration:900ms,900ms,1000ms,1000ms;
+      transition-timing-function:var(--ease-cinematic);
+      will-change:opacity,filter,transform;
+    }
+    .js .section-materialize.is-materialized {
+      opacity:1;
+      filter:blur(0) saturate(1);
+      clip-path:inset(0 0 0 0);
+      transform:translate3d(0,0,0) scale(1);
+      will-change:auto;
+    }
     .js .motion-reveal { opacity:0; transform:translate3d(0,42px,0); transition:opacity 760ms var(--ease-cinematic), transform 760ms var(--ease-cinematic); transition-delay:var(--motion-delay,0ms); will-change:transform,opacity; }
     .js .motion-reveal.motion-scale { transform:translate3d(0,34px,0) scale(.965); }
     .js .motion-reveal.is-visible { opacity:1; transform:translate3d(0,0,0) scale(1); will-change:auto; }
@@ -319,6 +340,7 @@
       .client-marquee-group { width:100%; justify-content:center; flex-wrap:wrap; padding:0 18px; white-space:normal; }
       .client-marquee-group[aria-hidden="true"] { display:none; }
       .scroll-progress,.ambient-orb { display:none; }
+      .js .section-materialize { opacity:1!important; filter:none!important; clip-path:none!important; transform:none!important; }
       .js .motion-reveal,.js .motion-stagger > * { opacity:1!important; transform:none!important; }
       .portal-window.motion-scale img { transform:none!important; }
     }
@@ -437,17 +459,17 @@
     <section class="shell section faq-wrap" id="faq">
       <div><div class="kicker">07 / Good to know</div><h3>Questions before you start?</h3></div>
       <div>
-        <details open><summary>Do you post the content for me?</summary><p>Posting can be handled based on your selected workflow. Choose scheduled support or final delivery if you prefer to post everything yourself.</p></details>
-        <details><summary>Do I need professional photos?</summary><p>No. We can work with your current brand assets, service photos, testimonials, graphics, and business information.</p></details>
-        <details><summary>How many revisions are included?</summary><p>The starter package includes reasonable revisions on approved posts. Full redesigns or new concepts can be scoped as an add-on.</p></details>
-        <details><summary>Is this system for Reels?</summary><p>The $250 monthly system focuses on static posts and captions. Reels scripts, video ideas, and editing are available as upgrades.</p></details>
-        <details><summary>What happens after I apply?</summary><p>Your business details are reviewed first. If the system is a good fit, you receive the next steps for payment, onboarding, and your first content cycle.</p></details>
+        <details name="service-faq" open><summary>Do you post the content for me?</summary><div class="faq-panel"><p>Posting can be handled based on your selected workflow. Choose scheduled support or final delivery if you prefer to post everything yourself.</p></div></details>
+        <details name="service-faq"><summary>Do I need professional photos?</summary><div class="faq-panel"><p>No. We can work with your current brand assets, service photos, testimonials, graphics, and business information.</p></div></details>
+        <details name="service-faq"><summary>How many revisions are included?</summary><div class="faq-panel"><p>The starter package includes reasonable revisions on approved posts. Full redesigns or new concepts can be scoped as an add-on.</p></div></details>
+        <details name="service-faq"><summary>Is this system for Reels?</summary><div class="faq-panel"><p>The $250 monthly system focuses on static posts and captions. Reels scripts, video ideas, and editing are available as upgrades.</p></div></details>
+        <details name="service-faq"><summary>What happens after I apply?</summary><div class="faq-panel"><p>Your business details are reviewed first. If the system is a good fit, you receive the next steps for payment, onboarding, and your first content cycle.</p></div></details>
       </div>
     </section>
 
     <section class="shell apply glass" id="apply">
       <div><div class="kicker">Let’s get your page moving</div><h3>Ready to stop letting your page sit quiet?</h3><p>Tell us about your business. We’ll review your needs and confirm whether the OWNYOURWEB AI Marketing System is the right fit.</p></div>
-      <form id="lead-form" action="https://formspree.io/f/xojogjbg" method="post" accept-charset="UTF-8">
+      <form id="lead-form" action="https://formspree.io/f/mqerkrbj" method="post" accept-charset="UTF-8">
         <input type="hidden" name="_subject" value="New OWNYOURWEB AI Marketing System Application" />
         <label class="honeypot" aria-hidden="true">Leave this field empty<input type="text" name="_gotcha" tabindex="-1" autocomplete="off" /></label>
         <label>Name<input name="name" autocomplete="name" placeholder="Your name" required /></label>
@@ -499,6 +521,9 @@
     const finePointerQuery = window.matchMedia('(hover: hover) and (pointer: fine)');
     const desktopQuery = window.matchMedia('(min-width: 981px)');
 
+    const materializedSections = Array.from(document.querySelectorAll('main > section:not(.hero)'));
+    materializedSections.forEach((section) => section.classList.add('section-materialize'));
+
     const revealSelectors = [
       '.hero-visual',
       '.client-strip',
@@ -540,8 +565,18 @@
     });
 
     if (reducedMotionQuery.matches || !('IntersectionObserver' in window)) {
+      materializedSections.forEach((section) => section.classList.add('is-materialized'));
       motionElements.forEach((element) => element.classList.add('is-visible'));
     } else {
+      const sectionObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add('is-materialized');
+          observer.unobserve(entry.target);
+        });
+      }, { threshold: .08, rootMargin: '0px 0px -5% 0px' });
+      materializedSections.forEach((section) => sectionObserver.observe(section));
+
       const revealObserver = new IntersectionObserver((entries, observer) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
@@ -643,15 +678,6 @@
         setMenuOpen(false, true);
         menuTrigger.focus();
       }
-    });
-
-    document.querySelectorAll('details').forEach((detail) => {
-      detail.addEventListener('toggle', () => {
-        if (!detail.open) return;
-        document.querySelectorAll('details[open]').forEach((other) => {
-          if (other !== detail) other.removeAttribute('open');
-        });
-      });
     });
 
     const backToTop = document.querySelector('.back-to-top');
