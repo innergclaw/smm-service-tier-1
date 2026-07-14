@@ -1,6 +1,6 @@
 # OWNYOURWEB AI-Powered Marketing System
 
-A polished, responsive landing page for the OWNYOURWEB Systems AI-powered marketing offer at one price: $250 per month.
+A polished, responsive landing page for the OWNYOURWEB Systems AI-powered marketing offer at one price: $450 per month.
 
 ## Live site
 

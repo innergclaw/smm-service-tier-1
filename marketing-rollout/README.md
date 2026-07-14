@@ -7,7 +7,7 @@ Live source: https://innergclaw.github.io/smm-service-tier-1/
 | File | Best promotional angle |
 | --- | --- |
 | `01-marketing-hero.png` | Introduce the service and monthly content promise |
-| `02-offer-pricing.png` | Show the complete $250-per-month offer |
+| `02-offer-pricing.png` | Show the complete $450-per-month offer |
 | `03-how-it-works.png` | Explain the organized five-step workflow |
 | `04-portal-login.png` | Present the premium private client experience |
 | `05-client-dashboard.png` | Promote visibility, approvals, progress, and account clarity |
