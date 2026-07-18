@@ -8,8 +8,8 @@ async function render() {
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("https://chef-dnia.example/", {
-      headers: { accept: "text/html", host: "chef-dnia.example" },
+    new Request("https://soap-game-strong.example/", {
+      headers: { accept: "text/html", host: "soap-game-strong.example" },
     }),
     {
       ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) },
@@ -18,36 +18,34 @@ async function render() {
   );
 }
 
-test("server-renders the Chef Dnia ordering experience", async () => {
+test("server-renders the Soap Game Strong operations dashboard", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>24K Catering by Chef Dnia \| Fresh Plate Specials<\/title>/i);
-  assert.match(html, /Home-cooked/);
-  assert.match(html, /Steak Tips/);
-  assert.match(html, /Garlic Herb/);
-  assert.match(html, /Build your order/);
-  assert.match(html, /Choose a plate/);
-  assert.match(html, /https:\/\/chef-dnia\.example\/og\.png/);
+  assert.match(html, /<title>Soap Game Strong Order Flow \| Operations Dashboard Demo<\/title>/i);
+  assert.match(html, /Good morning, Soap Game/);
+  assert.match(html, /Today’s order flow/);
+  assert.match(html, /Wholesale/);
+  assert.match(html, /Warehouse pickup/);
+  assert.match(html, /Add order/);
+  assert.match(html, /https:\/\/soap-game-strong\.example\/og\.png/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
 });
 
-test("ships the branded image assets and removes the starter", async () => {
+test("ships the Soap Game Strong dashboard and removes the starter", async () => {
   const [page, layout, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
 
-  await Promise.all([
-    access(new URL("../public/assets/chef-dnia-plates.png", import.meta.url)),
-    access(new URL("../public/og.png", import.meta.url)),
-  ]);
+  await access(new URL("../public/og.png", import.meta.url));
 
-  assert.match(page, /24K Catering/);
-  assert.match(page, /No payment taken until order is confirmed/);
+  assert.match(page, /Soap Game Strong/);
+  assert.match(page, /Never lose an order/);
+  assert.match(page, /soap-game-strong-demo-orders/);
   assert.match(layout, /generateMetadata/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   await assert.rejects(access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)));

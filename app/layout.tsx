@@ -9,18 +9,18 @@ export async function generateMetadata(): Promise<Metadata> {
   const origin = `${protocol}://${host}`;
 
   return {
-    title: "24K Catering by Chef Dnia | Fresh Plate Specials",
-    description: "Order Chef Dnia's $30 plate special. Choose steak tips and gravy or garlic herb chicken, select your sides, and choose pickup or delivery.",
+    title: "Soap Game Strong Order Flow | Operations Dashboard Demo",
+    description: "A demo operations dashboard for organizing Soap Game Strong orders, customer follow-ups, deliveries, warehouse pickups, wholesale pallets, and locations.",
     openGraph: {
-      title: "24K Catering by Chef Dnia",
-      description: "Golden flavor. No shortcuts. Choose your $30 plate and order online.",
+      title: "Soap Game Strong Order Flow",
+      description: "One clean command center for calls, texts, Instagram orders, deliveries, pickups, wholesale, and locations.",
       type: "website",
-      images: [{ url: `${origin}/og.png`, width: 1736, height: 905, alt: "24K Catering by Chef Dnia $30 plate special" }],
+      images: [{ url: `${origin}/og.png`, width: 1536, height: 1024, alt: "Soap Game Strong order operations dashboard" }],
     },
     twitter: {
       card: "summary_large_image",
-      title: "24K Catering by Chef Dnia",
-      description: "Choose your $30 plate and order online.",
+      title: "Soap Game Strong Order Flow",
+      description: "A better way to organize every order, route, pickup, and wholesale lead.",
       images: [`${origin}/og.png`],
     },
   };
