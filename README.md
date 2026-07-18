@@ -8,6 +8,7 @@ The site is published with GitHub Pages from the repository root.
 
 - Marketing site: `/`
 - Interactive client portal demonstration: `/portal/`
+- Soap Game Strong order-flow dashboard: `/demos/soap-game-strong/`
 
 ## Local preview
 

@@ -11,6 +11,7 @@ const eslintConfig = defineConfig([
     ".next/**",
     "out/**",
     "build/**",
+    "demos/soap-game-strong/_next/**",
     "next-env.d.ts",
   ]),
 ]);

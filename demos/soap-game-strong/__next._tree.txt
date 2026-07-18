@@ -1,0 +1,2 @@
+:HL["/demos/soap-game-strong/_next/static/chunks/038g_2gsjuap_.css","style"]
+0:{"tree":{"name":"","param":null,"prefetchHints":16,"slots":{"children":{"name":"__PAGE__","param":null,"prefetchHints":0,"slots":null}}},"staleTime":300,"buildId":"Yvm9K1AjUtA3phPCUZIeS"}

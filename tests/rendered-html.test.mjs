@@ -30,7 +30,7 @@ test("server-renders the Soap Game Strong operations dashboard", async () => {
   assert.match(html, /Wholesale/);
   assert.match(html, /Warehouse pickup/);
   assert.match(html, /Add order/);
-  assert.match(html, /https:\/\/soap-game-strong\.example\/og\.png/);
+  assert.match(html, /https:\/\/ownyourweb\.marketing\/demos\/soap-game-strong\/og\.png/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
 });
 
@@ -46,7 +46,7 @@ test("ships the Soap Game Strong dashboard and removes the starter", async () =>
   assert.match(page, /Soap Game Strong/);
   assert.match(page, /Never lose an order/);
   assert.match(page, /soap-game-strong-demo-orders/);
-  assert.match(layout, /generateMetadata/);
+  assert.match(layout, /export const metadata/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   await assert.rejects(access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)));
 });

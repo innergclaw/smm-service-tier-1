@@ -66,6 +66,8 @@ export default function Home() {
   useEffect(() => {
     const saved = window.localStorage.getItem("soap-game-strong-demo-orders");
     if (saved) {
+      // Device-local demo data is restored only after the browser mounts.
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       try { setOrders(JSON.parse(saved)); } catch { /* Keep the seeded demo. */ }
     }
   }, []);
