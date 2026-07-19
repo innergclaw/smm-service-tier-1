@@ -5,6 +5,9 @@ import { AUTH_CALLBACK_ERROR, PORTAL_URL, supabase } from "./supabase";
 
 const GOLD = "#C9FF46";
 const STORAGE_KEY = "owy-portal-demo-v2";
+const MEDIA_BUCKET = "client-media";
+const MAX_MEDIA_BYTES = 100 * 1024 * 1024;
+const ALLOWED_MEDIA_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif", "image/heic", "video/mp4", "video/quicktime", "video/webm", "application/pdf"]);
 
 const samplePosts = [
   { id: 1, date: "2026-07-03", time: "10:00 AM", platform: "Instagram", type: "Carousel", category: "Education", campaign: "July Glow", title: "Summer Skin Reset", status: "Approved", caption: "Your summer routine should feel lighter, smarter, and made for your skin.", cta: "Book your consultation", hashtags: "#LuxeBeauty #SummerSkin", feedback: "Approved as presented.", versions: 1 },
@@ -256,14 +259,134 @@ function Content({ state, updateState, notify }) {
   </div>;
 }
 
-function BrandLibrary({ state, updateState, notify, role }) {
+function fileSize(bytes) {
+  if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`;
+  return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
+}
+
+function fileType(file) {
+  return (file.type === "image/jpg" ? "image/jpeg" : file.type) || "application/octet-stream";
+}
+
+function mediaPath(workspaceId, file) {
+  const safeName = file.name.replace(/[^a-zA-Z0-9._-]+/g, "-").replace(/^-+|-+$/g, "") || "upload";
+  const key = typeof crypto?.randomUUID === "function" ? crypto.randomUUID() : `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+  return `${workspaceId}/${new Date().toISOString().slice(0, 7)}/${key}-${safeName}`;
+}
+
+function BrandLibrary({ notify, role, profile }) {
   const [folder, setFolder] = useState("All Files");
-  const files = folder === "All Files" ? state.assets : state.assets.filter((a)=>a.folder===folder);
-  const upload = (e) => { const newFiles = [...e.target.files].map((f,i)=>({id:Date.now()+i,folder:folder === "All Files" ? "Other Files" : folder,name:f.name,type:f.name.split(".").pop().toUpperCase(),size:`${Math.max(.1,f.size/1024/1024).toFixed(1)} MB`,date:"Today",owner:role === "client" ? "Client" : "Admin"})); updateState({...state,assets:[...state.assets,...newFiles]}); notify(`${newFiles.length} file${newFiles.length===1?"":"s"} added to the demonstration library.`); e.target.value=""; };
-  const rename=(file)=>{const name=window.prompt("Rename file",file.name);if(name?.trim()){updateState({...state,assets:state.assets.map(a=>a.id===file.id?{...a,name:name.trim()}:a)});notify("File renamed.");}};
-  const remove=(file)=>{if(file.owner==="Admin"&&role==="client"){notify("Administrator-created files require an administrator deletion request.");return;}if(window.confirm(`Delete ${file.name}? This action cannot be undone in the demonstration.`)){updateState({...state,assets:state.assets.filter(a=>a.id!==file.id)});notify("File removed.");}};
-  const download=(file)=>{downloadFile(`${file.name}.details.txt`,`${file.name}\nFolder: ${file.folder}\nType: ${file.type}\nSize: ${file.size}\nUploaded: ${file.date}`);notify("File details downloaded.");};
-  return <div className="page-stack"><section className="page-intro"><div><p className="overline">Shared workspace</p><h1>Brand library</h1><p>Organize approved logos, photography, offers, and reference material.</p></div><label className="btn btn-primary upload-button">Upload files<input type="file" multiple accept="image/*,video/mp4,application/pdf,.txt,.doc,.docx" onChange={upload}/></label></section><IntegrationNotice service="Cloud file storage">Production uploads require private object storage, signed URLs, malware scanning, file-type validation, and a 25 MB file limit.</IntegrationNotice><div className="library-layout"><aside className="folder-list"><button className={folder === "All Files" ? "active":""} onClick={()=>setFolder("All Files")}>All Files <span>{state.assets.length}</span></button>{folders.map((f)=><button className={folder===f?"active":""} key={f} onClick={()=>setFolder(f)}>{f}<span>{state.assets.filter((a)=>a.folder===f).length}</span></button>)}</aside><div className="file-grid">{files.length ? files.map((file)=><Card className="file-card" key={file.id}><div className="file-icon">{file.type}</div><h3>{file.name}</h3><p>{file.folder}</p><div><span>{file.size}</span><span>{file.date}</span></div><div className="file-actions"><button onClick={()=>notify(`${file.name} · ${file.type} · ${file.size} · uploaded ${file.date}`)}>Details</button><button onClick={()=>download(file)}>Download</button><button onClick={()=>rename(file)}>Rename</button><button onClick={()=>remove(file)}>{file.owner==="Admin"&&role==="client"?"Request deletion":"Delete"}</button></div>{file.owner === "Admin" && role === "client" && <small className="protected-file">Admin-managed · deletion protected</small>}</Card>) : <div className="empty-state"><b>No files in this folder</b><p>Upload a file or choose another folder.</p></div>}</div></div></div>;
+  const [workspaces, setWorkspaces] = useState([]);
+  const [workspaceId, setWorkspaceId] = useState("");
+  const [assets, setAssets] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [uploading, setUploading] = useState(false);
+  const isAdmin = role === "admin";
+  const selectedWorkspace = workspaces.find((workspace) => workspace.id === workspaceId);
+
+  const loadAssets = async (nextWorkspaceId = workspaceId) => {
+    if (!nextWorkspaceId) { setAssets([]); return; }
+    const { data, error } = await supabase.from("client_media_assets").select("*").eq("workspace_id", nextWorkspaceId).order("created_at", { ascending: false });
+    if (error) { notify(`Could not load files: ${error.message}`, "error"); return; }
+    const paths = (data || []).map((asset) => asset.storage_path);
+    const { data: links, error: linkError } = paths.length ? await supabase.storage.from(MEDIA_BUCKET).createSignedUrls(paths, 60 * 10) : { data: [] };
+    if (linkError) { notify(`Could not prepare file links: ${linkError.message}`, "error"); return; }
+    const urls = new Map((links || []).map((link) => [link.path, link.signedUrl]));
+    setAssets((data || []).map((asset) => ({ ...asset, signedUrl: urls.get(asset.storage_path) || "" })));
+  };
+
+  useEffect(() => {
+    let active = true;
+    const prepareLibrary = async () => {
+      setLoading(true);
+      let query = supabase.from("client_media_workspaces").select("id,name,owner_id,created_at").order("created_at");
+      if (!isAdmin) query = query.eq("owner_id", profile.id);
+      let { data, error } = await query;
+      if (!isAdmin && !error && !(data || []).length) {
+        const workspaceName = profile.business_name?.trim() || profile.full_name?.trim() || "My media library";
+        const created = await supabase.from("client_media_workspaces").insert({ owner_id: profile.id, name: workspaceName }).select("id,name,owner_id,created_at").single();
+        data = created.data ? [created.data] : [];
+        error = created.error;
+      }
+      if (!active) return;
+      if (error) { notify(`Could not open the media library: ${error.message}`, "error"); setLoading(false); return; }
+      const nextWorkspaces = data || [];
+      setWorkspaces(nextWorkspaces);
+      const nextWorkspaceId = nextWorkspaces[0]?.id || "";
+      setWorkspaceId(nextWorkspaceId);
+      await loadAssets(nextWorkspaceId);
+      if (active) setLoading(false);
+    };
+    prepareLibrary();
+    return () => { active = false; };
+  }, [profile.id, isAdmin]);
+
+  const chooseWorkspace = async (nextWorkspaceId) => {
+    setWorkspaceId(nextWorkspaceId);
+    setLoading(true);
+    await loadAssets(nextWorkspaceId);
+    setLoading(false);
+  };
+
+  const upload = async (event) => {
+    const files = [...event.target.files];
+    event.target.value = "";
+    if (!workspaceId || !files.length) return;
+    const invalid = files.find((file) => !ALLOWED_MEDIA_TYPES.has(fileType(file)) || file.size > MAX_MEDIA_BYTES || !file.size);
+    if (invalid) { notify(`${invalid.name} must be a photo, video, or PDF under 100 MB.`, "error"); return; }
+    setUploading(true);
+    let completed = 0;
+    for (const file of files) {
+      const path = mediaPath(workspaceId, file);
+      const mimeType = fileType(file);
+      const { error: uploadError } = await supabase.storage.from(MEDIA_BUCKET).upload(path, file, { contentType: mimeType, upsert: false });
+      if (uploadError) { notify(`${file.name} could not upload: ${uploadError.message}`, "error"); continue; }
+      const { error: assetError } = await supabase.from("client_media_assets").insert({
+        workspace_id: workspaceId,
+        storage_path: path,
+        folder: folder === "All Files" ? "Other Files" : folder,
+        original_name: file.name,
+        mime_type: mimeType,
+        size_bytes: file.size,
+        uploaded_by: profile.id,
+      });
+      if (assetError) {
+        await supabase.storage.from(MEDIA_BUCKET).remove([path]);
+        notify(`${file.name} could not be saved: ${assetError.message}`, "error");
+        continue;
+      }
+      completed += 1;
+    }
+    await loadAssets();
+    setUploading(false);
+    if (completed) notify(`${completed} file${completed === 1 ? "" : "s"} added to ${selectedWorkspace?.name || "the library"}.`);
+  };
+
+  const rename = async (asset) => {
+    const name = window.prompt("Rename file", asset.original_name);
+    if (!name?.trim() || name.trim() === asset.original_name) return;
+    const { error } = await supabase.from("client_media_assets").update({ original_name: name.trim() }).eq("id", asset.id);
+    if (error) { notify(`Could not rename file: ${error.message}`, "error"); return; }
+    await loadAssets(); notify("File renamed.");
+  };
+
+  const remove = async (asset) => {
+    if (!window.confirm(`Delete ${asset.original_name}? This cannot be undone.`)) return;
+    const { error: storageError } = await supabase.storage.from(MEDIA_BUCKET).remove([asset.storage_path]);
+    if (storageError) { notify(`Could not delete file: ${storageError.message}`, "error"); return; }
+    const { error } = await supabase.from("client_media_assets").delete().eq("id", asset.id);
+    if (error) { notify(`The file was removed but its library entry could not be cleared: ${error.message}`, "error"); return; }
+    await loadAssets(); notify("File deleted.");
+  };
+
+  const open = (asset, download = false) => {
+    if (!asset.signedUrl) { notify("That file link has expired. Refresh the library and try again.", "error"); return; }
+    const url = download ? `${asset.signedUrl}${asset.signedUrl.includes("?") ? "&" : "?"}download=${encodeURIComponent(asset.original_name)}` : asset.signedUrl;
+    window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const visibleAssets = folder === "All Files" ? assets : assets.filter((asset) => asset.folder === folder);
+  return <div className="page-stack"><section className="page-intro"><div><p className="overline">Private shared workspace</p><h1>Media library</h1><p>Photos, videos, brand files, and working assets shared with your Own Your Web team.</p></div><label className="btn btn-primary upload-button">{uploading ? "Uploading…" : "Upload files"}<input type="file" multiple disabled={uploading || !workspaceId} accept="image/jpeg,image/png,image/webp,image/gif,image/heic,video/mp4,video/quicktime,video/webm,application/pdf" onChange={upload}/></label></section>{isAdmin && <label className="media-workspace-picker">Client workspace<select value={workspaceId} onChange={(event) => chooseWorkspace(event.target.value)}>{workspaces.length ? workspaces.map((workspace) => <option key={workspace.id} value={workspace.id}>{workspace.name}</option>) : <option value="">No client libraries yet</option>}</select></label>}<div className="library-note"><b>Private by default.</b> Each client only sees their own files; your team can access every client workspace. Photo, video, and PDF uploads are limited to 100 MB per file.</div><div className="library-layout"><aside className="folder-list"><button className={folder === "All Files" ? "active" : ""} onClick={() => setFolder("All Files")}>All Files <span>{assets.length}</span></button>{folders.map((name) => <button className={folder === name ? "active" : ""} key={name} onClick={() => setFolder(name)}>{name}<span>{assets.filter((asset) => asset.folder === name).length}</span></button>)}</aside><div className="file-grid">{loading ? <div className="empty-state"><b>Loading your private files…</b></div> : visibleAssets.length ? visibleAssets.map((asset) => <Card className="file-card" key={asset.id}><div className="file-icon">{asset.mime_type.startsWith("video/") ? "VIDEO" : asset.mime_type.startsWith("image/") ? "PHOTO" : "PDF"}</div><h3>{asset.original_name}</h3><p>{asset.folder}</p><div><span>{fileSize(asset.size_bytes)}</span><span>{new Date(asset.created_at).toLocaleDateString()}</span></div><div className="file-actions"><button onClick={() => open(asset)}>View</button><button onClick={() => open(asset, true)}>Download</button><button onClick={() => rename(asset)}>Rename</button><button onClick={() => remove(asset)}>Delete</button></div></Card>) : <div className="empty-state"><b>No files in this folder</b><p>Upload a photo, video, or PDF to start the shared library.</p></div>}</div></div></div>;
 }
 
 function Requests({ state, updateState, notify, role }) {
@@ -384,7 +507,7 @@ function App() {
   if(profile?.account_status === "pending")return <main className="auth-loading"><span className="brand-seal">OYM</span><div><b>Your account is being prepared</b><small>Your email is verified. Contact Own Your Web if you need immediate access.</small><Button onClick={logout}>Secure logout</Button></div></main>;
   const role=profile?.role === "administrator" ? "admin" : "client";
   const pages={
-    Dashboard:<ClientDashboard state={state} setPage={setPage} profile={profile}/>, Onboarding:<Onboarding state={state} updateState={setState} notify={notify}/>, Content:<Content state={state} updateState={setState} notify={notify}/>, "Brand Library":<BrandLibrary state={state} updateState={setState} notify={notify} role={role}/>, Requests:<Requests state={state} updateState={setState} notify={notify} role={role}/>, Messages:<Messages state={state} updateState={setState} notify={notify} role={role}/>, Analytics:<Analytics notify={notify} role={role}/>, Billing:<Billing notify={notify}/>, Notifications:<Notifications state={state} updateState={setState} notify={notify}/>, "Admin Dashboard":<AdminDashboard state={state} setPage={setPage}/>, Clients:<AdminClients notify={notify} setPage={setPage}/>, "Create Content":<CreateContent state={state} updateState={setState} notify={notify} modal={modal}/>
+    Dashboard:<ClientDashboard state={state} setPage={setPage} profile={profile}/>, Onboarding:<Onboarding state={state} updateState={setState} notify={notify}/>, Content:<Content state={state} updateState={setState} notify={notify}/>, "Brand Library":<BrandLibrary notify={notify} role={role} profile={profile}/>, Requests:<Requests state={state} updateState={setState} notify={notify} role={role}/>, Messages:<Messages state={state} updateState={setState} notify={notify} role={role}/>, Analytics:<Analytics notify={notify} role={role}/>, Billing:<Billing notify={notify}/>, Notifications:<Notifications state={state} updateState={setState} notify={notify}/>, "Admin Dashboard":<AdminDashboard state={state} setPage={setPage}/>, Clients:<AdminClients notify={notify} setPage={setPage}/>, "Create Content":<CreateContent state={state} updateState={setState} notify={notify} modal={modal}/>
   };
   return <div className="app-shell"><Sidebar role={role} profile={profile} page={page} setPage={setPage} open={menuOpen} setOpen={setMenuOpen} logout={logout}/>{menuOpen&&<button className="mobile-scrim" aria-label="Close navigation" onClick={()=>setMenuOpen(false)}/>}<div className="main-shell"><Topbar page={page} role={role} profile={profile} setOpen={setMenuOpen} notify={notify}/><main className="page"><div className="page-view" key={page}>{pages[page] || <AdminDashboard state={state} setPage={setPage}/>}</div></main></div>{toast&&<div className={cx("toast",toast.type)} role="status"><span/>{toast.message}</div>}{modalData&&<InfoModal {...modalData} close={()=>setModalData(null)}/>}</div>;
 }
