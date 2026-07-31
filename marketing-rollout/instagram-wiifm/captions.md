@@ -19,7 +19,9 @@ You share the important business updates and approve the work. We handle the rec
 
 The result is less weekly scrambling, a page that looks active and credible, and a clearer understanding of what to do next.
 
-$450 per month. Apply at ownyourweb.marketing.
+Q3 special: $250 per month through September 30, 2026. Standard rate $450. Save $200 per month during Q3.
+
+Apply at ownyourweb.marketing.
 
 #OwnYourWeb #SocialMediaManagement #SmallBusinessMarketing #ContentStrategy #BusinessSystems #LocalBusinessMarketing #AIPoweredMarketing
 
@@ -59,6 +61,6 @@ Efficient does not have to mean careless.
 
 Your business deserves a social page that looks as active as the business behind it.
 
-Get 12 branded posts, captions, approvals, revisions, and a monthly report for $450 per month.
+Get 12 branded posts, captions, approvals, revisions, and a monthly report for the Q3 special rate of $250 per month through September 30, 2026. Standard rate $450.
 
 Apply at ownyourweb.marketing.
