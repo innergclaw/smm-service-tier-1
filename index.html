@@ -191,13 +191,37 @@
     .ideal-copy p { color:var(--muted); line-height:1.65; font-size:16px; max-width:540px; }
     .industry-cloud { display:flex; flex-wrap:wrap; gap:10px; }
     .industry { padding:13px 17px; border:1px solid var(--line); border-radius:999px; background:rgba(255,255,255,.34); font-size:12px; font-weight:800; transition:transform 160ms var(--ease-out), background-color 160ms ease; }
-    .value-panel { min-height:520px; border-radius:40px; padding:64px; background:var(--ink); color:white; position:relative; overflow:hidden; display:flex; flex-direction:column; justify-content:flex-end; }
-    .value-panel::before { content:""; position:absolute; width:520px; height:520px; right:-100px; top:-180px; border-radius:50%; background:rgba(201,255,70,.6); filter:blur(75px); opacity:.48; }
-    .value-panel::after { content:"CONSISTENCY"; position:absolute; right:-30px; bottom:-88px; font:500 180px Georgia,serif; letter-spacing:-.08em; color:rgba(255,255,255,.045); }
+    .value-panel { border-radius:40px; padding:64px; background:var(--ink); color:white; position:relative; overflow:hidden; }
+    .value-panel::before { content:""; position:absolute; width:520px; height:520px; right:-100px; top:-180px; border-radius:50%; background:rgba(201,255,70,.6); filter:blur(75px); opacity:.42; }
+    .value-panel::after { content:"WIIFM"; position:absolute; right:-18px; top:-72px; font:500 210px Georgia,serif; letter-spacing:-.08em; color:rgba(255,255,255,.038); }
     .value-panel > * { position:relative; z-index:1; }
-    .value-panel h3 { max-width:900px; font-size:clamp(52px,6vw,92px); }
-    .value-panel h3 em { color:var(--lime); font-weight:400; }
-    .value-panel p { max-width:720px; margin:25px 0 0; color:#bec1b8; line-height:1.65; font-size:17px; }
+    .value-intro { display:grid; grid-template-columns:.72fr 1.28fr; gap:54px; align-items:end; }
+    .value-intro h3 { max-width:920px; font-size:clamp(52px,6vw,92px); }
+    .value-intro h3 em { color:var(--lime); font-weight:400; }
+    .value-intro p { max-width:700px; margin:0; color:#bec1b8; line-height:1.65; font-size:17px; }
+    .outcome-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:48px; }
+    .outcome-card { min-height:260px; display:flex; flex-direction:column; justify-content:space-between; border:1px solid rgba(255,255,255,.13); border-radius:22px; padding:26px; background:rgba(255,255,255,.055); }
+    .outcome-card:nth-child(2) { background:rgba(201,255,70,.1); }
+    .outcome-card:nth-child(3) { background:rgba(255,191,112,.1); }
+    .outcome-number { color:var(--lime); font-size:10px; font-weight:900; letter-spacing:.14em; text-transform:uppercase; }
+    .outcome-card h4 { margin:52px 0 12px; font-family:Georgia,serif; font-size:32px; line-height:1.02; letter-spacing:-.045em; font-weight:500; }
+    .outcome-card p { margin:0; color:#b9bcb3; font-size:13px; line-height:1.6; }
+    .handoff { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px; }
+    .handoff-card { border:1px solid rgba(255,255,255,.13); border-radius:22px; padding:28px; background:rgba(255,255,255,.045); }
+    .handoff-card.client { color:var(--ink); background:var(--lime); }
+    .handoff-card h4 { margin:0 0 22px; font-size:12px; letter-spacing:.12em; text-transform:uppercase; }
+    .handoff-card ul { display:grid; gap:12px; margin:0; padding:0; list-style:none; }
+    .handoff-card li { position:relative; padding-left:22px; color:#b9bcb3; font-size:13px; line-height:1.5; }
+    .handoff-card.client li { color:rgba(24,26,23,.78); }
+    .handoff-card li::before { position:absolute; left:0; content:"✓"; color:var(--lime); font-weight:900; }
+    .handoff-card.client li::before { color:var(--ink); }
+    .security-strip { display:grid; grid-template-columns:.9fr 1.1fr; gap:28px; align-items:start; margin-top:12px; border:1px solid rgba(255,255,255,.13); border-radius:22px; padding:30px; background:#11130f; }
+    .security-copy h4 { margin:0 0 12px; font-family:Georgia,serif; font-size:31px; line-height:1.05; letter-spacing:-.04em; font-weight:500; }
+    .security-copy p { margin:0; color:#aeb2a8; font-size:13px; line-height:1.6; }
+    .security-list { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
+    .security-item { min-height:86px; display:flex; align-items:center; gap:12px; border:1px solid rgba(255,255,255,.1); border-radius:15px; padding:14px; color:#d6d8d1; background:rgba(255,255,255,.045); font-size:11px; font-weight:800; line-height:1.45; }
+    .security-item::before { flex:0 0 28px; width:28px; height:28px; display:grid; place-items:center; border-radius:50%; content:"✓"; color:var(--ink); background:var(--lime); font-weight:900; }
+    .results-note { margin:20px 0 0; color:#92978c; font-size:11px; line-height:1.55; }
     .faq-wrap { display:grid; grid-template-columns:.7fr 1.3fr; gap:60px; }
     details { border-bottom:1px solid var(--line); padding:21px 0; }
     summary { cursor:pointer; min-height:44px; font-weight:800; font-size:15px; list-style:none; display:flex; align-items:center; justify-content:space-between; gap:24px; }
@@ -295,7 +319,7 @@
       .shell { width:min(100% - 32px, 760px); }
       .hero { grid-template-columns:1fr; padding-top:60px; gap:12px; }
       .hero-visual { min-height:560px; }
-      .section-head,.offer-grid,.faq-wrap,.apply,.ideal-grid,.portal-intro,.other-services-head { grid-template-columns:1fr; }
+      .section-head,.offer-grid,.faq-wrap,.apply,.ideal-grid,.portal-intro,.other-services-head,.value-intro,.security-strip { grid-template-columns:1fr; }
       .pain-grid { grid-template-columns:1fr; }
       .process { grid-template-columns:1fr 1fr; }
       .offer { padding:38px 24px; }
@@ -316,7 +340,7 @@
       .float-note { display:none; }
       .section { padding:76px 0; }
       .section-head { gap:20px; }
-      .process,.includes,form { grid-template-columns:1fr; }
+      .process,.includes,form,.outcome-grid,.handoff,.security-list { grid-template-columns:1fr; }
       .portal-preview-grid { grid-template-columns:1fr; }
       .portal-window { border-radius:20px; }
       .portal-window-copy { align-items:flex-start; flex-direction:column; padding:20px; }
@@ -357,6 +381,7 @@
         <button class="menu-trigger" type="button" aria-expanded="false" aria-controls="primary-menu"><span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span><span>Menu</span></button>
         <div class="menu-dropdown" id="primary-menu" aria-hidden="true" inert>
           <a href="#offer">What’s included <span aria-hidden="true">↓</span></a>
+          <a href="#value">What you gain <span aria-hidden="true">↓</span></a>
           <a href="#process">How it works <span aria-hidden="true">↓</span></a>
           <a href="#portal-preview">Client portal preview <span aria-hidden="true">↓</span></a>
           <a href="#faq">FAQ <span aria-hidden="true">↓</span></a>
@@ -370,10 +395,10 @@
     <section class="shell hero">
       <div>
         <h1>Show up like your business <em>means it.</em></h1>
-        <p class="lead">12 custom posts every month—with captions, hashtags, approvals, revisions, and a clear report. Your brand stays active. You stay focused on the business.</p>
+        <p class="lead">Get 12 ready-to-review posts, captions, approvals, and a clear monthly plan—without spending every week deciding what to post. Your brand stays active while you stay focused on customers.</p>
         <div class="actions">
-          <a class="button lime" href="https://innergclaw.github.io/smm-service-tier-1/#apply">Start my AI marketing system <span class="arrow">↗</span></a>
-          <a class="text-link" href="#offer">See what’s included</a>
+          <a class="button lime" href="#apply">Start my AI marketing system <span class="arrow">↗</span></a>
+          <a class="text-link" href="#value">See what you gain</a>
         </div>
         <div class="proofline"><div class="avatars"><span>RE</span><span>SA</span><span>MED</span></div><span>Built for <b>local brands</b> ready to look official online.</span></div>
       </div>
@@ -414,7 +439,7 @@
         <div><div class="kicker">02 / The AI-powered system</div><h3>Everything you need to stay visible—nothing you don’t.</h3><p>A focused marketing system under OWNYOURWEB Systems for small businesses that want AI-assisted efficiency, human-reviewed polish, and consistency without an agency-sized retainer.</p><div class="price"><span data-count="450" data-prefix="$">$450</span><small> / month</small></div></div>
         <div class="includes">
           <div class="include">12 branded posts / month</div><div class="include">3 posts every week</div><div class="include">Custom captions</div><div class="include">Hashtag support</div><div class="include">Client approval portal</div><div class="include">Reasonable revisions</div><div class="include">Monthly performance report</div><div class="include">First-month planning</div>
-          <a href="https://innergclaw.github.io/smm-service-tier-1/#apply" class="include cta">Apply for AI-powered marketing support <span>↗</span></a>
+          <a href="#apply" class="include cta">Apply for AI-powered marketing support <span>↗</span></a>
         </div>
       </div>
     </section>
@@ -454,7 +479,29 @@
     </section>
 
     <section class="shell section" id="value">
-      <div class="value-panel"><div class="kicker">06 / More than posting</div><h3>This is consistency <em>with structure.</em></h3><p>Clear content, thoughtful captions, and an organized approval system help customers see that your business is active, credible, and ready to serve. You run the business. We keep the page alive.</p></div>
+      <div class="value-panel">
+        <div class="value-intro">
+          <div><div class="kicker">06 / What’s in it for you</div><h3>You get your time back—and a page that <em>keeps working.</em></h3></div>
+          <p>You are not paying for access to an AI tool. You are paying for a managed content workflow: strategy, creation, organization, review, and reporting delivered around your actual business.</p>
+        </div>
+
+        <div class="outcome-grid">
+          <article class="outcome-card"><span class="outcome-number">Outcome 01</span><div><h4>Less weekly scrambling.</h4><p>No blank-page caption writing, last-minute graphics, or repeated decisions about what to post next.</p></div></article>
+          <article class="outcome-card"><span class="outcome-number">Outcome 02</span><div><h4>More customer confidence.</h4><p>A consistent, professional page gives prospects visible proof that your business is active and ready to serve.</p></div></article>
+          <article class="outcome-card"><span class="outcome-number">Outcome 03</span><div><h4>Clearer next moves.</h4><p>Your monthly report turns performance into understandable recommendations—not a screen full of unexplained numbers.</p></div></article>
+        </div>
+
+        <div class="handoff">
+          <article class="handoff-card"><h4>OWNYOURWEB handles each month</h4><ul><li>Content direction and monthly planning</li><li>12 branded post designs</li><li>Captions and hashtag support</li><li>Organized approval and revision workflow</li><li>Monthly performance recap and recommendations</li></ul></article>
+          <article class="handoff-card client"><h4>You stay responsible for only</h4><ul><li>Completing the initial business onboarding</li><li>Sharing timely offers, dates, and updates</li><li>Reviewing and approving content</li><li>Serving the customers your visibility attracts</li></ul></article>
+        </div>
+
+        <div class="security-strip">
+          <div class="security-copy"><h4>Built around permission—not your passwords.</h4><p>AI helps us work efficiently, but it does not replace human review or your approval. Your business should always remain in control of its accounts, content, and final decisions.</p></div>
+          <div class="security-list"><div class="security-item">No social-media passwords collected through the application form</div><div class="security-item">Official platform roles or approved access methods</div><div class="security-item">AI drafts remain reviewed before client delivery</div><div class="security-item">Nothing publishes without the agreed approval workflow</div></div>
+        </div>
+        <p class="results-note">OWNYOURWEB manages the content system and improves consistency, clarity, and organization. Specific follower, reach, lead, or sales results cannot be guaranteed and depend on the offer, audience, market, and customer experience.</p>
+      </div>
     </section>
 
     <section class="shell section faq-wrap" id="faq">
@@ -464,6 +511,7 @@
         <details name="service-faq"><summary>Do I need professional photos?</summary><div class="faq-panel"><p>No. We can work with your current brand assets, service photos, testimonials, graphics, and business information.</p></div></details>
         <details name="service-faq"><summary>How many revisions are included?</summary><div class="faq-panel"><p>The starter package includes reasonable revisions on approved posts. Full redesigns or new concepts can be scoped as an add-on.</p></div></details>
         <details name="service-faq"><summary>Is this system for Reels?</summary><div class="faq-panel"><p>The $450 monthly system focuses on static posts and captions. Reels scripts, video ideas, and editing are available as upgrades.</p></div></details>
+        <details name="service-faq"><summary>How do you handle account access and AI?</summary><div class="faq-panel"><p>We do not ask for social-media passwords through the application form. Account access should use official platform roles or approved connection methods. AI-assisted drafts remain subject to human review and your agreed approval workflow.</p></div></details>
         <details name="service-faq"><summary>What happens after I apply?</summary><div class="faq-panel"><p>Your business details are reviewed first. If the system is a good fit, you receive the next steps for payment, onboarding, and your first content cycle.</p></div></details>
       </div>
     </section>
@@ -504,7 +552,7 @@
     </section>
   </main>
 
-  <footer class="shell"><a class="brand" href="#top"><span class="mark">AI</span><span>OWNYOURWEB Systems</span></a><a href="mailto:ownyourwebsmm@gmail.com">ownyourwebsmm@gmail.com</a><span>© 2026 OWNYOURWEB Systems</span><div class="footer-credit">POWERED BY <a href="https://www.instagram.com/shopnasgfx/" target="_blank" rel="noopener noreferrer">SHOPNASGFX</a> + <a href="https://www.instagram.com/heraestheticc/" target="_blank" rel="noopener noreferrer">HER AESTHETICC</a></div></footer>
+  <footer class="shell"><a class="brand" href="#top"><span class="mark">OYM</span><span>OWNYOURWEB Systems</span></a><a href="mailto:ownyourwebsmm@gmail.com">ownyourwebsmm@gmail.com</a><span>© 2026 OWNYOURWEB Systems</span><div class="footer-credit">POWERED BY <a href="https://www.instagram.com/shopnasgfx/" target="_blank" rel="noopener noreferrer">SHOPNASGFX</a> + <a href="https://www.instagram.com/heraestheticc/" target="_blank" rel="noopener noreferrer">HER AESTHETICC</a></div></footer>
   <a class="back-to-top" href="#top" aria-label="Back to top">↑</a>
   <script type="module">
     import { bind, play } from 'https://cdn.jsdelivr.net/npm/cuelume@0.1.0/dist/index.js';
@@ -543,6 +591,9 @@
       '.portal-preview-grid',
       '.ideal-grid',
       '.industry-cloud',
+      '.outcome-grid',
+      '.handoff',
+      '.security-list',
       '.faq-wrap',
       '.apply',
       '.other-services-head',
