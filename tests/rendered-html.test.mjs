@@ -8,8 +8,8 @@ async function render() {
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("https://soap-game-strong.example/", {
-      headers: { accept: "text/html", host: "soap-game-strong.example" },
+    new Request("https://food-fusion-215.example/", {
+      headers: { accept: "text/html", host: "food-fusion-215.example" },
     }),
     {
       ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) },
@@ -18,23 +18,23 @@ async function render() {
   );
 }
 
-test("server-renders the Soap Game Strong operations dashboard", async () => {
+test("server-renders the Food Fusion 215 pickup ordering demo", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Soap Game Strong Order Flow \| Operations Dashboard Demo<\/title>/i);
-  assert.match(html, /Good morning, Soap Game/);
-  assert.match(html, /Today’s order flow/);
-  assert.match(html, /Wholesale/);
-  assert.match(html, /Warehouse pickup/);
-  assert.match(html, /Add order/);
-  assert.match(html, /https:\/\/ownyourweb\.marketing\/demos\/soap-game-strong\/og\.png/);
+  assert.match(html, /<title>Food Fusion 215 \| Philadelphia Pickup Ordering Demo<\/title>/i);
+  assert.match(html, /BIG FLAVOR/);
+  assert.match(html, /Alfredo Bowl/);
+  assert.match(html, /Rice Bowl/);
+  assert.match(html, /Egg Roll Platter/);
+  assert.match(html, /Interactive demo/);
+  assert.match(html, /https:\/\/ownyourweb\.marketing\/demos\/food-fusion-215\/og\.png/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
 });
 
-test("ships the Soap Game Strong dashboard and removes the starter", async () => {
+test("ships the Food Fusion demo and removes the starter", async () => {
   const [page, layout, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
@@ -42,10 +42,11 @@ test("ships the Soap Game Strong dashboard and removes the starter", async () =>
   ]);
 
   await access(new URL("../public/og.png", import.meta.url));
+  await access(new URL("../public/assets/food-fusion-215-flyer.png", import.meta.url));
 
-  assert.match(page, /Soap Game Strong/);
-  assert.match(page, /Never lose an order/);
-  assert.match(page, /soap-game-strong-demo-orders/);
+  assert.match(page, /FOOD FUSION/);
+  assert.match(page, /food-fusion-215-demo-cart/);
+  assert.match(page, /Pay at pickup/);
   assert.match(layout, /export const metadata/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   await assert.rejects(access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)));

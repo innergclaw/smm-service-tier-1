@@ -9,6 +9,7 @@ The site is published with GitHub Pages from the repository root.
 - Marketing site: `/`
 - Interactive client portal demonstration: `/portal/`
 - Soap Game Strong order-flow dashboard: `/demos/soap-game-strong/`
+- Food Fusion 215 pickup-ordering demo: `/demos/food-fusion-215/`
 
 ## Local preview
 
