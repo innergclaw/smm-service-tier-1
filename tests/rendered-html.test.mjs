@@ -8,8 +8,8 @@ async function render() {
   const { default: worker } = await import(workerUrl.href);
 
   return worker.fetch(
-    new Request("https://food-fusion-215.example/", {
-      headers: { accept: "text/html", host: "food-fusion-215.example" },
+    new Request("https://butterfly-links.example/", {
+      headers: { accept: "text/html", host: "butterfly-links.example" },
     }),
     {
       ASSETS: { fetch: async () => new Response("Not found", { status: 404 }) },
@@ -18,36 +18,36 @@ async function render() {
   );
 }
 
-test("server-renders the Food Fusion 215 pickup ordering demo", async () => {
+test("server-renders the butterfly personal link hub", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Food Fusion 215 \| Philadelphia Pickup Ordering Demo<\/title>/i);
-  assert.match(html, /BIG FLAVOR/);
-  assert.match(html, /Alfredo Bowl/);
-  assert.match(html, /Rice Bowl/);
-  assert.match(html, /Egg Roll Platter/);
-  assert.match(html, /Interactive demo/);
-  assert.match(html, /https:\/\/ownyourweb\.marketing\/demos\/food-fusion-215\/og\.png/);
+  assert.match(html, /<title>Butterfly Links \| Entrepreneur &amp; Lifestyle Enthusiast<\/title>/i);
+  assert.match(html, /YOUR NAME/);
+  assert.match(html, /Entrepreneur/);
+  assert.match(html, /Lifestyle Enthusiast/);
+  assert.match(html, /Explore My Business/);
+  assert.match(html, /Shop My Favorites/);
+  assert.match(html, /Work With Me/);
+  assert.match(html, /Preview link hub/);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
 });
 
-test("ships the Food Fusion demo and removes the starter", async () => {
-  const [page, layout, packageJson] = await Promise.all([
+test("keeps the link hub lightweight and ready for final URLs", async () => {
+  const [page, layout, css, packageJson] = await Promise.all([
     readFile(new URL("../app/page.tsx", import.meta.url), "utf8"),
     readFile(new URL("../app/layout.tsx", import.meta.url), "utf8"),
+    readFile(new URL("../app/globals.css", import.meta.url), "utf8"),
     readFile(new URL("../package.json", import.meta.url), "utf8"),
   ]);
 
-  await access(new URL("../public/og.png", import.meta.url));
-  await access(new URL("../public/assets/food-fusion-215-flyer.png", import.meta.url));
-
-  assert.match(page, /FOOD FUSION/);
-  assert.match(page, /food-fusion-215-demo-cart/);
-  assert.match(page, /Pay at pickup/);
+  assert.match(page, /navigator\.share/);
+  assert.match(page, /ready for the final URL/);
   assert.match(layout, /export const metadata/);
+  assert.match(css, /prefers-reduced-motion/);
+  assert.match(css, /cubic-bezier\(\.23, 1, \.32, 1\)/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   await assert.rejects(access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)));
 });

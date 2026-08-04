@@ -6,8 +6,8 @@ const nextConfig: NextConfig = isGitHubPages
   ? {
       output: "export",
       trailingSlash: true,
-      basePath: "/demos/food-fusion-215",
-      assetPrefix: "/demos/food-fusion-215",
+      basePath: "/demos/butterfly-links",
+      assetPrefix: "/demos/butterfly-links",
       images: { unoptimized: true },
       typescript: { tsconfigPath: "tsconfig.pages.json" },
     }
