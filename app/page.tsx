@@ -6,16 +6,15 @@ type LinkItem = {
   label: string;
   note: string;
   symbol: string;
+  href: string;
   featured?: boolean;
 };
 
 const links: LinkItem[] = [
-  { label: "Explore My Business", note: "Business website or storefront", symbol: "01", featured: true },
-  { label: "Shop My Favorites", note: "Curated beauty, style, and lifestyle picks", symbol: "02" },
-  { label: "Work With Me", note: "Partnerships, collaborations, and inquiries", symbol: "03" },
-  { label: "My Lifestyle Diary", note: "Latest stories, inspiration, and updates", symbol: "04" },
-  { label: "Follow on Instagram", note: "Connect the final Instagram profile", symbol: "IG" },
-  { label: "Follow on TikTok", note: "Connect the final TikTok profile", symbol: "TT" },
+  { label: "Aries Club", note: "Join the community on Discord", symbol: "01", href: "https://discord.gg/RTzygdF5N", featured: true },
+  { label: "Marie Stems Floral", note: "Flowers, arrangements, and beautiful moments", symbol: "02", href: "https://www.msfloral.com/" },
+  { label: "RYZE Coffee", note: "Explore my wellness coffee recommendation", symbol: "03", href: "https://get.aspr.app/SH1wfR" },
+  { label: "InnerG Intelligence", note: "Connect with the InnerG community on Discord", symbol: "04", href: "https://discord.gg/3ryNWTvsX" },
 ];
 
 export default function Home() {
@@ -49,7 +48,7 @@ export default function Home() {
         <div className="card-glow" aria-hidden="true"></div>
         <header className="profile-head">
           <button className="share-button" type="button" onClick={sharePage} aria-label="Share this page">↗</button>
-          <div className="portrait" aria-label="Profile photo placeholder"><span>HER</span><i>✦</i></div>
+          <div className="portrait"><img src="./assets/butterfly-profile-photo.jpg" alt="Profile portrait" /><i>✦</i></div>
           <p className="overline">Welcome to my little corner of the internet</p>
           <h1 id="profile-name">YOUR NAME</h1>
           <p className="role">Entrepreneur <span>✧</span> Lifestyle Enthusiast</p>
@@ -58,18 +57,18 @@ export default function Home() {
 
         <div className="link-stack" aria-label="Profile links">
           {links.map((item) => (
-            <button key={item.label} className={item.featured ? "link-button featured" : "link-button"} type="button" onClick={() => announce(`${item.label} is ready for the final URL.`)}>
+            <a key={item.label} className={item.featured ? "link-button featured" : "link-button"} href={item.href} target="_blank" rel="noopener noreferrer">
               <span className="link-number">{item.symbol}</span>
               <span className="link-copy"><strong>{item.label}</strong><small>{item.note}</small></span>
               <span className="link-arrow">↗</span>
-            </button>
+            </a>
           ))}
         </div>
 
         <footer className="card-footer">
           <span>✦</span><p>Soft life. Bold dreams. Beautiful becoming.</p><span>✦</span>
         </footer>
-        <p className="preview-note">Preview link hub · Final name, photo, and destinations ready to connect</p>
+        <p className="preview-note">Profile and links connected · Name ready to personalize</p>
       </section>
 
       <div className="fairy-dust fairy-left" aria-hidden="true">✧　⋆　˚　✦</div>

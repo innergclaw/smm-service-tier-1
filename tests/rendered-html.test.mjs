@@ -28,10 +28,12 @@ test("server-renders the butterfly personal link hub", async () => {
   assert.match(html, /YOUR NAME/);
   assert.match(html, /Entrepreneur/);
   assert.match(html, /Lifestyle Enthusiast/);
-  assert.match(html, /Explore My Business/);
-  assert.match(html, /Shop My Favorites/);
-  assert.match(html, /Work With Me/);
-  assert.match(html, /Preview link hub/);
+  assert.match(html, /Aries Club/);
+  assert.match(html, /Marie Stems Floral/);
+  assert.match(html, /RYZE Coffee/);
+  assert.match(html, /InnerG Intelligence/);
+  assert.match(html, /https:\/\/discord\.gg\/RTzygdF5N/);
+  assert.match(html, /https:\/\/www\.msfloral\.com\//);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
 });
 
@@ -44,10 +46,12 @@ test("keeps the link hub lightweight and ready for final URLs", async () => {
   ]);
 
   assert.match(page, /navigator\.share/);
-  assert.match(page, /ready for the final URL/);
+  assert.match(page, /https:\/\/get\.aspr\.app\/SH1wfR/);
+  assert.match(page, /butterfly-profile-photo\.jpg/);
   assert.match(layout, /export const metadata/);
   assert.match(css, /prefers-reduced-motion/);
   assert.match(css, /cubic-bezier\(\.23, 1, \.32, 1\)/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
+  await access(new URL("../public/assets/butterfly-profile-photo.jpg", import.meta.url));
   await assert.rejects(access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)));
 });
