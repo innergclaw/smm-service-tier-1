@@ -5,18 +5,18 @@ const pageUrl = "https://ownyourweb.marketing/demos/butterfly-links/";
 
 export const metadata: Metadata = {
   metadataBase: new URL(pageUrl),
-  title: "Butterfly Links | Entrepreneur & Lifestyle Enthusiast",
-  description: "A feminine butterfly-themed personal link hub for an entrepreneur and lifestyle enthusiast.",
+  title: "Yakira Lynn | Entrepreneur & Lifestyle Enthusiast",
+  description: "The personal link hub for Yakira Lynn—entrepreneur and lifestyle enthusiast.",
   alternates: { canonical: pageUrl },
   openGraph: {
-    title: "Butterfly Links",
+    title: "Yakira Lynn",
     description: "Entrepreneur · Lifestyle Enthusiast",
     type: "website",
     url: pageUrl,
   },
   twitter: {
     card: "summary_large_image",
-    title: "Butterfly Links",
+    title: "Yakira Lynn",
     description: "Entrepreneur · Lifestyle Enthusiast",
   },
 };

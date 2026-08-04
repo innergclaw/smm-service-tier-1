@@ -24,8 +24,8 @@ test("server-renders the butterfly personal link hub", async () => {
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
 
   const html = await response.text();
-  assert.match(html, /<title>Butterfly Links \| Entrepreneur &amp; Lifestyle Enthusiast<\/title>/i);
-  assert.match(html, /YOUR NAME/);
+  assert.match(html, /<title>Yakira Lynn \| Entrepreneur &amp; Lifestyle Enthusiast<\/title>/i);
+  assert.match(html, /YAKIRA LYNN/);
   assert.match(html, /Entrepreneur/);
   assert.match(html, /Lifestyle Enthusiast/);
   assert.match(html, /Aries Club/);

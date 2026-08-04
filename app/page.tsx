@@ -50,7 +50,7 @@ export default function Home() {
           <button className="share-button" type="button" onClick={sharePage} aria-label="Share this page">↗</button>
           <div className="portrait"><img src="./assets/butterfly-profile-photo.jpg" alt="Profile portrait" /><i>✦</i></div>
           <p className="overline">Welcome to my little corner of the internet</p>
-          <h1 id="profile-name">YOUR NAME</h1>
+          <h1 id="profile-name">YAKIRA LYNN</h1>
           <p className="role">Entrepreneur <span>✧</span> Lifestyle Enthusiast</p>
           <p className="bio">Building beautiful things, romanticizing the journey, and sharing everything I love along the way.</p>
         </header>
