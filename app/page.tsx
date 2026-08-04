@@ -40,40 +40,43 @@ export default function Home() {
       <div className="aurora aurora-one" aria-hidden="true"></div>
       <div className="aurora aurora-two" aria-hidden="true"></div>
       <div className="star-field" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <span className="butterfly butterfly-one" aria-hidden="true">🦋</span>
-      <span className="butterfly butterfly-two" aria-hidden="true">🦋</span>
-      <span className="butterfly butterfly-three" aria-hidden="true">🦋</span>
+      <span className="butterfly-shape butterfly-one" aria-hidden="true"><b></b></span>
+      <span className="butterfly-shape butterfly-two" aria-hidden="true"><b></b></span>
+      <span className="butterfly-shape butterfly-three" aria-hidden="true"><b></b></span>
 
       <section className="link-card" aria-labelledby="profile-name">
         <div className="card-glow" aria-hidden="true"></div>
         <header className="profile-head">
           <button className="share-button" type="button" onClick={sharePage} aria-label="Share this page">↗</button>
-          <div className="portrait"><img src="./assets/butterfly-profile-photo.jpg" alt="Profile portrait" /><i>✦</i></div>
+          <div className="portrait"><img src="./assets/butterfly-profile-photo.jpg" alt="Profile portrait" /><i aria-hidden="true"></i></div>
           <p className="overline">Welcome to my little corner of the internet</p>
           <h1 id="profile-name">YAKIRA LYNN</h1>
-          <p className="role">Entrepreneur <span>✧</span> Lifestyle Enthusiast</p>
+          <p className="role">Entrepreneur <span aria-hidden="true"></span> Lifestyle Enthusiast</p>
           <p className="bio">Building beautiful things, romanticizing the journey, and sharing everything I love along the way.</p>
         </header>
 
         <div className="link-stack" aria-label="Profile links">
           {links.map((item) => (
-            <a key={item.label} className={item.featured ? "link-button featured" : "link-button"} href={item.href} target="_blank" rel="noopener noreferrer">
-              <span className="link-number">{item.symbol}</span>
-              <span className="link-copy"><strong>{item.label}</strong><small>{item.note}</small></span>
-              <span className="link-arrow">↗</span>
-            </a>
+            <details key={item.label} name="yakira-links" className={item.featured ? "link-disclosure featured" : "link-disclosure"}>
+              <summary>
+                <span className="link-number">{item.symbol}</span>
+                <span className="link-copy"><strong>{item.label}</strong><small>Tap to reveal</small></span>
+                <span className="link-caret" aria-hidden="true"></span>
+              </summary>
+              <div className="link-panel">
+                <div className="dust" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+                <p>{item.note}</p>
+                <a href={item.href} target="_blank" rel="noopener noreferrer">Open {item.label}<span aria-hidden="true">↗</span></a>
+              </div>
+            </details>
           ))}
         </div>
 
-        <footer className="card-footer">
-          <span>✦</span><p>Soft life. Bold dreams. Beautiful becoming.</p><span>✦</span>
-        </footer>
+        <footer className="card-footer"><p>Soft life. Bold dreams. Beautiful becoming.</p></footer>
         <p className="preview-note">Profile and links connected · Name ready to personalize</p>
       </section>
 
-      <div className="fairy-dust fairy-left" aria-hidden="true">✧　⋆　˚　✦</div>
-      <div className="fairy-dust fairy-right" aria-hidden="true">✦　˚　⋆　✧</div>
-      {toast && <div className="toast" role="status"><span>🦋</span>{toast}</div>}
+      {toast && <div className="toast" role="status"><span className="toast-dot" aria-hidden="true"></span>{toast}</div>}
     </main>
   );
 }

@@ -34,6 +34,9 @@ test("server-renders the butterfly personal link hub", async () => {
   assert.match(html, /InnerG Intelligence/);
   assert.match(html, /https:\/\/discord\.gg\/RTzygdF5N/);
   assert.match(html, /https:\/\/www\.msfloral\.com\//);
+  assert.match(html, /<details[^>]+name="yakira-links"/);
+  assert.match(html, /Tap to reveal/);
+  assert.doesNotMatch(html, /🦋/u);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
 });
 
@@ -51,6 +54,8 @@ test("keeps the link hub lightweight and ready for final URLs", async () => {
   assert.match(layout, /export const metadata/);
   assert.match(css, /prefers-reduced-motion/);
   assert.match(css, /cubic-bezier\(\.23, 1, \.32, 1\)/);
+  assert.match(css, /dust-bloom/);
+  assert.match(css, /butterfly-shape/);
   assert.doesNotMatch(packageJson, /react-loading-skeleton/);
   await access(new URL("../public/assets/butterfly-profile-photo.jpg", import.meta.url));
   await assert.rejects(access(new URL("../app/_sites-preview/SkeletonPreview.tsx", import.meta.url)));
