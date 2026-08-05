@@ -36,6 +36,7 @@ test("server-renders the butterfly personal link hub", async () => {
   assert.match(html, /https:\/\/www\.msfloral\.com\//);
   assert.match(html, /<details[^>]+name="yakira-links"/);
   assert.match(html, /Tap to reveal/);
+  assert.doesNotMatch(html, /Building beautiful things/i);
   assert.doesNotMatch(html, /🦋/u);
   assert.doesNotMatch(html, /codex-preview|Your site is taking shape|react-loading-skeleton/i);
 });

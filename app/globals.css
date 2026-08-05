@@ -55,9 +55,11 @@ button { font: inherit; }
 @keyframes twinkle { 0%,100%{opacity:.18;transform:scale(.65) rotate(0)} 50%{opacity:1;transform:scale(1.7) rotate(45deg)} }
 
 .link-card {
+  --card-pad: clamp(18px, 5vw, 38px);
   position: relative;
   width: min(100%, 520px);
-  padding: clamp(30px, 7vw, 58px) clamp(18px, 5vw, 38px) 22px;
+  overflow: hidden;
+  padding: 0 var(--card-pad) 22px;
   border: 1px solid rgba(255,255,255,.34);
   border-radius: 42px 42px 90px 90px;
   background: linear-gradient(160deg, rgba(255,250,252,.86), rgba(237,220,246,.73));
@@ -71,17 +73,16 @@ button { font: inherit; }
 .card-glow { position: absolute; z-index: -1; inset: 28% 6% 12%; border-radius: 50%; background: rgba(199,141,184,.22); filter: blur(44px); }
 
 .profile-head { position: relative; text-align: center; }
-.share-button { position: absolute; z-index: 2; top: -22px; right: -2px; width: 42px; height: 42px; border: 1px solid rgba(72,48,86,.22); border-radius: 50%; background: rgba(255,255,255,.48); color: var(--ink); cursor: pointer; font-size: 17px; transition: transform 160ms var(--ease-out), background-color 160ms ease; }
-.portrait { position: relative; width: 112px; height: 112px; margin: 0 auto 22px; display: grid; place-items: center; overflow: visible; border-radius: 50%; background: linear-gradient(135deg,#ebcfe4,#5a4169); border: 4px solid rgba(255,255,255,.84); box-shadow: 0 12px 34px rgba(79,49,98,.3), 0 0 0 1px rgba(93,64,109,.25); }
-.portrait::before { content:""; position:absolute; z-index:1; inset:7px; border:1px solid rgba(255,255,255,.46); border-radius:50%; pointer-events:none; }
-.portrait img { width:100%; height:100%; object-fit:cover; object-position:50% 30%; border-radius:50%; }
-.portrait i { position: absolute; right: -8px; top: 2px; width: 27px; height: 27px; display:grid;place-items:center;border-radius:50%;background:var(--pearl);box-shadow:0 6px 14px rgba(61,38,75,.2); }
-.portrait i::before { content:""; width:7px; height:7px; border-radius:50%; background:var(--rose); box-shadow:0 0 0 4px rgba(191,118,153,.14); }
+.share-button { position: absolute; z-index: 3; top: 18px; right: -20px; width: 42px; height: 42px; border: 1px solid rgba(255,255,255,.58); border-radius: 50%; background: rgba(255,255,255,.7); color: var(--ink); box-shadow:0 10px 28px rgba(32,20,40,.16); backdrop-filter:blur(12px); cursor: pointer; font-size: 17px; transition: transform 160ms var(--ease-out), background-color 160ms ease; }
+.portrait { position: relative; width: calc(100% + (var(--card-pad) * 2)); height: clamp(340px, 88vw, 480px); margin: 0 calc(var(--card-pad) * -1) -84px; overflow: hidden; border-radius: 41px 41px 0 0; background: #8b7387; }
+.portrait::before { content:""; position:absolute; z-index:1; inset:0; border-radius:inherit; background:linear-gradient(to bottom, rgba(30,18,36,0) 44%, rgba(227,207,225,.14) 61%, rgba(240,224,239,.78) 82%, rgba(246,232,244,1) 100%); pointer-events:none; }
+.portrait::after { content:""; position:absolute; z-index:1; inset:8px 8px auto; height:calc(100% - 16px); border:1px solid rgba(255,255,255,.34); border-bottom:0; border-radius:34px 34px 0 0; pointer-events:none; }
+.portrait img { width:100%; height:100%; display:block; object-fit:cover; object-position:50% 28%; transform:scale(1.01); }
+.overline, .profile-head h1, .role { position:relative; z-index:2; }
 .overline { margin: 0 0 10px; color: #765d80; font-size: 8px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase; }
 .profile-head h1 { margin: 0; font-family: "Italiana", serif; font-size: clamp(46px, 12vw, 68px); font-weight: 400; line-height: .95; letter-spacing: -.04em; }
 .role { margin: 13px 0 0; color: #795b82; font-family: "Italiana", serif; font-size: 17px; }
 .role span { display: inline-block; width:4px; height:4px; margin:0 8px 3px; border-radius:50%; background:var(--rose); box-shadow:0 0 10px rgba(191,118,153,.55); }
-.bio { max-width: 390px; margin: 18px auto 0; color: #6c5a72; font-size: 12px; line-height: 1.65; }
 
 .link-stack { position: relative; margin-top: 32px; display: grid; gap: 11px; }
 .link-disclosure { width:100%; overflow:hidden; border:1px solid rgba(77,52,91,.17); border-radius:22px; background:rgba(255,255,255,.5); color:var(--ink); box-shadow:0 8px 22px rgba(87,52,105,.075), inset 0 1px 0 rgba(255,255,255,.86); opacity:0; transform:translateY(8px); animation:link-enter 340ms var(--ease-out) forwards; transition:border-color 160ms ease, background-color 160ms ease; }
@@ -143,6 +144,9 @@ button { font: inherit; }
   .page-shell { place-items: start center; padding-top: 24px; padding-bottom: 54px; }
   .link-card { border-radius: 32px 32px 64px 64px; }
   .link-card::before { border-radius: 25px 25px 57px 57px; }
+  .portrait { border-radius:31px 31px 0 0; margin-bottom:-72px; }
+  .portrait::after { border-radius:24px 24px 0 0; }
+  .share-button { top:14px; right:8px; }
   .butterfly-one { left: -5px; top: 8%; transform:scale(.72); }
   .butterfly-two { right: -4px; top: 78%; transform:scale(.68); }
   .butterfly-three { display:none; }
