@@ -1,0 +1,34 @@
+REFERENCE ROOM — VISUAL DIRECTION STARTER
+
+Use these as building blocks in any AI image prompt. Combine a point of view,
+place, light, material, and mood to make your image more specific.
+
+1. POINT OF VIEW
+"observed from the doorway, as if arriving late"
+"close enough to notice the fingerprint on the glass"
+"a low angle that makes an ordinary object feel important"
+
+2. PLACE
+"a sun-warmed laundromat just before closing"
+"a quiet apartment kitchen after a long conversation"
+"a narrow corner store with handmade signs and fluorescent light"
+
+3. LIGHT
+"soft morning light interrupted by window blinds"
+"a single warm lamp against blue evening shadows"
+"flash photography, slightly imperfect and alive"
+
+4. TEXTURE
+"creased linen, brushed metal, paper edges, and worn leather"
+"light grain, imperfect focus, archival print feeling"
+"matte surfaces with one small high-shine detail"
+
+5. MOOD
+"private but not lonely"
+"quiet confidence, no performance"
+"familiar, collected, and slightly unfinished"
+
+PROMPT FORMULA
+[subject] + [point of view] + [place] + [light] + [texture] + [mood]
+
+Example: A pair of red shoes on a kitchen chair, observed from the doorway, in a quiet apartment kitchen after a long conversation, a single warm lamp against blue evening shadows, creased linen and matte wood, private but not lonely.

@@ -1,81 +1,20 @@
 "use client";
 
-import { useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 
-type LinkItem = {
-  label: string;
-  note: string;
-  symbol: string;
-  href: string;
-  featured?: boolean;
-};
-
-const links: LinkItem[] = [
-  { label: "Aries Club", note: "Join the community on Discord", symbol: "01", href: "https://discord.gg/RTzygdF5N", featured: true },
-  { label: "Marie Stems Floral", note: "Flowers, arrangements, and beautiful moments", symbol: "02", href: "https://www.msfloral.com/" },
-  { label: "RYZE Coffee", note: "Explore my wellness coffee recommendation", symbol: "03", href: "https://get.aspr.app/SH1wfR" },
-  { label: "InnerG Intelligence", note: "Connect with the InnerG community on Discord", symbol: "04", href: "https://discord.gg/3ryNWTvsX" },
+type Pack = { title: string; description: string; format: string; tag: string; theme: string; free?: boolean };
+const packs: Pack[] = [
+  { title: "The Visual Direction Kit", description: "A clean starting point for writing image prompts with a point of view.", format: "12 prompt frameworks", tag: "FREE", theme: "violet", free: true },
+  { title: "Faces With History", description: "Portrait direction that feels specific, lived-in, and far from stock.", format: "40 prompt references", tag: "DROP 01", theme: "copper" },
+  { title: "The World Around Them", description: "Interiors, corners, streets, and textures that make a generated image feel placed.", format: "48 scene references", tag: "DROP 02", theme: "moss" },
+  { title: "Editorial Objects", description: "Quiet product and still-life setups for brands, decks, and art direction.", format: "32 prompt references", tag: "DROP 03", theme: "blue" },
 ];
 
 export default function Home() {
-  const [toast, setToast] = useState("");
-
-  function announce(message: string) {
-    setToast(message);
-    window.setTimeout(() => setToast(""), 2600);
-  }
-
-  async function sharePage() {
-    const shareData = { title: "Butterfly Links", text: "Entrepreneur · Lifestyle Enthusiast", url: window.location.href };
-    if (navigator.share) {
-      try { await navigator.share(shareData); } catch { /* User dismissed the share sheet. */ }
-      return;
-    }
-    await navigator.clipboard.writeText(window.location.href);
-    announce("Link copied to your clipboard.");
-  }
-
-  return (
-    <main className="page-shell">
-      <div className="aurora aurora-one" aria-hidden="true"></div>
-      <div className="aurora aurora-two" aria-hidden="true"></div>
-      <div className="star-field" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-      <span className="butterfly-shape butterfly-one" aria-hidden="true"><b></b></span>
-      <span className="butterfly-shape butterfly-two" aria-hidden="true"><b></b></span>
-      <span className="butterfly-shape butterfly-three" aria-hidden="true"><b></b></span>
-
-      <section className="link-card" aria-labelledby="profile-name">
-        <div className="card-glow" aria-hidden="true"></div>
-        <header className="profile-head">
-          <button className="share-button" type="button" onClick={sharePage} aria-label="Share this page">↗</button>
-          <div className="portrait"><img src="./assets/butterfly-profile-photo.jpg" alt="Yakira Lynn" /></div>
-          <p className="overline">Welcome to my little corner of the internet</p>
-          <h1 id="profile-name">YAKIRA LYNN</h1>
-          <p className="role">Entrepreneur <span aria-hidden="true"></span> Lifestyle Enthusiast</p>
-        </header>
-
-        <div className="link-stack" aria-label="Profile links">
-          {links.map((item) => (
-            <details key={item.label} name="yakira-links" className={item.featured ? "link-disclosure featured" : "link-disclosure"}>
-              <summary>
-                <span className="link-number">{item.symbol}</span>
-                <span className="link-copy"><strong>{item.label}</strong><small>Tap to reveal</small></span>
-                <span className="link-caret" aria-hidden="true"></span>
-              </summary>
-              <div className="link-panel">
-                <div className="dust" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
-                <p>{item.note}</p>
-                <a href={item.href} target="_blank" rel="noopener noreferrer">Open {item.label}<span aria-hidden="true">↗</span></a>
-              </div>
-            </details>
-          ))}
-        </div>
-
-        <footer className="card-footer"><p>Soft life. Bold dreams. Beautiful becoming.</p></footer>
-        <p className="preview-note">Profile and links connected · Name ready to personalize</p>
-      </section>
-
-      {toast && <div className="toast" role="status"><span className="toast-dot" aria-hidden="true"></span>{toast}</div>}
-    </main>
-  );
+  const [hasAccess, setHasAccess] = useState(false); const [email, setEmail] = useState(""); const [status, setStatus] = useState(""); const [menuOpen, setMenuOpen] = useState(false);
+  useEffect(() => setHasAccess(document.cookie.split(";").some((part) => part.trim().startsWith("reference-room-access="))), []);
+  async function unlock(event: FormEvent<HTMLFormElement>) { event.preventDefault(); setStatus("Opening the library…"); try { const response = await fetch("/api/access", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ email }) }); if (!response.ok) throw new Error(); setHasAccess(true); setStatus(""); } catch { setStatus("We could not save your access. Please try again."); } }
+  function showSoon() { setStatus("This paid pack is being prepared. Join the list and you’ll have access when it drops."); }
+  if (!hasAccess) return <main className="gate-shell"><div className="gate-mark">RR</div><section className="gate-card" aria-labelledby="gate-title"><p className="eyebrow">A reference library for the AI era</p><h1 id="gate-title">Make the model see what you mean.</h1><p className="gate-copy">Reference Room is a growing collection of image direction, prompt language, and visual packs made for people creating with chat and AI image models.</p><form onSubmit={unlock} className="gate-form"><label htmlFor="email">Your email unlocks the library</label><div className="email-row"><input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@email.com" autoComplete="email" required /><button type="submit">Enter</button></div><p>Come back anytime on this device and you’ll stay in.</p></form>{status && <p className="form-status" role="status">{status}</p>}</section><p className="gate-footer">Original visual direction for more intentional generations.</p></main>;
+  return <main><header className="site-header"><a className="brand" href="#top" aria-label="Reference Room home"><span>RR</span> Reference Room</a><button className="menu-button" onClick={() => setMenuOpen(!menuOpen)} aria-expanded={menuOpen} aria-controls="site-navigation">Menu</button><nav id="site-navigation" className={menuOpen ? "open" : ""}><a href="#freebies" onClick={() => setMenuOpen(false)}>Freebies</a><a href="#library" onClick={() => setMenuOpen(false)}>Packs</a><a href="#how-it-works" onClick={() => setMenuOpen(false)}>How it works</a><a href="#help" onClick={() => setMenuOpen(false)}>Help</a></nav></header><section id="top" className="hero"><div><p className="eyebrow">A better reference for better generations</p><h1>Less generic.<br /><em>More you.</em></h1><p className="hero-copy">Browse ready-to-use visual references and prompt direction built to help your favorite AI models make images with taste, context, and precision.</p><div className="hero-actions"><a className="button dark" href="#freebies">Start with a freebie <span>↓</span></a><a className="text-link" href="#library">Browse all packs</a></div></div><div className="hero-art" aria-label="Abstract visual reference collage"><div className="art-card card-one"><span>01</span><b>direction<br />is detail</b></div><div className="art-card card-two"><span>02</span><b>make it<br />specific</b></div><div className="art-note">For image models<br />and creative chat</div></div></section><section id="freebies" className="feature-strip"><div><p className="eyebrow">Free to start</p><h2>Your first piece of direction is on us.</h2></div><div className="freebie-card"><span className="mini-label">FREE DOWNLOAD</span><h3>Visual Direction Starter</h3><p>12 useful ways to describe a feeling, frame, texture, place, and point of view.</p><a href="/downloads/visual-direction-starter.txt" download className="button light">Download the starter <span>↓</span></a></div></section><section id="library" className="library-section"><div className="section-head"><div><p className="eyebrow">The library</p><h2>References with a point of view.</h2></div><p>Every pack is written for use with image models, chat, moodboards, and creative briefs.</p></div><div className="pack-grid">{packs.map((pack) => <article className="pack-card" key={pack.title}><div className={`pack-art ${pack.theme}`}><span>{pack.tag}</span><i></i><i></i><b>{pack.title.split(" ").slice(0, 2).join(" ")}</b></div><div className="pack-info"><p className="mini-label">{pack.format}</p><h3>{pack.title}</h3><p>{pack.description}</p>{pack.free ? <a className="card-link" href="/downloads/visual-direction-starter.txt" download>Get it free <span>↘</span></a> : <button className="card-link" onClick={showSoon}>Get notified <span>↗</span></button>}</div></article>)}</div></section><section id="how-it-works" className="how-section"><p className="eyebrow">Simple by design</p><h2>Find a pack. Give your model better material. Make something that feels like yours.</h2><div className="steps"><p><span>01</span>Pick a visual world that fits your project.</p><p><span>02</span>Download the reference and prompt direction.</p><p><span>03</span>Use it in your chat or image workflow.</p></div></section><section id="help" className="help-section"><div><p className="eyebrow">Need a hand?</p><h2>New to AI image tools?</h2><p>Start with the free pack. It shows you how to use references without overthinking the prompt.</p></div><a className="button dark" href="mailto:hello@referenceroom.co?subject=Reference%20Room%20help">Ask a question <span>↗</span></a></section>{status && <div className="toast" role="status">{status}<button onClick={() => setStatus("")} aria-label="Dismiss message">×</button></div>}<footer><a className="brand" href="#top"><span>RR</span> Reference Room</a><p>Built for the next generation of creators.</p></footer></main>;
 }

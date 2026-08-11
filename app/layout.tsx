@@ -1,26 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
-const pageUrl = "https://ownyourweb.marketing/demos/butterfly-links/";
-
 export const metadata: Metadata = {
-  metadataBase: new URL(pageUrl),
-  title: "Yakira Lynn | Entrepreneur & Lifestyle Enthusiast",
-  description: "The personal link hub for Yakira Lynn—entrepreneur and lifestyle enthusiast.",
-  alternates: { canonical: pageUrl },
-  openGraph: {
-    title: "Yakira Lynn",
-    description: "Entrepreneur · Lifestyle Enthusiast",
-    type: "website",
-    url: pageUrl,
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "Yakira Lynn",
-    description: "Entrepreneur · Lifestyle Enthusiast",
-  },
+  title: "Reference Room | Better direction for AI images",
+  description: "A resource library of visual references and prompt direction for AI image models.",
+  openGraph: { title: "Reference Room", description: "Less generic. More you.", type: "website", images: [{ url: "/og.png", width: 1200, height: 630, alt: "Reference Room — Less generic. More you." }] },
+  twitter: { card: "summary_large_image", title: "Reference Room", description: "Better direction for AI images.", images: ["/og.png"] },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="en"><body>{children}</body></html>;
-}
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en"><body>{children}</body></html>; }

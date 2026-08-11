@@ -14,6 +14,15 @@ interface Env {
   };
 }
 
+const accessSchema = `CREATE TABLE IF NOT EXISTS library_access (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  email TEXT NOT NULL UNIQUE,
+  access_token TEXT NOT NULL UNIQUE,
+  created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
+)`;
+
+function accessCookie(token: string) { return `reference-room-access=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=31536000`; }
+
 interface ExecutionContext {
   waitUntil(promise: Promise<unknown>): void;
   passThroughOnException(): void;
@@ -28,6 +37,19 @@ interface ExecutionContext {
 const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
+
+    if (url.pathname === "/api/access" && request.method === "POST") {
+      try {
+        const body = await request.json() as { email?: string };
+        const email = body.email?.trim().toLowerCase();
+        if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return Response.json({ error: "A valid email is required." }, { status: 400 });
+        await env.DB.prepare(accessSchema).run();
+        const existing = await env.DB.prepare("SELECT access_token FROM library_access WHERE email = ?").bind(email).first<{ access_token: string }>();
+        const token = existing?.access_token ?? crypto.randomUUID();
+        if (!existing) await env.DB.prepare("INSERT INTO library_access (email, access_token) VALUES (?, ?)").bind(email, token).run();
+        return Response.json({ ok: true }, { headers: { "Set-Cookie": accessCookie(token) } });
+      } catch { return Response.json({ error: "Unable to create access." }, { status: 500 }); }
+    }
 
     if (url.pathname === "/_vinext/image") {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];
