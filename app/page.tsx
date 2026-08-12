@@ -2,8 +2,8 @@ const links = [
   {
     number: "01",
     title: "HIRE / BOOK ME",
-    description: "Education, systems, and the ideas behind the work.",
-    href: "https://nasirr.innergintel.org/speaking.html",
+    description: "Start with the work, then book a conversation.",
+    href: "about/",
   },
   {
     number: "02",
