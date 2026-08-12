@@ -1,15 +1,21 @@
 const links = [
   {
     number: "01",
-    title: "InnerG Intel",
+    title: "nasirr.innergintel.org",
     description: "Education, systems, and the ideas behind the work.",
-    href: "https://innergintel.com/",
+    href: "https://nasirr.innergintel.org/",
   },
   {
     number: "02",
     title: "OwnYourWeb",
     description: "Websites and digital systems you can actually control.",
     href: "https://ownyourweb.marketing/",
+  },
+  {
+    number: "03",
+    title: "INNERGREADS.STUDY",
+    description: "A study space for ideas, reading, and deeper learning.",
+    href: "https://innergreads.study/",
   },
 ];
 
@@ -23,6 +29,24 @@ export default function Home() {
           <h1>Nasirr Mayo</h1>
           <p className="profile-role">Founder of InnerG Intel, OwnYourWeb &amp; ShopNasGraphics</p>
         </header>
+
+        <section className="video-card" aria-labelledby="video-title">
+          <div className="video-heading">
+            <div>
+              <h2 id="video-title">Building in public</h2>
+              <p>A short look at the work, the lessons, and what comes next.</p>
+            </div>
+          </div>
+          <div className="video-frame">
+            <iframe
+              src="https://www.youtube.com/embed/l51OeTcUJK4"
+              title="Nasirr Mayo — Building in public"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+        </section>
 
         <section className="about" aria-labelledby="about-title">
           <p className="section-label" id="about-title">About me</p>
@@ -49,25 +73,6 @@ export default function Home() {
             </a>
           ))}
         </nav>
-
-        <section className="video-card" aria-labelledby="video-title">
-          <div className="video-heading">
-            <span className="link-number">03</span>
-            <div>
-              <h2 id="video-title">Building in public</h2>
-              <p>A short look at the work, the lessons, and what comes next.</p>
-            </div>
-          </div>
-          <div className="video-frame">
-            <iframe
-              src="https://www.youtube.com/embed/l51OeTcUJK4"
-              title="Nasirr Mayo — Building in public"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-            />
-          </div>
-        </section>
 
         <footer className="link-tree-footer">
           <span>NM</span>
