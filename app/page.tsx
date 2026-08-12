@@ -1,21 +1,21 @@
 const links = [
   {
     number: "01",
-    title: "nasirr.innergintel.org",
+    title: "HIRE / BOOK ME",
     description: "Education, systems, and the ideas behind the work.",
     href: "https://nasirr.innergintel.org/",
   },
   {
     number: "02",
-    title: "OwnYourWeb",
+    title: "OWNYOURWEB SYSTEMS",
     description: "Websites and digital systems you can actually control.",
     href: "https://ownyourweb.marketing/",
   },
   {
     number: "03",
-    title: "INNERGREADS.STUDY",
-    description: "A study space for ideas, reading, and deeper learning.",
-    href: "https://innergreads.study/",
+    title: "INNERG INTEL",
+    description: "Education, systems, and the ideas behind the work.",
+    href: "https://innergintel.com/",
   },
 ];
 
@@ -69,7 +69,6 @@ export default function Home() {
                 <strong>{link.title}</strong>
                 <small>{link.description}</small>
               </span>
-              <span className="link-arrow" aria-hidden="true">↗</span>
             </a>
           ))}
         </nav>
