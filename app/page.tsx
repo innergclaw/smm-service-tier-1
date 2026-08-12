@@ -1,21 +1,79 @@
-"use client";
-
-import { FormEvent, useEffect, useState } from "react";
-
-const categories = [
-  { name: "Character + Cartoon", note: "Character PNG packs", mark: "✦", color: "lavender" },
-  { name: "Kawaii + Cute", note: "Cute PNG packs", mark: "♡", color: "peach" },
-  { name: "Street + Lifestyle", note: "Lifestyle PNG packs", mark: "◒", color: "sky" },
-  { name: "Web + Resources", note: "Website-ready PNG packs", mark: "⌘", color: "mint" },
-  { name: "Objects + Decor", note: "Object PNG packs", mark: "✳", color: "butter" },
-  { name: "Seasonal + Events", note: "Seasonal PNG packs", mark: "☼", color: "pink" },
+const links = [
+  {
+    number: "01",
+    title: "InnerG Intel",
+    description: "Education, systems, and the ideas behind the work.",
+    href: "https://innergintel.com/",
+  },
+  {
+    number: "02",
+    title: "OwnYourWeb",
+    description: "Websites and digital systems you can actually control.",
+    href: "https://ownyourweb.marketing/",
+  },
 ];
 
 export default function Home() {
-  const [hasAccess, setHasAccess] = useState(false); const [email, setEmail] = useState(""); const [status, setStatus] = useState("");
-  useEffect(() => { const savedEmail = window.localStorage.getItem("reference-room-email"); if (savedEmail) { setEmail(savedEmail); setHasAccess(true); } }, []);
-  function unlock(event: FormEvent<HTMLFormElement>) { event.preventDefault(); window.localStorage.setItem("reference-room-email", email.trim().toLowerCase()); setHasAccess(true); }
-  function showCategory(name: string) { setStatus(`${name} is ready for your first PNG pack.`); }
-  if (!hasAccess) return <main className="access"><header className="access-top"><span>REFERENCE ROOM</span><span>PNG PACK LIBRARY</span></header><section className="access-body"><div><p className="eyebrow">A simple place to collect PNG packs</p><h1>Browse by<br /><em>category.</em></h1></div><div className="access-side"><p>Enter once, then come back anytime to find new PNG packs by style.</p><form onSubmit={unlock}><label htmlFor="email">Your email unlocks the library</label><div className="access-input"><input id="email" type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="you@email.com" autoComplete="email" required /><button type="submit">Enter</button></div><small>Access is remembered on this device.</small></form></div></section></main>;
-  return <main className="catalog"><header className="header"><a className="brand" href="#top"><span>RR</span> Reference Room</a><p>PNG packs for creative projects</p></header><section id="top" className="categories"><p className="eyebrow">The library</p><h1>Browse by <span>category.</span></h1><p className="intro">Each category holds its own collection of downloadable PNG packs. Choose a folder to see what is coming next.</p><div className="category-grid">{categories.map((category) => <button className={`category-card ${category.color}`} key={category.name} onClick={() => showCategory(category.name)}><span className="folder-tab" aria-hidden="true"></span><span className="card-mark" aria-hidden="true">{category.mark}</span><strong>{category.name}</strong><small>{category.note}</small></button>)}</div></section>{status && <div className="toast" role="status">{status}<button onClick={() => setStatus("")} aria-label="Dismiss">×</button></div>}<footer><a className="brand" href="#top"><span>RR</span> Reference Room</a><p>New packs will be added by category.</p></footer></main>;
+  return (
+    <main className="link-tree-page">
+      <div className="link-tree-shell">
+        <header className="profile-header">
+          <div className="profile-mark" aria-hidden="true">NM</div>
+          <p className="profile-kicker">Philadelphia / Building in public</p>
+          <h1>Nasirr Mayo</h1>
+          <p className="profile-role">Founder of InnerG Intel, OwnYourWeb &amp; ShopNasGraphics</p>
+        </header>
+
+        <section className="about" aria-labelledby="about-title">
+          <p className="section-label" id="about-title">About me</p>
+          <p>
+            I started building in 2015 because I saw problems that needed solving. The early years were not about recognition. They were about learning how websites, visual identity, client experience, and digital systems actually work together.
+          </p>
+          <p>
+            <strong>ShopNasGraphics</strong> taught me how trust is designed. <strong>OwnYourWeb</strong> turned that craft into systems businesses can control. <strong>InnerG Intel</strong> made education part of the infrastructure.
+          </p>
+          <p>
+            This next chapter is about stepping forward without abandoning the builder’s discipline: sharing what I know, showing what I make, and helping experienced people stop hiding the value they have already earned.
+          </p>
+        </section>
+
+        <nav className="link-list" aria-label="Nasirr's links">
+          {links.map((link) => (
+            <a className="link-card" href={link.href} key={link.number} target="_blank" rel="noreferrer">
+              <span className="link-number">{link.number}</span>
+              <span className="link-copy">
+                <strong>{link.title}</strong>
+                <small>{link.description}</small>
+              </span>
+              <span className="link-arrow" aria-hidden="true">↗</span>
+            </a>
+          ))}
+        </nav>
+
+        <section className="video-card" aria-labelledby="video-title">
+          <div className="video-heading">
+            <span className="link-number">03</span>
+            <div>
+              <h2 id="video-title">Building in public</h2>
+              <p>A short look at the work, the lessons, and what comes next.</p>
+            </div>
+          </div>
+          <div className="video-frame">
+            <iframe
+              src="https://www.youtube.com/embed/l51OeTcUJK4"
+              title="Nasirr Mayo — Building in public"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+            />
+          </div>
+        </section>
+
+        <footer className="link-tree-footer">
+          <span>NM</span>
+          <span>Making useful things, one system at a time.</span>
+        </footer>
+      </div>
+    </main>
+  );
 }

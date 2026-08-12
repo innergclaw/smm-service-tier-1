@@ -3,11 +3,11 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ownyourweb.marketing/demos/reference-room/"),
-  title: "Reference Room | Browse PNG packs by category",
-  description: "A light, simple library of downloadable PNG packs organized by category.",
+  title: "Nasirr Mayo | Building in public",
+  description: "Nasirr Mayo — founder, builder, and educator based in Philadelphia.",
   alternates: { canonical: "/" },
-  openGraph: { title: "Reference Room", description: "Browse simple, downloadable PNG packs by category.", type: "website", url: "/", images: [{ url: "https://ownyourweb.marketing/demos/reference-room/og.png", width: 1200, height: 630, alt: "Reference Room — Browse PNG packs by category" }] },
-  twitter: { card: "summary_large_image", title: "Reference Room", description: "Browse simple, downloadable PNG packs by category.", images: ["https://ownyourweb.marketing/demos/reference-room/og.png"] },
+  openGraph: { title: "Nasirr Mayo | Building in public", description: "Founder of InnerG Intel, OwnYourWeb & ShopNasGraphics.", type: "website", url: "/" },
+  twitter: { card: "summary", title: "Nasirr Mayo | Building in public", description: "Founder of InnerG Intel, OwnYourWeb & ShopNasGraphics." },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en"><body>{children}</body></html>; }
