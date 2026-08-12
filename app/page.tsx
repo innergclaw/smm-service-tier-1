@@ -15,7 +15,7 @@ const links = [
     number: "03",
     title: "INNERG INTEL",
     description: "Education, systems, and the ideas behind the work.",
-    href: "https://innergintel.com/",
+    href: "https://www.innergreads.study",
   },
 ];
 
