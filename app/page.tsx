@@ -3,7 +3,7 @@ const links = [
     number: "01",
     title: "HIRE / BOOK ME",
     description: "Education, systems, and the ideas behind the work.",
-    href: "https://nasirr.innergintel.org/",
+    href: "https://nasirr.innergintel.org/speaking.html",
   },
   {
     number: "02",
