@@ -17,6 +17,12 @@ const links = [
     description: "Education, systems, and the ideas behind the work.",
     href: "https://www.innergreads.study",
   },
+  {
+    number: "04",
+    title: "Creative Design Services",
+    description: "Graphics, branding, and creative services built with purpose.",
+    href: "https://shopnasgfx.com/",
+  },
 ];
 
 const socialLinks = [
