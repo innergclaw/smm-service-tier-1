@@ -6,8 +6,8 @@ export const metadata: Metadata = {
   title: "Nasirr Mayo | Building in public",
   description: "Nasirr Mayo — founder, builder, and educator based in Philadelphia.",
   alternates: { canonical: "/" },
-  openGraph: { title: "Nasirr Mayo | Building in public", description: "Founder of InnerG Intel, OwnYourWeb & ShopNasGraphics.", type: "website", url: "/" },
-  twitter: { card: "summary", title: "Nasirr Mayo | Building in public", description: "Founder of InnerG Intel, OwnYourWeb & ShopNasGraphics." },
+  openGraph: { title: "Nasirr Mayo | Building in public", description: "DESIGNER - CREATOR - DEVELOPER", type: "website", url: "/" },
+  twitter: { card: "summary", title: "Nasirr Mayo | Building in public", description: "DESIGNER - CREATOR - DEVELOPER" },
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) { return <html lang="en"><body>{children}</body></html>; }

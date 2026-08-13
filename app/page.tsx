@@ -40,7 +40,7 @@ export default function Home() {
           <div className="profile-mark" aria-hidden="true">NM</div>
           <p className="profile-kicker">Philadelphia / Building in public</p>
           <h1>Nasirr Mayo</h1>
-          <p className="profile-role">Founder of InnerG Intel, OwnYourWeb &amp; ShopNasGraphics</p>
+          <p className="profile-role">DESIGNER - CREATOR - DEVELOPER</p>
         </header>
 
         <section className="video-card" aria-labelledby="video-title">
