@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
 
-:root{--ink:#171717;--muted:#777;--paper:#fafaf8;--line:#e5e5e0;--soft:#f3f3f0;--font:'DM Sans',Arial,sans-serif;--duration-stagger:40ms;--duration-fast:250ms;--duration-very-slow:500ms;--ease-smooth-out:cubic-bezier(.22,1,.36,1);--distance-base:8px;--distance-medium:12px;--blur-medium:3px}
+:root{--ink:#171717;--muted:#777;--paper:#fafaf8;--line:#e5e5e0;--soft:#f3f3f0;--font:'DM Sans',Arial,sans-serif;--duration-stagger:40ms;--duration-fast:250ms;--duration-very-slow:850ms;--ease-smooth-out:cubic-bezier(.22,1,.36,1);--distance-base:8px;--distance-medium:12px;--blur-medium:3px}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth}
 body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font)}
