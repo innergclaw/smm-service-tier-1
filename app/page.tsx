@@ -1,3 +1,5 @@
+import ScrollRevealLinks from "./ScrollRevealLinks";
+
 const links = [
   {
     number: "01",
@@ -74,17 +76,7 @@ export default function Home() {
           </p>
         </section>
 
-        <nav className="link-list" aria-label="Nasirr's links">
-          {links.map((link) => (
-            <a className="link-card" href={link.href} key={link.number} target="_blank" rel="noreferrer">
-              <span className="link-number">{link.number}</span>
-              <span className="link-copy">
-                <strong>{link.title}</strong>
-                <small>{link.description}</small>
-              </span>
-            </a>
-          ))}
-        </nav>
+        <ScrollRevealLinks links={links} />
 
         <footer className="link-tree-footer">
           <span>NM</span>
