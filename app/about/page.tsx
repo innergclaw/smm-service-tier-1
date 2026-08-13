@@ -16,7 +16,7 @@ export default function AboutPage() {
       <div className="positioning-shell">
         <header className="positioning-header">
           <Link className="positioning-back" href="../">BACK TO NASIRR</Link>
-          <p className="positioning-kicker">NASIRR MAYO / THE POSITIONING</p>
+          <p className="positioning-kicker">NASIRR &quot;G&quot; MAYO / THE POSITIONING</p>
           <h1>Real work is<br /><span>the new influence.</span></h1>
           <p className="positioning-lede">I build from lived experience, teach what the work reveals, and make the systems behind the work visible.</p>
         </header>
@@ -34,7 +34,7 @@ export default function AboutPage() {
           <p className="positioning-kicker">PRACTITIONER / BUILDER / EDUCATOR</p>
           <p>Before the broadcast, there is the build. Before the personality, there is the practice. My work sits at the intersection of owned digital infrastructure, visual identity, client experience, and practical education.</p>
           <p>If you are ready to turn experience into a clearer system, a stronger presence, or a useful next step, let&apos;s talk about what you are building.</p>
-          <div className="contact-actions" aria-label="Contact Nasirr Mayo">
+          <div className="contact-actions" aria-label={'Contact NASIRR "G" MAYO'}>
             <a className="positioning-cta" href="tel:+12674730397">CALL 267-473-0397</a>
             <a className="positioning-cta positioning-cta-secondary" href="sms:+12674730397">TEXT 267-473-0397</a>
           </div>
