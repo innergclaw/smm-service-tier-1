@@ -19,7 +19,7 @@ const links = [
   },
   {
     number: "04",
-    title: "Creative Design Services",
+    title: "CREATIVE DESIGN SERVICES",
     description: "Graphics, branding, and creative services built with purpose.",
     href: "https://shopnasgfx.com/",
   },
