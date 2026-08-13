@@ -40,22 +40,22 @@ export default function Home() {
       <div className="link-tree-shell">
         <header className="profile-header">
           <div className="profile-mark" aria-hidden="true">NM</div>
-          <p className="profile-kicker">Philadelphia / Building in public</p>
-          <h1>Nasirr Mayo</h1>
+          <p className="profile-kicker">PHILADELPHIA - EST 2015</p>
+          <h1>NASIRR &quot;G&quot; MAYO</h1>
           <p className="profile-role">FOUNDER - CREATIVE DIGITAL DESIGNER - DEVELOPER</p>
         </header>
 
         <section className="video-card" aria-labelledby="video-title">
           <div className="video-heading">
             <div>
-              <h2 id="video-title">Building in public</h2>
+              <h2 id="video-title">Featured video</h2>
               <p>A short look at the work, the lessons, and what comes next.</p>
             </div>
           </div>
           <div className="video-frame">
             <iframe
               src="https://www.youtube.com/embed/l51OeTcUJK4"
-              title="Nasirr Mayo — Building in public"
+              title={'NASIRR "G" MAYO — Featured video'}
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
