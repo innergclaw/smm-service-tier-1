@@ -85,7 +85,7 @@ export default function Home() {
             I started building in 2015 because I saw problems that needed solving. The early years were not about recognition. They were about learning how websites, visual identity, client experience, and digital systems actually work together.
           </p>
           <p>
-            <strong>ShopNasGraphics</strong> taught me how trust is designed. <strong>OwnYourWeb</strong> turned that craft into systems businesses can control. <strong>InnerG Intel</strong> made education part of the infrastructure.
+            <strong>ShopNasGfx</strong> taught me how trust is designed. <strong>OwnYourWeb</strong> turned that craft into systems businesses can control. <strong>InnerG Intel</strong> made education part of the infrastructure.
           </p>
           <p>
             This next chapter is about stepping forward without abandoning the builder’s discipline: sharing what I know, showing what I make, and helping experienced people stop hiding the value they have already earned.
