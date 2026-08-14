@@ -1,3 +1,4 @@
+import Image from "next/image";
 import ScrollRevealLinks from "./ScrollRevealLinks";
 import ScrambleTitle from "./ScrambleTitle";
 
@@ -61,7 +62,14 @@ export default function Home() {
     <main className="link-tree-page">
       <div className="link-tree-shell">
         <header className="profile-header">
-          <div className="profile-mark" aria-hidden="true">NM</div>
+          <Image
+            className="profile-mark"
+            src="/nasirr-g-mark.png"
+            alt="Nasirr G. Mayo logo"
+            width={62}
+            height={62}
+            priority
+          />
           <p className="profile-kicker">PHILADELPHIA - EST 2015</p>
           <ScrambleTitle text={'NASIRR "G" MAYO'} />
           <p className="profile-role">FOUNDER - CREATIVE DIGITAL DESIGNER - DEVELOPER</p>
