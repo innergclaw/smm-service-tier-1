@@ -26,6 +26,12 @@ const links = [
     description: "Graphics, branding, and creative services built with purpose.",
     href: "https://shopnasgfx.com/",
   },
+  {
+    number: "05",
+    title: "AGENT ACADEMY",
+    description: "Hands-on training for directing, building, and evaluating AI agent systems.",
+    href: "https://innergclaw.github.io/innerg-agent-academy/",
+  },
 ];
 
 const socialLinks = [
