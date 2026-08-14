@@ -1,4 +1,5 @@
 import ScrollRevealLinks from "./ScrollRevealLinks";
+import ScrambleTitle from "./ScrambleTitle";
 
 const links = [
   {
@@ -56,7 +57,7 @@ export default function Home() {
         <header className="profile-header">
           <div className="profile-mark" aria-hidden="true">NM</div>
           <p className="profile-kicker">PHILADELPHIA - EST 2015</p>
-          <h1>NASIRR &quot;G&quot; MAYO</h1>
+          <ScrambleTitle text={'NASIRR "G" MAYO'} />
           <p className="profile-role">FOUNDER - CREATIVE DIGITAL DESIGNER - DEVELOPER</p>
           <SocialLinks className="profile-social-links" label="Nasirr Mayo social links" />
         </header>

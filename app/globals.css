@@ -11,6 +11,10 @@ a{color:inherit;text-decoration:none}
 .profile-mark{width:62px;height:62px;margin:0 auto 18px;border-radius:50%;display:grid;place-items:center;background:var(--ink);color:#fff;font-size:16px;font-weight:700;letter-spacing:-.08em}
 .profile-kicker,.section-label{margin:0;color:#8a8a84;font-size:11px;letter-spacing:.1em;text-transform:uppercase}
 .profile-header h1{margin:12px 0 8px;font-size:clamp(37px,8vw,52px);line-height:.98;letter-spacing:-.085em}
+.scramble-title{display:grid;place-items:center;white-space:nowrap}
+.scramble-title-sizer,.scramble-title-output{grid-area:1/1}
+.scramble-title-sizer{visibility:hidden}
+.scramble-title-output{font-variant-numeric:tabular-nums}
 .profile-role{max-width:390px;margin:0 auto;color:#666;font-size:13px;line-height:1.45}
 .about{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:24px 4px 22px;animation:flow-in-left var(--duration-very-slow) var(--ease-smooth-out) calc(var(--duration-stagger) * 5) both}
 .about p:not(.section-label){margin:13px 0 0;color:#666;font-size:14px;line-height:1.62}
