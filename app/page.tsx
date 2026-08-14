@@ -31,7 +31,7 @@ const socialLinks = [
   { label: "GitHub", href: "https://github.com/innergclaw", icon: "github" },
   { label: "YouTube", href: "https://www.youtube.com/watch?v=l51OeTcUJK4", icon: "youtube" },
   { label: "Substack", href: "https://innergintel.substack.com/", icon: "substack" },
-  { label: "Twitter / X", href: "https://x.com/innergintel", icon: "x" },
+  { label: "Twitter / X", href: "https://x.com/InnerGNas", icon: "x" },
 ];
 
 function SocialLinks({ className = "", label = "Social links" }: { className?: string; label?: string }) {
