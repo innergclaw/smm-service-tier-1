@@ -48,14 +48,14 @@ export default function Home() {
         <section className="video-card" aria-labelledby="video-title">
           <div className="video-heading">
             <div>
-              <h2 id="video-title">Featured video</h2>
+              <h2 id="video-title">HOW SYSTEMS AND AUTOMATION CHANGED EVERYTHING [ 2023 ]</h2>
               <p>A short look at the work, the lessons, and what comes next.</p>
             </div>
           </div>
           <div className="video-frame">
             <iframe
               src="https://www.youtube.com/embed/l51OeTcUJK4"
-              title={'NASIRR "G" MAYO — Featured video'}
+              title={'NASIRR "G" MAYO — HOW SYSTEMS AND AUTOMATION CHANGED EVERYTHING [ 2023 ]'}
               loading="lazy"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
