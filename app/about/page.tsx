@@ -10,6 +10,37 @@ const positioning = [
   ["06", "Showing the process publicly"],
 ];
 
+const sensoryExperience = [
+  {
+    number: "01",
+    eyebrow: "The experience",
+    title: "Events feel more organized, energetic, and intentional.",
+    body: "Children stay engaged through movement, play, discovery, and memorable moments that feel more alive than a static page or scattered announcement.",
+  },
+  {
+    number: "02",
+    eyebrow: "The update",
+    title: "Clearer information replaced the old friction.",
+    body: "Before, updates were harder to track and the event story felt less connected. Now the details are easier to read, easier to update, and easier to trust.",
+    compare: [
+      "Original process: scattered details and more manual coordination.",
+      "What changed: clearer event information, stronger visual communication, and smoother updates.",
+    ],
+  },
+  {
+    number: "03",
+    eyebrow: "Operational relief",
+    title: "The system works quietly in the background.",
+    body: "Staff can update the important details without constantly managing technical systems. That keeps attention on children, families, energy, and the event itself.",
+  },
+  {
+    number: "04",
+    eyebrow: "Scaling potential",
+    title: "The structure can grow without rebuilding everything.",
+    body: "New events can use the same foundation for programs, locations, schedules, galleries, registration, and announcements. Later, it can support analytics, parent communication, automated reminders, and recurring event systems.",
+  },
+];
+
 export default function AboutPage() {
   return (
     <main className="positioning-page">
@@ -20,6 +51,37 @@ export default function AboutPage() {
           <h1>Real work is<br /><span>the new influence.</span></h1>
           <p className="positioning-lede">I build from lived experience, teach what the work reveals, and make the systems behind the work visible.</p>
         </header>
+
+        <section className="experience-case-study" aria-labelledby="sensory-experience-title">
+          <div className="experience-case-study__intro">
+            <p className="positioning-kicker">PORTFOLIO EXPERIENCE / SENSORY</p>
+            <h2 id="sensory-experience-title">Designing the system behind better childhood experiences.</h2>
+            <p>Sensory gives children a richer experience while giving the team fewer technical things to worry about.</p>
+          </div>
+
+          <div className="experience-case-study__grid">
+            {sensoryExperience.map(({ number, eyebrow, title, body, compare }) => (
+              <article className="experience-card" key={number}>
+                <span>{number}</span>
+                <p className="experience-card__eyebrow">{eyebrow}</p>
+                <h3>{title}</h3>
+                <p>{body}</p>
+                {compare ? (
+                  <ul>
+                    {compare.map((line) => (
+                      <li key={line}>{line}</li>
+                    ))}
+                  </ul>
+                ) : null}
+              </article>
+            ))}
+          </div>
+
+          <div className="experience-case-study__footer">
+            <p>See how Sensory turns technical infrastructure into more room for play, connection, and meaningful experiences.</p>
+            <a className="positioning-cta" href="#hire-intake">START A PROJECT</a>
+          </div>
+        </section>
 
         <section className="positioning-grid" aria-label="Positioning principles">
           {positioning.map(([number, title]) => (
