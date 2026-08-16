@@ -14,29 +14,29 @@ const sensoryExperience = [
   {
     number: "01",
     eyebrow: "The experience",
-    title: "Events feel more organized, energetic, and intentional.",
-    body: "Children stay engaged through movement, play, discovery, and memorable moments that feel more alive than a static page or scattered announcement.",
+    title: "A clearer event presence for families.",
+    body: "The experience feels more organized, energetic, and intentional, with a path that keeps attention on movement, play, discovery, and memorable moments.",
   },
   {
     number: "02",
     eyebrow: "The update",
-    title: "Clearer information replaced the old friction.",
-    body: "Before, updates were harder to track and the event story felt less connected. Now the details are easier to read, easier to update, and easier to trust.",
+    title: "A cleaner system behind the page.",
+    body: "The original setup had more friction. The new structure makes event details easier to read, easier to update, and easier to trust.",
     compare: [
-      "Original process: scattered details and more manual coordination.",
-      "What changed: clearer event information, stronger visual communication, and smoother updates.",
+      "Before: scattered details and more manual coordination.",
+      "After: clearer event information, stronger visual communication, and smoother updates.",
     ],
   },
   {
     number: "03",
     eyebrow: "Operational relief",
-    title: "The system works quietly in the background.",
-    body: "Staff can update the important details without constantly managing technical systems. That keeps attention on children, families, energy, and the event itself.",
+    title: "Less technical overhead for the team.",
+    body: "Staff can update the important details without constantly managing technical systems, so attention stays on children, families, energy, and the event itself.",
   },
   {
     number: "04",
     eyebrow: "Scaling potential",
-    title: "The structure can grow without rebuilding everything.",
+    title: "Built to grow without a rebuild.",
     body: "New events can use the same foundation for programs, locations, schedules, galleries, registration, and announcements. Later, it can support analytics, parent communication, automated reminders, and recurring event systems.",
   },
 ];
@@ -55,8 +55,13 @@ export default function AboutPage() {
         <section className="experience-case-study" aria-labelledby="sensory-experience-title">
           <div className="experience-case-study__intro">
             <p className="positioning-kicker">PORTFOLIO EXPERIENCE / SENSORY</p>
-            <h2 id="sensory-experience-title">Designing the system behind better childhood experiences.</h2>
-            <p>Sensory gives children a richer experience while giving the team fewer technical things to worry about.</p>
+            <h2 id="sensory-experience-title">A better childhood experience, supported by a quieter system.</h2>
+            <p>Sensory gives children a richer experience while giving the team fewer technical things to worry about. The page feels clearer for families and easier for staff to maintain.</p>
+            <div className="experience-stat-row" aria-label="Sensory project highlights">
+              <span>Clearer event info</span>
+              <span>Faster updates</span>
+              <span>Less operational friction</span>
+            </div>
           </div>
 
           <div className="experience-case-study__grid">
@@ -79,7 +84,7 @@ export default function AboutPage() {
 
           <div className="experience-case-study__footer">
             <p>See how Sensory turns technical infrastructure into more room for play, connection, and meaningful experiences.</p>
-            <a className="positioning-cta" href="#hire-intake">START A PROJECT</a>
+            <a className="positioning-cta" href="#hire-intake">EXPLORE THE CASE STUDY</a>
           </div>
         </section>
 
