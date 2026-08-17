@@ -74,7 +74,7 @@ export default function HireIntakeForm() {
       </div>
 
       <button className="positioning-cta hire-submit" type="submit">SEND PROJECT DETAILS</button>
-      <p className="hire-form-note">Submitting prepares a text with your answers. Review it, then press send from your phone.</p>
+      <p className="hire-form-note">Submitting opens a text to 267-473-0397 with your answers. Review it, then press send from your phone.</p>
     </form>
   );
 }
