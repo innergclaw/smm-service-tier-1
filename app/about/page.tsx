@@ -13,32 +13,38 @@ const positioning = [
 const sensoryExperience = [
   {
     number: "01",
-    eyebrow: "The experience",
-    title: "A clearer event presence for families.",
-    body: "The experience feels more organized, energetic, and intentional, with a path that keeps attention on movement, play, discovery, and memorable moments.",
+    eyebrow: "The family experience",
+    title: "A calmer first step for families.",
+    body: "The site helps parents quickly understand the space, the type of play available, and what to expect before they arrive. That clarity makes the first visit feel more welcoming.",
   },
   {
     number: "02",
     eyebrow: "The update",
-    title: "A cleaner system behind the page.",
-    body: "The original setup had more friction. The new structure makes event details easier to read, easier to update, and easier to trust.",
+    title: "A digital welcome desk for the daycare team.",
+    body: "The new structure brings the important information into one clear path: programs, rooms, open play, parties, hours, and contact details. Families can find answers without digging.",
     compare: [
       "Before: scattered details and more manual coordination.",
-      "After: clearer event information, stronger visual communication, and smoother updates.",
+      "After: clearer family communication and simpler updates for staff.",
     ],
   },
   {
     number: "03",
     eyebrow: "Operational relief",
-    title: "Less technical overhead for the team.",
-    body: "Staff can update the important details without constantly managing technical systems, so attention stays on children, families, energy, and the event itself.",
+    title: "Less screen time. More time with children.",
+    body: "Staff can update the details that matter without constantly managing technical systems, keeping their attention on safety, care, energy, and the experience children are having in the room.",
   },
   {
     number: "04",
     eyebrow: "Scaling potential",
-    title: "Built to grow without a rebuild.",
-    body: "New events can use the same foundation for programs, locations, schedules, galleries, registration, and announcements. Later, it can support analytics, parent communication, automated reminders, and recurring event systems.",
+    title: "Ready for the next room, program, or location.",
+    body: "The same foundation can grow with new programs, schedules, galleries, registration, announcements, parent communication, reminders, and recurring care experiences—without rebuilding from scratch.",
   },
+];
+
+const sensoryGallery = [
+  { src: "/assets/sensory/sr-gym-main.jpeg", alt: "Wide view of the SR Sensory Gym play space", label: "The welcome" },
+  { src: "/assets/sensory/sr-active-sensory-room.jpeg", alt: "Active sensory room with climbing and swing equipment", label: "The active room" },
+  { src: "/assets/sensory/sr-calming-room.jpeg", alt: "Calming room with soft seating and sensory lighting", label: "The calming room" },
 ];
 
 export default function AboutPage() {
@@ -54,14 +60,23 @@ export default function AboutPage() {
 
         <section className="experience-case-study" aria-labelledby="sensory-experience-title">
           <div className="experience-case-study__intro">
-            <p className="positioning-kicker">PORTFOLIO EXPERIENCE / SENSORY</p>
-            <h2 id="sensory-experience-title">A better childhood experience, supported by a quieter system.</h2>
-            <p>Sensory gives children a richer experience while giving the team fewer technical things to worry about. The page feels clearer for families and easier for staff to maintain.</p>
+            <p className="positioning-kicker">PORTFOLIO EXPERIENCE / SR CHILDREN&apos;S LOUNGE</p>
+            <h2 id="sensory-experience-title">Designing the system behind better childhood experiences.</h2>
+            <p>For SR Children&apos;s Lounge, the website acts like a digital welcome desk: it gives families a clear picture of the sensory gym while giving the care team fewer technical things to carry.</p>
             <div className="experience-stat-row" aria-label="Sensory project highlights">
-              <span>Clearer event info</span>
-              <span>Faster updates</span>
-              <span>Less operational friction</span>
+              <span>Family clarity</span>
+              <span>Care-team ease</span>
+              <span>Built to scale</span>
             </div>
+          </div>
+
+          <div className="experience-gallery" aria-label="SR Children&apos;s Lounge site photography">
+            {sensoryGallery.map(({ src, alt, label }) => (
+              <figure className="experience-gallery__item" key={src}>
+                <img src={src} alt={alt} loading="lazy" />
+                <figcaption>{label}</figcaption>
+              </figure>
+            ))}
           </div>
 
           <div className="experience-case-study__grid">
@@ -83,7 +98,7 @@ export default function AboutPage() {
           </div>
 
           <div className="experience-case-study__footer">
-            <p>See how Sensory turns technical infrastructure into more room for play, connection, and meaningful experiences.</p>
+            <p>See how SR Children&apos;s Lounge turns technical infrastructure into more room for play, connection, care, and meaningful experiences.</p>
             <a className="positioning-cta" href="#hire-intake">EXPLORE THE CASE STUDY</a>
           </div>
         </section>
