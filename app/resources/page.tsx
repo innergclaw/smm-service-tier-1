@@ -12,6 +12,13 @@ const benefits = [
   ["03", "Make AI more useful", "Bring better visual inputs into ChatGPT and image models so the output has more range, intention, and personality."],
 ];
 
+const resourceTypes = [
+  ["01", "PNG packs", "Transparent, high-resolution visual references for brand, campaign, and design work.", "AVAILABLE NOW"],
+  ["02", "Master prompts", "Reusable prompt systems for turning a rough idea into a stronger visual direction.", "COMING NEXT"],
+  ["03", "GPT image references", "Prompt formulas, composition guides, and reference pairings for more intentional image generation.", "COMING NEXT"],
+  ["04", "Codex skills", "Practical skills and workflows for building, reviewing, and shipping with AI-assisted tools.", "COMING NEXT"],
+];
+
 export default function ResourcesPage() {
   return (
     <main className="resources-page">
@@ -24,6 +31,11 @@ export default function ResourcesPage() {
           <p className="resources-lede">Too many chat designs start from the same generic images. Reference Room gives business owners, designers, and creative teams high-resolution PNG packs to explore stronger ideas and direct better AI work.</p>
           <div className="resources-actions"><a className="resources-button resources-button-dark" href="#membership">VIEW MEMBERSHIP</a><a className="resources-text-link" href="#free">START WITH FREE ASSETS <span>↘</span></a></div>
         </header>
+
+        <section className="resources-types" aria-labelledby="resource-types-title">
+          <div className="resources-section-heading"><div><p className="resources-kicker">THE RESOURCE ROOM</p><h2 id="resource-types-title">More than images.</h2></div><span className="resources-index">00 / 04</span></div>
+          <div className="resource-type-grid">{resourceTypes.map(([number, title, body, status]) => <article key={title}><span className="resource-type-number">{number}</span><h3>{title}</h3><p>{body}</p><small>{status}</small></article>)}</div>
+        </section>
 
         <section className="resources-feature" id="free" aria-labelledby="weekly-title">
           <div className="resources-section-heading"><div><p className="resources-kicker">THE LIBRARY / UPDATED WEEKLY</p><h2 id="weekly-title">Build from a better starting point.</h2></div><span className="resources-index">01 / 03</span></div>

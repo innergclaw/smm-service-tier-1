@@ -33,12 +33,6 @@ const links = [
     description: "Hands-on training for directing, building, and evaluating AI agent systems.",
     href: "https://innergclaw.github.io/innerg-agent-academy/",
   },
-  {
-    number: "06",
-    title: "REFERENCE ROOM",
-    description: "High-resolution PNG packs for design work and better AI references.",
-    href: "resources/",
-  },
 ];
 
 const socialLinks = [
@@ -114,6 +108,13 @@ export default function Home() {
         </section>
 
         <ScrollRevealLinks links={links} />
+
+        <section className="home-reference-room" aria-labelledby="home-reference-title">
+          <div className="home-reference-heading"><p className="section-label">REFERENCE ROOM / CREATIVE ASSET RESOURCE</p><span>06</span></div>
+          <h2 id="home-reference-title">Give the next idea a better starting point.</h2>
+          <p>PNG packs, master prompts, GPT image references, and Codex skills for business owners and creatives who need more range than generic AI can provide.</p>
+          <a className="home-reference-link" href="resources/">ENTER REFERENCE ROOM <span>↗</span></a>
+        </section>
 
         <footer className="link-tree-footer">
           <span>NM</span>
