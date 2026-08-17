@@ -33,6 +33,12 @@ const links = [
     description: "Hands-on training for directing, building, and evaluating AI agent systems.",
     href: "https://innergclaw.github.io/innerg-agent-academy/",
   },
+  {
+    number: "06",
+    title: "REFERENCE ROOM",
+    description: "High-resolution PNG packs for design work and better AI references.",
+    href: "resources/",
+  },
 ];
 
 const socialLinks = [
