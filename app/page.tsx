@@ -94,19 +94,24 @@ export default function Home() {
           </div>
         </section>
 
-        <section className="about" aria-labelledby="about-title">
-          <p className="section-label" id="about-title">About me</p>
-          <p>
-            I started building in 2015 because I saw problems that needed solving. The early years were not about recognition. They were about learning how websites, visual identity, client experience, and digital systems actually work together.
-          </p>
-          <p>
-            <strong>ShopNasGfx</strong> taught me how trust is designed. <strong>OwnYourWeb</strong> turned that craft into systems businesses can control. <strong>InnerG Intel</strong> made education part of the infrastructure.
-          </p>
-          <p>
-            This next chapter is about stepping forward without abandoning the builder’s discipline: sharing what I know, showing what I make, and helping experienced people stop hiding the value they have already earned.
-          </p>
-        </section>
+        <details className="about">
+          <summary id="about-title"><span className="section-label">About me</span><span className="about-toggle" aria-hidden="true">+</span></summary>
+          <div className="about-copy">
+            <p>
+              I started building in 2015 because I saw problems that needed solving. The early years were not about recognition. They were about learning how websites, visual identity, client experience, and digital systems actually work together.
+            </p>
+            <p>
+              <strong>ShopNasGfx</strong> taught me how trust is designed. <strong>OwnYourWeb</strong> turned that craft into systems businesses can control. <strong>InnerG Intel</strong> made education part of the infrastructure.
+            </p>
+            <p>
+              This next chapter is about stepping forward without abandoning the builder’s discipline: sharing what I know, showing what I make, and helping experienced people stop hiding the value they have already earned.
+            </p>
+          </div>
+        </details>
 
+        <section className="hire-links" aria-labelledby="hire-links-title">
+          <p className="section-label" id="hire-links-title">HIRE ME LINKS</p>
+        </section>
         <ScrollRevealLinks links={links} />
 
         <section className="home-reference-room" aria-labelledby="home-reference-title">
