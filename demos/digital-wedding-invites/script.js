@@ -27,4 +27,5 @@ form?.addEventListener('submit', (event) => {
   if (status) status.textContent = 'Thank you. Your invitation inquiry is ready for a personal follow-up.';
   form.querySelector('button').textContent = 'Inquiry received ↗';
   form.querySelector('button').disabled = true;
+  window.location.href = `sms:+12674730397?body=${encodeURIComponent(payload)}`;
 });
