@@ -1,6 +1,7 @@
 import Image from "next/image";
 import ScrollRevealLinks from "./ScrollRevealLinks";
 import ScrambleTitle from "./ScrambleTitle";
+import SocialLinksMenu from "./SocialLinksMenu";
 
 const links = [
   {
@@ -73,7 +74,7 @@ export default function Home() {
           <p className="profile-kicker">PHILADELPHIA - EST 2015</p>
           <ScrambleTitle text={'NASIRR "G" MAYO'} />
           <p className="profile-role">FOUNDER - CREATIVE DIGITAL DESIGNER - DEVELOPER</p>
-          <SocialLinks className="profile-social-links" label="Nasirr Mayo social links" />
+          <SocialLinksMenu className="profile-social-links" label="Nasirr Mayo social links" />
         </header>
 
         <section className="video-card" aria-labelledby="video-title">
@@ -124,7 +125,7 @@ export default function Home() {
         <footer className="link-tree-footer">
           <span>NM</span>
           <span>Making useful things, one system at a time.</span>
-          <SocialLinks />
+          <SocialLinksMenu />
         </footer>
       </div>
     </main>
