@@ -38,7 +38,7 @@ const links = [
 const socialLinks = [
   { label: "GitHub", href: "https://github.com/innergclaw", icon: "github" },
   { label: "YouTube", href: "https://www.youtube.com/watch?v=l51OeTcUJK4", icon: "youtube" },
-  { label: "Substack", href: "https://innergintel.substack.com/", icon: "substack" },
+  { label: "Substack", href: "https://open.substack.com/pub/innergintelligence", icon: "substack" },
   { label: "Twitter / X", href: "https://x.com/InnerGNas", icon: "x" },
 ];
 
