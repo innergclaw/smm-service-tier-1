@@ -46,7 +46,7 @@
         async function l() {
           let e = {
             title: "Butterfly Links",
-            text: "Entrepreneur · Lifestyle Enthusiast",
+            text: "Entrepreneur • Lifestyle Enthusiast • Builder",
             url: window.location.href,
           };
           if (navigator.share) {
@@ -119,7 +119,7 @@
                       type: "button",
                       onClick: l,
                       "aria-label": "Share this page",
-                      children: "↗",
+                      children: "Share",
                     }),
                     (0, s.jsx)("div", {
                       className: "portrait",
@@ -139,9 +139,7 @@
                     (0, s.jsxs)("p", {
                       className: "role",
                       children: [
-                        "Entrepreneur ",
-                        (0, s.jsx)("span", { "aria-hidden": "true" }),
-                        " Lifestyle Enthusiast",
+                        "Entrepreneur • Lifestyle Enthusiast • Builder",
                       ],
                     }),
                   ],
@@ -201,14 +199,7 @@
                                 href: e.href,
                                 target: "_blank",
                                 rel: "noopener noreferrer",
-                                children: [
-                                  "Open ",
-                                  e.label,
-                                  (0, s.jsx)("span", {
-                                    "aria-hidden": "true",
-                                    children: "↗",
-                                  }),
-                                ],
+                                children: ["Open ", e.label],
                               }),
                             ],
                           }),
