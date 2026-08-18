@@ -43,10 +43,10 @@ a{color:inherit;text-decoration:none}
 .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
 .link-tree-footer{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:27px;color:#92928b;font-size:10px;letter-spacing:.04em;animation:flow-in-up var(--duration-very-slow) var(--ease-smooth-out) calc(var(--duration-stagger) * 12) both}
 .link-tree-footer span:first-child{color:var(--ink);font-weight:700}
-.social-links{display:flex;align-items:center;gap:8px;margin-left:auto}
+.social-links{display:grid;grid-template-columns:repeat(2,32px);align-items:center;gap:8px;margin-left:auto}
 .profile-social-links{justify-content:center;margin:16px auto 0}
 .social-links a{width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;color:#6f6f69;background:rgba(255,255,255,.66);transition:transform .18s cubic-bezier(.23,1,.32,1),color .18s ease,background-color .18s ease,box-shadow .18s ease}
-.social-links a:hover{color:var(--ink);background:#fff;transform:translateY(-2px);box-shadow:0 7px 16px rgba(20,20,20,.08)}
+.social-links a:hover{color:var(--ink);background:#fff;transform:translateY(-3px) scale(1.06);box-shadow:0 7px 16px rgba(20,20,20,.08)}
 .social-links a:active{transform:scale(.96)}
 .social-links a:focus-visible{outline:3px solid #c8d9ff;outline-offset:3px}
 .social-links svg{width:15px;height:15px;fill:currentColor}
