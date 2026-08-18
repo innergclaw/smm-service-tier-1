@@ -34,8 +34,8 @@ h1 em,h2 em { color:#817e76; font-family:Italianno,cursive; font-style:normal; f
 .video-placeholder { position:absolute; z-index:0; inset:0; display:grid; align-content:center; justify-items:center; gap:18px; padding:28px; color:#fff; text-align:center; background:linear-gradient(160deg,rgba(39,33,29,.06),rgba(39,33,29,.58)); }
 .video-placeholder strong { font-family:'Libre Baskerville',serif; font-size:2.3rem; font-weight:400; line-height:.95; }.video-placeholder em { color:#f2e8dc; font-family:Italianno,cursive; font-size:3.5rem; font-style:normal; font-weight:400; }.preview-kicker,.video-placeholder small { font-size:.55rem; letter-spacing:.15em; text-transform:uppercase; }.video-placeholder small { max-width:190px; color:rgba(255,255,255,.8); line-height:1.7; }.video-placeholder code { font-family:'DM Sans',sans-serif; letter-spacing:0; text-transform:none; }
 .preview-note { max-width:390px; margin:0; color:var(--muted); font-size:.82rem; line-height:1.7; }
-.video-wrap { width:min(820px,100%); margin:10px auto 38px; }
-.video-frame { position:relative; overflow:hidden; aspect-ratio:16/9; border:1px solid rgba(37,37,34,.22); border-radius:22px; background:#252522; box-shadow:0 28px 70px rgba(37,37,34,.16),0 0 80px rgba(255,255,255,.72); }
+.video-wrap { width:min(420px,100%); margin:10px auto 38px; }
+.video-frame { position:relative; overflow:hidden; aspect-ratio:9/16; border:1px solid rgba(37,37,34,.22); border-radius:22px; background:#252522; box-shadow:0 28px 70px rgba(37,37,34,.16),0 0 80px rgba(255,255,255,.72); }
 .video-frame video { display:block; width:100%; height:100%; object-fit:contain; background:#252522; }
 .video-label { display:block; margin-top:14px; color:var(--muted); font-size:.62rem; letter-spacing:.15em; text-transform:uppercase; }
 .statement-section { max-width:700px; margin:0 auto; padding:130px 0 180px; }.statement-section h2 { font-size:clamp(3.5rem,8vw,7.8rem); }.statement-copy { max-width:430px; margin:45px 0 0; color:#67655f; font-family:'Libre Baskerville',serif; font-size:1rem; line-height:1.8; }
