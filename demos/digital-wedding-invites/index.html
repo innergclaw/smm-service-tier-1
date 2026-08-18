@@ -28,22 +28,13 @@
 
     <section class="preview-section" aria-labelledby="preview-title">
       <p class="eyebrow reveal">A first look</p>
-      <div class="phone-wrap reveal">
-        <div class="phone-glow"></div>
-        <div class="phone-frame">
-          <div class="phone-speaker" aria-hidden="true"></div>
-          <div class="preview-screen">
-            <div class="video-placeholder">
-              <span class="preview-kicker">Your story begins here</span>
-              <strong>Invitation<br><em>Preview</em></strong>
-              <small>Replace with your vertical video at<br><code>assets/invitation-preview.mp4</code></small>
-            </div>
-            <video muted loop playsinline preload="metadata" aria-label="Digital wedding invitation preview">
-              <source src="./assets/invitation-preview.mp4" type="video/mp4">
-            </video>
-          </div>
-          <div class="phone-home" aria-hidden="true"></div>
+      <div class="video-wrap reveal">
+        <div class="video-frame">
+          <video controls playsinline preload="metadata" aria-label="Digital wedding invitation preview">
+            <source src="./assets/digital-wedding-invite-preview.mp4" type="video/mp4">
+          </video>
         </div>
+        <span class="video-label">Digital invitation preview</span>
       </div>
       <p class="preview-note reveal">A vertical invitation preview designed for the link your guests already know how to open.</p>
     </section>
