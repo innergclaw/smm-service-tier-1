@@ -215,10 +215,29 @@
                     children: "Soft life. Bold dreams. Beautiful becoming.",
                   }),
                 }),
-                (0, s.jsx)("p", {
-                  className: "preview-note",
-                  children:
-                    "Profile and links connected · Name ready to personalize",
+                (0, s.jsxs)("div", {
+                  className: "social-links",
+                  "aria-label": "Social media links",
+                  children: [
+                    (0, s.jsxs)("a", {
+                      href: "https://www.instagram.com/mariestemsfloral?igsh=Z3ludWV2cmNia2U=",
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                      children: [
+                        (0, s.jsx)("strong", { children: "IG" }),
+                        (0, s.jsx)("span", { children: "Marie Stems Floral" }),
+                      ],
+                    }),
+                    (0, s.jsxs)("a", {
+                      href: "https://substack.com/@yakiralynn?r=7ynv7m&utm_medium=ios&utm_source=stories&shareImageVariant=blur",
+                      target: "_blank",
+                      rel: "noopener noreferrer",
+                      children: [
+                        (0, s.jsx)("strong", { children: "SUBSTACK" }),
+                        (0, s.jsx)("span", { children: "Yakira Lynn" }),
+                      ],
+                    }),
+                  ],
                 }),
               ],
             }),
