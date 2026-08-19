@@ -17,7 +17,7 @@
         label: "Marie Stems Floral",
         note: "Flowers, arrangements, and beautiful moments",
         symbol: "02",
-        href: "https://www.msfloral.com/",
+        href: "https://msfloral.square.site",
       },
       {
         label: "RYZE Coffee",
@@ -36,6 +36,12 @@
         note: "A luxury digital invitation experience by OWNYOURWEB",
         symbol: "05",
         href: "https://ownyourweb.marketing/demos/digital-wedding-invites/",
+      },
+      {
+        label: "DISCORD ACCESS LINK",
+        note: "Secure your access to the Discord community",
+        symbol: "06",
+        href: "https://buy.stripe.com/aFa4gBdozbOxgFM8hZao80a",
       },
     ];
     e.s([
