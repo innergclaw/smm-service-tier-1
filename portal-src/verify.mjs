@@ -12,7 +12,7 @@ assert.equal((postBlock.match(/status: \"Awaiting Client Approval\"/g) || []).le
 assert.equal((postBlock.match(/status: \"Approved\"/g) || []).length, 2, "Expected two approved posts");
 assert.equal((postBlock.match(/status: \"Revision Requested\"/g) || []).length, 1, "Expected one revision request");
 
-for (const label of ["Dashboard", "Onboarding", "Content", "Brand Library", "Requests", "Messages", "Analytics", "Billing", "Notifications", "Admin Dashboard", "Clients", "Create Content"]) {
+for (const label of ["Dashboard", "Cloud Control", "Onboarding", "Content", "Brand Library", "Requests", "Messages", "Analytics", "Billing", "Notifications", "Admin Dashboard", "Clients", "Create Content"]) {
   assert.ok(source.includes(`\"${label}\"`), `Missing portal area: ${label}`);
 }
 
@@ -22,6 +22,10 @@ for (const marker of ["The Luxe Beauty Studio", "Instagram", "Facebook", "$450",
 
 for (const marker of ["signUp", "signInWithPassword", "resetPasswordForEmail", "resend", "updateUser", "onAuthStateChange", "portal_profiles"]) {
   assert.ok(source.includes(marker), `Missing production authentication behavior: ${marker}`);
+}
+
+for (const marker of ["CLOUD_INTAKE_ENDPOINT", "OwnYourWeb Cloud Control", "Cloud Operations Task", "Save and notify me", "GitHub Pages → Supabase → Telegram"]) {
+  assert.ok(source.includes(marker), `Missing cloud-control behavior: ${marker}`);
 }
 
 assert.ok(authClient.includes("sb_publishable_"), "Portal must use a publishable Supabase key");

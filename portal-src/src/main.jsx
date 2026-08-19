@@ -6,6 +6,7 @@ import { AUTH_CALLBACK_ERROR, PORTAL_URL, supabase } from "./supabase";
 const GOLD = "#C9FF46";
 const STORAGE_KEY = "owy-portal-demo-v2";
 const MEDIA_BUCKET = "client-media";
+const CLOUD_INTAKE_ENDPOINT = "https://zkyhhoxcrjkhywblzehr.supabase.co/functions/v1/ownyourweb-intake";
 const MAX_MEDIA_BYTES = 100 * 1024 * 1024;
 const ALLOWED_MEDIA_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif", "image/heic", "video/mp4", "video/quicktime", "video/webm", "application/pdf"]);
 
@@ -43,8 +44,8 @@ const initialState = {
   notifications: { approval: true, revision: true, approved: false, scheduled: true, published: false, message: true, request: true, report: true, payment: true, failed: true, onboarding: false, email: true },
 };
 
-const clientNav = ["Dashboard", "Onboarding", "Content", "Brand Library", "Requests", "Messages", "Analytics", "Billing", "Notifications"];
-const adminNav = ["Admin Dashboard", "Clients", "Content", "Create Content", "Brand Library", "Requests", "Messages", "Analytics", "Billing", "Notifications"];
+const clientNav = ["Dashboard", "Cloud Control", "Onboarding", "Content", "Brand Library", "Requests", "Messages", "Analytics", "Billing", "Notifications"];
+const adminNav = ["Admin Dashboard", "Cloud Control", "Clients", "Content", "Create Content", "Brand Library", "Requests", "Messages", "Analytics", "Billing", "Notifications"];
 const folders = ["Logos", "Brand Guidelines", "Photos", "Videos", "Testimonials", "Product Information", "Offers and Promotions", "Previous Content", "Other Files"];
 
 function loadState() {
@@ -422,6 +423,47 @@ function Notifications({ state, updateState, notify }) {
   return <div className="page-stack"><section className="page-intro"><div><p className="overline">Communication preferences</p><h1>Notifications</h1><p>Choose which account events should create in-app and email alerts.</p></div><Button onClick={()=>notify("Notification preferences saved.")}>Save preferences</Button></section><Card className="preference-card"><div className="preference-head"><div><h3>Email notifications</h3><p>Send enabled updates to client@luxebeautystudio.com</p></div><label className="switch"><input type="checkbox" checked={state.notifications.email} onChange={()=>toggle("email")}/><span/></label></div>{Object.entries(labels).map(([key,label])=><div className="preference" key={key}><div><b>{label}</b><small>In-app {state.notifications.email ? "and email" : "only"}</small></div><label className="switch"><input type="checkbox" checked={state.notifications[key]} onChange={()=>toggle(key)}/><span/></label></div>)}</Card></div>;
 }
 
+function CloudControl({ profile, notify }) {
+  const [form,setForm]=useState({title:"",description:"",area:"OwnYourWeb",priority:"Normal",dueDate:""});
+  const [sending,setSending]=useState(false);
+  const [receipt,setReceipt]=useState(null);
+  const firstName=(profile?.full_name||"Nasirr").trim().split(/\s+/)[0]||"Nasirr";
+  const lastName=(profile?.full_name||"").trim().split(/\s+/).slice(1).join(" ");
+  const f=(key)=>(event)=>setForm({...form,[key]:event.target.value});
+  const submit=async(event)=>{
+    event.preventDefault();
+    if(!form.title.trim()||!form.description.trim()){notify("Add a clear title and next action before sending.","error");return;}
+    setSending(true);setReceipt(null);
+    try{
+      const response=await fetch(CLOUD_INTAKE_ENDPOINT,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
+        source_page:"OwnYourWeb Cloud Control",
+        customer_first_name:firstName,
+        customer_last_name:lastName,
+        customer_email:profile?.email||"ownyourwebsmm@gmail.com",
+        business_name:profile?.business_name||"InnerG Intel Ecosystem",
+        industry:`Founder Operations / ${form.area}`,
+        package:"Cloud Operations Task",
+        budget_range:"Internal",
+        timeline:form.dueDate||"Next available action",
+        buyer_agent_or_contact:profile?.email||"ownyourwebsmm@gmail.com",
+        request:`${form.title.trim()}\n\n${form.description.trim()}\n\nPriority: ${form.priority}`,
+        assets:`Area: ${form.area}`
+      })});
+      const data=await response.json().catch(()=>({}));
+      if(!response.ok||!data.ok)throw new Error(data.error||"The cloud intake did not confirm delivery.");
+      setReceipt({id:data.packet?.request_id||"Cloud task received",database:data.database?.status||"database_inserted",telegram:data.telegram?.status||"telegram_sent"});
+      setForm({title:"",description:"",area:"OwnYourWeb",priority:"Normal",dueDate:""});
+      notify("Task saved to the cloud and routed to Telegram.");
+    }catch(error){notify(error.message||"Cloud delivery failed. Try again.","error");}
+    finally{setSending(false);}
+  };
+  return <div className="page-stack cloud-control"><section className="cloud-hero"><div><p className="overline">Founder operating layer</p><h1>Keep the work moving when the Mac is closed.</h1><p>Capture the next action here. The task is stored in the OwnYourWeb cloud database and routed to your private Telegram operations channel.</p></div><div className="cloud-pulse"><span>24<small>/7</small></span><b>Cloud bridge active</b><p>GitHub Pages → Supabase → Telegram</p></div></section>
+    <div className="cloud-status-grid"><Card><span className="system-dot online"/><small>PUBLIC CONTROL SURFACE</small><h3>GitHub Pages</h3><p>Accessible from your phone or any browser.</p></Card><Card><span className="system-dot online"/><small>PRIVATE RECORD</small><h3>Supabase</h3><p>Tasks survive local shutdowns and browser changes.</p></Card><Card><span className="system-dot online"/><small>OWNER ALERT</small><h3>Telegram</h3><p>New work is routed to your operations channel.</p></Card></div>
+    <div className="cloud-work-grid"><form className="card cloud-capture" onSubmit={submit}><div className="card-head"><div><p className="overline">Capture work</p><h3>What needs to move?</h3></div><span className="cloud-step">01</span></div><label>Task title<input value={form.title} onChange={f("title")} placeholder="Follow up with a new lead" maxLength="160"/></label><label>Context and next action<textarea value={form.description} onChange={f("description")} placeholder="Give the cloud queue enough context to act on later." maxLength="1800"/></label><div className="cloud-form-row"><label>Area<select value={form.area} onChange={f("area")}>{["OwnYourWeb","ShopNasGFX","InnerGReads","InnerG Intel","Legacy In Ink","Personal"].map(x=><option key={x}>{x}</option>)}</select></label><label>Priority<select value={form.priority} onChange={f("priority")}><option>Normal</option><option>High</option><option>Urgent</option></select></label></div><label>Target date<input type="date" value={form.dueDate} onChange={f("dueDate")}/></label><Button type="submit" className="full" disabled={sending}>{sending?<><span className="spinner"/> Sending to cloud…</>:"Save and notify me"}</Button><p className="cloud-form-note">Human approval stays with you. This creates an operational record; it does not authorize spending, publishing, or client communication.</p></form>
+      <div className="cloud-side"><Card><div className="card-head"><div><p className="overline">Cloud receipt</p><h3>Latest delivery</h3></div><span className="cloud-step">02</span></div>{receipt?<div className="cloud-receipt"><span>Delivered</span><b>{receipt.id}</b><dl><div><dt>Database</dt><dd>{receipt.database.replaceAll("_"," ")}</dd></div><div><dt>Notification</dt><dd>{receipt.telegram.replaceAll("_"," ")}</dd></div></dl></div>:<div className="empty-state"><b>No task sent in this session.</b><p>Your confirmation and request ID will appear here after the cloud accepts it.</p></div>}</Card><Card className="cloud-links"><p className="overline">Work from anywhere</p><h3>Cloud access points</h3><a href="https://chatgpt.com/" target="_blank" rel="noreferrer"><span>ChatGPT Work</span><small>Research, documents, scheduled work ↗</small></a><a href="https://github.com/innergclaw" target="_blank" rel="noreferrer"><span>GitHub</span><small>Owned repositories and Pages ↗</small></a><a href="https://web.telegram.org/" target="_blank" rel="noreferrer"><span>Telegram</span><small>Operational alerts and approvals ↗</small></a></Card></div></div>
+  </div>;
+}
+
 function AdminDashboard({ state, setPage }) {
   const stats=[["Active clients","12"],["New clients","2"],["Onboarding","3"],["Internal review","5"],["Client approval","9"],["Revision requests","4"],["Overdue approvals","2"],["Open requests",state.requests.length],["Unread messages","6"],["Upcoming payments","8"],["Failed payments","1"],["Scheduled this week","21"],["Published this month","46"]];
   return <div className="page-stack"><section className="welcome"><div><p className="overline">Operations overview</p><h1>Good morning, Avery.</h1><p>Here is what needs the team’s attention today.</p></div><Button onClick={()=>setPage("Create Content")}>Create content</Button></section><div className="admin-metrics">{stats.map(([l,v])=><Metric key={l} label={l} value={v}/>)}</div><div className="dashboard-grid"><Card><div className="card-head"><div><p className="overline">Priority queue</p><h3>Needs attention</h3></div></div><div className="priority-list"><button onClick={()=>setPage("Clients")}><span>2</span><div><b>Overdue approvals</b><small>Follow up before scheduling shifts</small></div></button><button onClick={()=>setPage("Requests")}><span>4</span><div><b>Revision requests</b><small>Two due within 24 hours</small></div></button><button onClick={()=>setPage("Billing")}><span>1</span><div><b>Failed payment</b><small>Client notification queued</small></div></button></div></Card><ProgressTracker/></div><ClientTable setPage={setPage}/></div>;
@@ -507,7 +549,7 @@ function App() {
   if(profile?.account_status === "pending")return <main className="auth-loading"><span className="brand-seal">OYM</span><div><b>Your account is being prepared</b><small>Your email is verified. Contact Own Your Web if you need immediate access.</small><Button onClick={logout}>Secure logout</Button></div></main>;
   const role=profile?.role === "administrator" ? "admin" : "client";
   const pages={
-    Dashboard:<ClientDashboard state={state} setPage={setPage} profile={profile}/>, Onboarding:<Onboarding state={state} updateState={setState} notify={notify}/>, Content:<Content state={state} updateState={setState} notify={notify}/>, "Brand Library":<BrandLibrary notify={notify} role={role} profile={profile}/>, Requests:<Requests state={state} updateState={setState} notify={notify} role={role}/>, Messages:<Messages state={state} updateState={setState} notify={notify} role={role}/>, Analytics:<Analytics notify={notify} role={role}/>, Billing:<Billing notify={notify}/>, Notifications:<Notifications state={state} updateState={setState} notify={notify}/>, "Admin Dashboard":<AdminDashboard state={state} setPage={setPage}/>, Clients:<AdminClients notify={notify} setPage={setPage}/>, "Create Content":<CreateContent state={state} updateState={setState} notify={notify} modal={modal}/>
+    Dashboard:<ClientDashboard state={state} setPage={setPage} profile={profile}/>, "Cloud Control":<CloudControl profile={profile} notify={notify}/>, Onboarding:<Onboarding state={state} updateState={setState} notify={notify}/>, Content:<Content state={state} updateState={setState} notify={notify}/>, "Brand Library":<BrandLibrary notify={notify} role={role} profile={profile}/>, Requests:<Requests state={state} updateState={setState} notify={notify} role={role}/>, Messages:<Messages state={state} updateState={setState} notify={notify} role={role}/>, Analytics:<Analytics notify={notify} role={role}/>, Billing:<Billing notify={notify}/>, Notifications:<Notifications state={state} updateState={setState} notify={notify}/>, "Admin Dashboard":<AdminDashboard state={state} setPage={setPage}/>, Clients:<AdminClients notify={notify} setPage={setPage}/>, "Create Content":<CreateContent state={state} updateState={setState} notify={notify} modal={modal}/>
   };
   return <div className="app-shell"><Sidebar role={role} profile={profile} page={page} setPage={setPage} open={menuOpen} setOpen={setMenuOpen} logout={logout}/>{menuOpen&&<button className="mobile-scrim" aria-label="Close navigation" onClick={()=>setMenuOpen(false)}/>}<div className="main-shell"><Topbar page={page} role={role} profile={profile} setOpen={setMenuOpen} notify={notify}/><main className="page"><div className="page-view" key={page}>{pages[page] || <AdminDashboard state={state} setPage={setPage}/>}</div></main></div>{toast&&<div className={cx("toast",toast.type)} role="status"><span/>{toast.message}</div>}{modalData&&<InfoModal {...modalData} close={()=>setModalData(null)}/>}</div>;
 }
