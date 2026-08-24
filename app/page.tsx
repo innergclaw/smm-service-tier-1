@@ -30,9 +30,10 @@ const links = [
   },
   {
     number: "05",
-    title: "AGENT ACADEMY",
+    title: "AGENT ACADEMY / COMING SOON",
     description: "Hands-on training for directing, building, and evaluating AI agent systems.",
-    href: "https://innergclaw.github.io/innerg-agent-academy/",
+    href: "",
+    status: "COMING SOON",
   },
 ];
 

@@ -7,6 +7,7 @@ type LinkItem = {
   title: string;
   description: string;
   href: string;
+  status?: string;
 };
 
 export default function ScrollRevealLinks({ links }: { links: LinkItem[] }) {
@@ -71,13 +72,20 @@ export default function ScrollRevealLinks({ links }: { links: LinkItem[] }) {
   return (
     <nav className="link-list" aria-label="Nasirr's links" ref={listRef}>
       {links.map((link) => (
-        <a className="link-card" href={link.href} key={link.number} target="_blank" rel="noreferrer">
+        link.href ? <a className="link-card" href={link.href} key={link.number} target="_blank" rel="noreferrer">
           <span className="link-number">{link.number}</span>
           <span className="link-copy">
             <strong>{link.title}</strong>
             <small>{link.description}</small>
           </span>
-        </a>
+        </a> : <div className="link-card link-card-disabled" key={link.number} aria-disabled="true">
+          <span className="link-number">{link.number}</span>
+          <span className="link-copy">
+            <strong>{link.title}</strong>
+            <small>{link.description}</small>
+          </span>
+          {link.status ? <span className="link-status">{link.status}</span> : null}
+        </div>
       ))}
     </nav>
   );
