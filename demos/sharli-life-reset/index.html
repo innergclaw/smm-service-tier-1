@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Sharli Life Reset Guide: a short check-in to see what is happening and choose one direction to move in.">
+    <title>sharli. / life reset guide</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="site-header">
+        <a class="wordmark" href="./">sharli<span>.</span></a>
+        <span class="header-note">life reset guide</span>
+      </header>
+
+      <section class="welcome view" id="welcome-view" aria-labelledby="welcome-title">
+        <p class="eyebrow">A CLEARER STARTING POINT</p>
+        <h1 id="welcome-title">Make room for<br><em>your next.</em></h1>
+        <p class="lede">This is a short check-in to help you see what is really happening, decide what deserves your attention, and leave with a simple plan you can actually follow.</p>
+        <button class="primary-button" id="start-button" type="button">BEGIN THE CHECK-IN <span aria-hidden="true">↗</span></button>
+        <p class="microcopy">10 questions · about 5 minutes</p>
+      </section>
+
+      <section class="checkin view" id="checkin-view" hidden aria-labelledby="checkin-title">
+        <div class="checkin-intro">
+          <p class="eyebrow">YOUR CHECK-IN</p>
+          <h2 id="checkin-title">Answer honestly,<br><em>not impressively.</em></h2>
+          <p>There are no perfect answers here.</p>
+        </div>
+        <div class="progress-wrap" aria-label="Check-in progress"><div class="progress-meta"><span id="question-number">01</span><span>of 10</span></div><div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div></div>
+        <form id="checkin-form">
+          <div class="question-card">
+            <p class="question-kicker" id="question-kicker">01 · CURRENT REALITY</p>
+            <label for="answer" id="question-label">What feels most out of order in your life right now?</label>
+            <textarea id="answer" rows="6" autocomplete="off" placeholder="Write what is true, not what sounds good."></textarea>
+            <p class="save-note">Your answers stay in this browser while you work.</p>
+          </div>
+          <div class="form-actions"><button class="back-button" id="back-button" type="button">BACK</button><button class="primary-button" id="next-button" type="submit">NEXT <span aria-hidden="true">↗</span></button></div>
+        </form>
+      </section>
+
+      <section class="complete view" id="complete-view" hidden aria-labelledby="complete-title">
+        <p class="eyebrow">YOUR NEXT STEP</p>
+        <h2 id="complete-title">You made space<br><em>to see clearly.</em></h2>
+        <p class="lede">You do not need to solve everything at once. Choose one thing from your answers that deserves your first honest move.</p>
+        <div class="plan-card"><p class="question-kicker">A SIMPLE PLAN</p><p id="plan-text">Start with the answer that carries the most weight. Give it one small action, one place on your calendar, and one check-in date.</p><label for="first-step">What is your first small move?</label><textarea id="first-step" rows="4" placeholder="For example: send the email, clear the table, make the appointment."></textarea></div>
+        <div class="complete-actions"><button class="primary-button" id="copy-button" type="button">COPY MY PLAN <span aria-hidden="true">↗</span></button><button class="text-button" id="restart-button" type="button">START AGAIN</button></div>
+      </section>
+
+      <footer class="site-footer"><span>made for sharli</span><span>progress becomes easier to see when it is written down.</span></footer>
+    </main>
+    <script src="script.js"></script>
+  </body>
+</html>
