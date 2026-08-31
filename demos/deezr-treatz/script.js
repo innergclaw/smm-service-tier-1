@@ -9,6 +9,8 @@ const cartItems = document.querySelector('#cart-items');
 const cartCount = document.querySelector('#cart-count');
 const cartTotal = document.querySelector('#cart-total');
 const checkoutButton = document.querySelector('#checkout-button');
+const quoteForm = document.querySelector('#quote-form');
+const formStatus = document.querySelector('#form-status');
 const items = [];
 
 function reveal() {
@@ -41,4 +43,11 @@ enterButton.addEventListener('click', () => { splash.classList.add('is-hidden');
 cartTrigger.addEventListener('click', openCart); cartClose.addEventListener('click', closeCart); backdrop.addEventListener('click', closeCart);
 document.addEventListener('keydown', (event) => { if (event.key === 'Escape') closeCart(); });
 document.querySelectorAll('.product-card').forEach((card) => card.querySelector('.add-button').addEventListener('click', () => { items.push({ name: card.dataset.product, price: Number(card.dataset.price) }); renderCart(); openCart(); card.animate([{ transform: 'scale(1)' }, { transform: 'scale(1.025)' }, { transform: 'scale(1)' }], { duration: 420, easing: 'cubic-bezier(.22,1,.36,1)' }); }));
+quoteForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const data = new FormData(quoteForm);
+  const body = `Name: ${data.get('name')}\nPhone: ${data.get('phone')}\nEvent date: ${data.get('date') || 'Not provided'}\nGuest count: ${data.get('guests') || 'Not provided'}\nDetails: ${data.get('details')}`;
+  window.location.href = `mailto:dejafortes16@gmail.com?subject=${encodeURIComponent('DeezR Treatz custom quote')}&body=${encodeURIComponent(body)}`;
+  formStatus.textContent = 'Your email app will open with the request ready to send.';
+});
 renderCart();
