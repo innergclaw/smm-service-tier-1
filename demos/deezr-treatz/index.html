@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f4e8">
+  <meta name="description" content="DeezR Treatz banana pudding menu. Fresh 12 oz cups for pickup, parties, events, and catering.">
+  <title>DeezR Treatz | Banana Pudding</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=DM+Serif+Display:ital@0;1&family=Pacifico&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <div class="splash" id="splash" aria-labelledby="splash-title">
+    <div class="confetti" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <p class="splash-kicker">fresh layers · sweet memories</p>
+    <div class="brand-lockup"><span>DeezR</span><strong>Treatz</strong><b>♡</b></div>
+    <div class="pudding-stage">
+      <span class="orbit orbit-one"></span><span class="orbit orbit-two"></span>
+      <img src="./assets/banana-pudding-clipart.png" alt="Illustrated cup of banana pudding" class="pudding-art">
+    </div>
+    <h1 id="splash-title">made fresh<br><em>with love.</em></h1>
+    <p class="splash-copy">A little comfort in every spoonful.</p>
+    <button class="enter-button" id="enter-menu">View the menu <span>↓</span></button>
+  </div>
+
+  <main class="site-shell" id="menu" aria-hidden="true">
+    <header class="site-header reveal">
+      <a class="mini-brand" href="#menu" aria-label="DeezR Treatz menu"><span>DeezR</span> Treatz <b>♡</b></a>
+      <button class="cart-trigger" id="cart-trigger" aria-controls="cart" aria-expanded="false">Your order <span class="cart-count" id="cart-count">0</span></button>
+    </header>
+
+    <section class="menu-hero" aria-labelledby="menu-title">
+      <p class="eyebrow reveal">12 oz personal cups</p>
+      <div class="hero-title-wrap reveal"><span class="leaf-mark">❧</span><h2 id="menu-title">Banana<br><em>Pudding Menu</em></h2><span class="leaf-mark flip">❧</span></div>
+      <p class="hero-copy reveal">Slow-layered, creamy, and packed with the kind of flavor people come back for.</p>
+      <a class="scroll-cue reveal" href="#cups">choose your cup <span>↓</span></a>
+    </section>
+
+    <section class="cups-section" id="cups" aria-labelledby="cups-title">
+      <div class="section-heading reveal"><p class="eyebrow">the best sellers</p><h3 id="cups-title">Pick your<br><em>favorite layer.</em></h3></div>
+      <div class="product-grid">
+        <article class="product-card classic reveal" data-product="Classic Banana Pudding" data-price="8">
+          <div class="card-art"><span class="spark spark-a">✦</span><img src="./assets/banana-pudding-clipart.png" alt="Classic banana pudding cup"><span class="card-badge">most loved</span></div>
+          <div class="product-info"><div><p class="product-number">01</p><h4>Classic Banana<br>Pudding</h4></div><strong>$8</strong></div>
+          <p class="product-note">Vanilla pudding, ripe bananas, and crisp wafers in every layer.</p>
+          <button class="add-button" type="button">Add to order <span>+</span></button>
+        </article>
+        <article class="product-card strawberry reveal" data-product="Strawberry Banana Pudding" data-price="11">
+          <div class="card-art"><span class="spark spark-b">✦</span><img src="./assets/banana-pudding-clipart.png" alt="Strawberry banana pudding cup"><span class="card-badge">limited favorite</span></div>
+          <div class="product-info"><div><p class="product-number">02</p><h4>Strawberry<br>Banana Pudding</h4></div><strong>$11</strong></div>
+          <p class="product-note">Our classic cup with bright strawberry layers and a fresh finish.</p>
+          <button class="add-button" type="button">Add to order <span>+</span></button>
+        </article>
+      </div>
+    </section>
+
+    <section class="catering-section reveal" id="catering">
+      <div class="catering-mark">♡</div><p class="eyebrow">parties · events · catering</p><h3>Bring the<br><em>sweetness.</em></h3>
+      <p>Planning a birthday, shower, office event, or family gathering? We make it easy to serve a dessert people remember.</p>
+      <a class="outline-button" href="mailto:dejafortes16@gmail.com?subject=DeezR%20Treatz%20custom%20quote">Request a custom quote <span>↗</span></a>
+      <small>Pricing varies by guest count. Tell us what you are planning.</small>
+    </section>
+
+    <section class="order-section reveal" id="order">
+      <div><p class="eyebrow">how to order</p><h3>Good things<br><em>start here.</em></h3></div>
+      <ol class="order-steps"><li><span>01</span><p><b>Choose your cups</b><br>Select your favorite flavor above.</p></li><li><span>02</span><p><b>Send your order</b><br>Use the order button to tell us what you need.</p></li><li><span>03</span><p><b>Confirm pickup</b><br>We will reply with timing and pickup details.</p></li></ol>
+    </section>
+
+    <footer class="site-footer"><div class="footer-brand">DeezR Treatz <span>♡</span></div><p>Made fresh with love.</p><div class="footer-links"><a href="https://instagram.com/dxjaf" target="_blank" rel="noreferrer">@dxjaf</a><a href="mailto:dejafortes16@gmail.com">email</a></div></footer>
+  </main>
+
+  <aside class="cart-drawer" id="cart" aria-label="Your order" aria-hidden="true"><div class="cart-top"><div><p class="eyebrow">your order</p><h2>Sweet<br><em>selection.</em></h2></div><button class="cart-close" id="cart-close" aria-label="Close order">×</button></div><div class="cart-items" id="cart-items"><p class="empty-cart">Your order is empty.<br>Add a cup to get started.</p></div><div class="cart-bottom"><div class="subtotal"><span>subtotal</span><strong id="cart-total">$0</strong></div><a class="checkout-button" id="checkout-button" href="mailto:dejafortes16@gmail.com?subject=DeezR%20Treatz%20order">Send order by email <span>↗</span></a><p class="checkout-note">Stripe checkout can be connected here when you are ready.</p></div></aside>
+  <div class="cart-backdrop" id="cart-backdrop"></div>
+  <script src="./script.js" defer></script>
+</body>
+</html>
