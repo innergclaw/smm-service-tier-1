@@ -4,6 +4,19 @@ import test from "node:test";
 
 const demoRoot = new URL("../demos/butterfly-links/", import.meta.url);
 
+test("the OWNYOURWEB homepage sells managed visibility outcomes", async () => {
+  const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
+
+  assert.match(html, /Managed Visibility for Local Business/);
+  assert.match(html, /Stay visible\. <em>Let us handle the monthly work\.<\/em>/);
+  assert.match(html, /A full month of content, planned and handled\./);
+  assert.match(html, /Apply for the Q3 service/);
+  assert.match(html, /\$250/);
+  assert.match(html, /September 30, 2026/);
+  assert.doesNotMatch(html, /AI-Powered Marketing System/i);
+  assert.doesNotMatch(html, /AI-assisted draft/i);
+});
+
 test("the Butterfly personal link hub includes the requested card destinations", async () => {
   const [html, interactiveLinks] = await Promise.all([
     readFile(new URL("index.html", demoRoot), "utf8"),
