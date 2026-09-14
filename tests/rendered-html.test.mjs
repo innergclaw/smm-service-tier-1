@@ -11,6 +11,7 @@ test("the OWNYOURWEB homepage sells managed visibility outcomes", async () => {
   assert.match(html, /Stay visible\. <em>Let us handle the monthly work\.<\/em>/);
   assert.match(html, /A full month of content, planned and handled\./);
   assert.match(html, /Apply for the Q3 service/);
+  assert.match(html, /href="ecosystem\.css"/);
   assert.match(html, /\$250/);
   assert.match(html, /September 30, 2026/);
   assert.doesNotMatch(html, /AI-Powered Marketing System/i);
