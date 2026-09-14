@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#151515" />
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Client file delivery | OWNYOURWEB + SHOPNASGFX</title>
+  <meta name="description" content="Private project file delivery for OWNYOURWEB and SHOPNASGFX clients." />
+  <link rel="stylesheet" href="styles.css?v=1" />
+</head>
+<body>
+  <main class="shell">
+    <header class="brand-bar" aria-label="Client file delivery">
+      <a class="brand-mark" href="../">OWNYOURWEB</a>
+      <span class="collab-mark">FILE DELIVERY BY SHOPNASGFX</span>
+    </header>
+
+    <section class="access-panel" id="access-panel" aria-labelledby="access-title">
+      <div class="access-copy">
+        <p class="eyebrow">PRIVATE CLIENT ACCESS</p>
+        <h1 id="access-title">Your project files, ready when you are.</h1>
+        <p class="lead">Enter the project code we sent you. You can view supported files and download the originals to your phone or computer.</p>
+      </div>
+
+      <form class="code-form" id="code-form" novalidate>
+        <label for="project-code">What is your project code?</label>
+        <div class="code-row">
+          <input
+            id="project-code"
+            name="project-code"
+            type="password"
+            inputmode="text"
+            autocomplete="off"
+            autocapitalize="characters"
+            spellcheck="false"
+            maxlength="80"
+            required
+            aria-describedby="code-help code-message"
+          />
+          <button type="submit">Open my files</button>
+        </div>
+        <p class="form-help" id="code-help">Codes are private. Do not post or forward yours.</p>
+        <p class="form-message" id="code-message" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="project-panel" id="project-panel" hidden aria-labelledby="project-title">
+      <div class="project-header">
+        <div>
+          <p class="eyebrow" id="project-brand">CLIENT DELIVERY</p>
+          <h2 id="project-title">Project files</h2>
+          <p class="project-note" id="project-note"></p>
+        </div>
+        <div class="project-actions">
+          <span class="status-pill" id="project-status">Ready</span>
+          <button class="text-button" id="lock-project" type="button">Close project</button>
+        </div>
+      </div>
+
+      <div class="file-summary" aria-live="polite">
+        <span id="file-count">0 files</span>
+        <span>Download links refresh each time you enter your code.</span>
+      </div>
+
+      <div class="empty-state" id="empty-state" hidden>
+        <h3>No files have been posted yet.</h3>
+        <p>Your project is open. New files will appear here after delivery.</p>
+      </div>
+
+      <div class="file-grid" id="file-grid" aria-label="Project files"></div>
+    </section>
+
+    <aside class="support-strip">
+      <p><strong>Need help?</strong> Reply to your project message or contact the person who sent your code.</p>
+      <p>OWNYOURWEB systems. SHOPNASGFX creative delivery.</p>
+    </aside>
+  </main>
+
+  <template id="file-template">
+    <article class="file-card">
+      <div class="preview-shell"></div>
+      <div class="file-copy">
+        <p class="file-kind"></p>
+        <h3 class="file-name"></h3>
+        <p class="file-description"></p>
+        <p class="file-meta"></p>
+      </div>
+      <div class="file-actions">
+        <a class="view-link" target="_blank" rel="noopener noreferrer">View</a>
+        <a class="download-link">Download</a>
+      </div>
+    </article>
+  </template>
+
+  <script src="app.js?v=1" defer></script>
+</body>
+</html>
