@@ -23,6 +23,12 @@ test("frontend sends the code in a POST body and does not persist it", () => {
   assert.doesNotMatch(app, /localStorage|sessionStorage|URLSearchParams/);
 });
 
+test("mobile file previews show the complete artwork without cropping", () => {
+  assert.match(styles, /\.preview-shell img,[\s\S]*object-fit: contain;/);
+  assert.match(styles, /@media \(max-width: 600px\)[\s\S]*\.preview-shell \{ aspect-ratio: 1; \}/);
+  assert.match(styles, /\.preview-shell img \{[\s\S]*box-sizing: border-box;[\s\S]*padding: 12px;/);
+});
+
 test("edge function returns short-lived private file links", () => {
   assert.match(edge, /const LINK_SECONDS = 600/);
   assert.match(edge, /createSignedUrl/);

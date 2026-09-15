@@ -340,7 +340,12 @@ h2 { font-size: clamp(2.7rem, 5vw, 5rem); }
   width: 100%;
   height: 100%;
   border: 0;
-  object-fit: cover;
+  object-fit: contain;
+}
+
+.preview-shell img {
+  box-sizing: border-box;
+  padding: 12px;
 }
 
 .preview-shell audio { width: calc(100% - 24px); }
@@ -468,6 +473,8 @@ h2 { font-size: clamp(2.7rem, 5vw, 5rem); }
   .project-actions { width: 100%; flex-wrap: wrap; }
   .text-button { margin-inline-start: auto; }
   .file-grid { grid-template-columns: 1fr; }
+  .preview-shell { aspect-ratio: 1; }
+  .preview-shell img { padding: 10px; }
   .file-actions { grid-template-columns: 1fr; }
   .view-link, .download-link { min-height: 52px; }
   .support-strip { grid-template-columns: 1fr; padding: 18px; }
