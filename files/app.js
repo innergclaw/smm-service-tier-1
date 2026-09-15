@@ -118,7 +118,7 @@ form.addEventListener("submit", async (event) => {
   const code = codeInput.value.trim();
   const submit = form.querySelector("button[type=submit]");
 
-  if (code.length < 8) {
+  if (code.length < 7) {
     message.textContent = "Enter the complete project code.";
     codeInput.focus();
     return;

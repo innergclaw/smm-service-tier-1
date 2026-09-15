@@ -75,7 +75,7 @@ Deno.serve(async (req) => {
 
   const body = await req.json().catch(() => ({}));
   const code = normalizeCode(body.code);
-  if (code.length < 8) return json(req, { ok: false, error: "Code not recognized" }, 401);
+  if (code.length < 7) return json(req, { ok: false, error: "Code not recognized" }, 401);
 
   const codeDigest = await sha256(code);
   const ipDigest = await sha256(requestIp(req));

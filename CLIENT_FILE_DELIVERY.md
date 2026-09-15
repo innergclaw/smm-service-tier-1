@@ -18,6 +18,8 @@ The browser does not save the code. The code does not appear in the URL.
 
 Create a random code with at least 16 characters. Do not reuse a client name, phone number, birthday, or business name as the code.
 
+The access route accepts codes with seven or more characters for approved legacy or client-specified codes. Use the 16-character standard for every new code unless the client has approved an exception.
+
 Normalize the code before hashing it. Remove spaces and use uppercase letters. Store only the SHA-256 digest.
 
 ```sql
