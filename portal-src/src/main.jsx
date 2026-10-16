@@ -119,7 +119,10 @@ function Login({ recoveryMode, clearRecovery, authCallbackError }) {
       setNotice("Password reset link sent. Check your email to continue.");
       return;
     }
-    if (password.length < 8) { setError("Use a password with at least eight characters."); return; }
+    // New passwords follow Supabase Auth hardening (shared pool); sign-in stays lenient for existing accounts.
+    if (mode === "signup" || mode === "update") {
+      if (password.length < 10 || !/[A-Za-z]/.test(password) || !/[0-9]/.test(password)) { setError("Use at least 10 characters, including letters and numbers."); return; }
+    } else if (!password) { setError("Enter your password."); return; }
     if ((mode === "signup" || mode === "update") && password !== confirmPassword) { setError("Passwords do not match."); return; }
     if (mode === "signup" && (!fullName.trim() || !businessName.trim())) { setError("Your name and business name are required."); return; }
     if (mode === "signup" && !terms) { setError("Confirm that you agree to the portal terms and privacy policy."); return; }
