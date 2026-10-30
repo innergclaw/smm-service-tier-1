@@ -382,6 +382,40 @@
       .js .motion-reveal,.js .motion-stagger > * { opacity:1!important; transform:none!important; }
       .portal-window.motion-scale img { transform:none!important; }
     }
+    /* EasyUI-inspired (Suraj Maurya, MIT): spotlight pricing cards, comparison, smooth accordion, CTA shine */
+    .offer-head { position:relative; z-index:1; max-width:720px; }
+    .plan-grid { position:relative; z-index:1; display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:40px; align-items:stretch; }
+    .plan-card { --mx:50%; --my:0%; position:relative; display:flex; flex-direction:column; gap:14px; border:1px solid rgba(255,255,255,.14); border-radius:24px; padding:26px; background:rgba(255,255,255,.04); overflow:hidden; transition:transform 220ms var(--ease-out), border-color 220ms ease; }
+    .plan-card::before { content:""; position:absolute; inset:0; pointer-events:none; opacity:0; background:radial-gradient(420px circle at var(--mx) var(--my), rgba(201,255,70,.14), transparent 60%); transition:opacity 260ms ease; }
+    .plan-card:hover::before { opacity:1; }
+    .plan-card > * { position:relative; }
+    .plan-card h4 { margin:0; color:#fff; font-size:20px; }
+    .plan-card .plan-line { margin:0; font-size:14px; }
+    .plan-card .price { margin:4px 0 0; }
+    .plan-card .price-new { font-size:56px; }
+    .plan-card .promo-flag { margin-top:0; }
+    .plan-card .promo-save { margin:0!important; }
+    .plan-card .includes { grid-template-columns:1fr; flex:1; }
+    .plan-btn { margin-top:6px; width:100%; background:rgba(255,255,255,.1); border:1px solid rgba(255,255,255,.18); }
+    .plan-best { border-color:rgba(201,255,70,.55); background:rgba(201,255,70,.07); box-shadow:0 0 0 1px rgba(201,255,70,.18), 0 30px 60px rgba(0,0,0,.25); }
+    .plan-best .plan-btn { border:0; }
+    .compare { position:relative; z-index:1; margin-top:34px; overflow-x:auto; border:1px solid rgba(255,255,255,.14); border-radius:22px; }
+    .compare table { width:100%; border-collapse:collapse; font-size:13px; min-width:520px; }
+    .compare caption { text-align:left; padding:20px 22px 6px; color:#fff; font-weight:800; font-size:16px; }
+    .compare th, .compare td { padding:14px 22px; border-top:1px solid rgba(255,255,255,.08); text-align:center; color:#d6d9cf; }
+    .compare thead th { color:#fff; font-size:12px; text-transform:uppercase; letter-spacing:.12em; }
+    .compare tbody th { text-align:left; font-weight:600; }
+    .compare td { color:#8f9389; }
+    .compare td { font-weight:800; } .compare td.compare-no { font-weight:500; color:#6f7369; }
+    .compare .compare-best { background:rgba(201,255,70,.08); color:var(--lime); }
+    .compare-price th, .compare-price td { color:#fff; font-weight:900; }
+    .js .faq-panel.faq-animating { overflow:hidden; transition:height 320ms var(--ease-out), opacity 260ms ease; }
+    .js details[open] .faq-panel { animation:none; }
+    .cta-shine { position:relative; overflow:hidden; isolation:isolate; }
+    .cta-shine::after { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(110deg, transparent 35%, rgba(255,255,255,.55) 50%, transparent 65%); transform:translateX(-120%); }
+    @media (hover:hover) { .plan-card:hover { transform:translateY(-4px); border-color:rgba(201,255,70,.4); } .cta-shine:hover::after { transform:translateX(120%); transition:transform 700ms var(--ease-out); } }
+    @media (max-width: 980px) { .plan-grid { grid-template-columns:1fr; } }
+    @media (prefers-reduced-motion:reduce) { .plan-card, .plan-card:hover { transform:none!important; } .cta-shine::after { display:none; } }
   </style>
   <link rel="stylesheet" href="ecosystem.css" />
 </head>
@@ -449,9 +483,27 @@
     </section>
 
     <section class="shell offer" id="offer">
-      <div class="offer-grid">
-        <div><div class="kicker">02 / What you get</div><h3>Two services. One goal: more customers find you.</h3><p>Pick one, or get both and save.</p><div class="promo-flag">Both together</div><div class="price"><span class="price-new">$300</span><small> / month</small></div><p class="promo-save">You save $50 every month.</p><a href="#apply" class="include cta svc-cta">Get started</a></div>
-        <div class="svc-cards"><article class="svc-card"><h4>Social Media</h4><div class="price"><span class="price-new">$150</span><small> / month</small></div><div class="includes"><div class="include">12 posts a month, 3 every week</div><div class="include">We write the captions and hashtags</div><div class="include">You check and approve every post first</div><div class="include">A simple report each month</div></div></article><article class="svc-card"><h4>Google Search Help (SEO)</h4><div class="price"><span class="price-new">$200</span><small> / month</small></div><div class="includes"><div class="include">We set up your Google business listing and keep it fresh</div><div class="include">We find the words people type to look for businesses like yours</div><div class="include">We fix your website so Google understands it</div><div class="include">We help you answer reviews and clean up your listings</div><div class="include">A simple report each month</div></div></article></div>
+      <!-- Pricing cards, plan comparison, smooth FAQ, and CTA shine adapted from EasyUI (https://easyui.site) by Suraj Maurya, MIT License. Rebuilt in plain HTML/CSS/JS. -->
+      <div class="offer-head"><div class="kicker">02 / What you get</div><h3>Two services. One goal: more customers find you.</h3><p>Pick one, or get both and save $50 every month.</p></div>
+      <div class="plan-grid">
+        <article class="plan-card"><h4>Social Media</h4><p class="plan-line">We keep your page busy.</p><div class="price"><span class="price-new">$150</span><small> / month</small></div><div class="includes"><div class="include">12 posts a month, 3 every week</div><div class="include">We write the captions and hashtags</div><div class="include">You check and approve every post first</div><div class="include">A simple report each month</div></div><a href="#apply" class="button plan-btn">Choose Social</a></article>
+        <article class="plan-card"><h4>Google Search Help (SEO)</h4><p class="plan-line">We help people find you on Google.</p><div class="price"><span class="price-new">$200</span><small> / month</small></div><div class="includes"><div class="include">We set up your Google business listing and keep it fresh</div><div class="include">We find the words people type to look for businesses like yours</div><div class="include">We fix your website so Google understands it</div><div class="include">We help you answer reviews and clean up your listings</div><div class="include">A simple report each month</div></div><a href="#apply" class="button plan-btn">Choose SEO</a></article>
+        <article class="plan-card plan-best"><div class="promo-flag">Best value</div><h4>Both together</h4><p class="plan-line">Busy page and found on Google.</p><div class="price"><span class="price-new">$300</span><small> / month</small></div><p class="promo-save">You save $50 every month.</p><div class="includes"><div class="include">Everything in Social Media</div><div class="include">Everything in Google Search Help</div><div class="include">One team, one simple report</div></div><a href="#apply" class="button lime plan-btn">Get both</a></article>
+      </div>
+      <div class="compare" role="region" aria-label="Compare plans">
+        <table>
+          <caption>Which plan fits you?</caption>
+          <thead><tr><th scope="col">What you get</th><th scope="col">Social</th><th scope="col">SEO</th><th scope="col" class="compare-best">Both</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">12 posts a month</th><td>Yes</td><td class="compare-no">No</td><td class="compare-best">Yes</td></tr>
+            <tr><th scope="row">Captions and hashtags written for you</th><td>Yes</td><td class="compare-no">No</td><td class="compare-best">Yes</td></tr>
+            <tr><th scope="row">Google business listing kept fresh</th><td class="compare-no">No</td><td>Yes</td><td class="compare-best">Yes</td></tr>
+            <tr><th scope="row">Website fixes so Google understands it</th><td class="compare-no">No</td><td>Yes</td><td class="compare-best">Yes</td></tr>
+            <tr><th scope="row">Help answering reviews</th><td class="compare-no">No</td><td>Yes</td><td class="compare-best">Yes</td></tr>
+            <tr><th scope="row">Simple monthly report</th><td>Yes</td><td>Yes</td><td class="compare-best">Yes</td></tr>
+            <tr class="compare-price"><th scope="row">Price</th><td>$150 / mo</td><td>$200 / mo</td><td class="compare-best">$300 / mo</td></tr>
+          </tbody>
+        </table>
       </div>
     </section>
 
@@ -526,7 +578,7 @@
         <label>What kind of business?<select name="industry"><option>Pick one</option><option>Realtor</option><option>Salon / Beauty</option><option>Med spa</option><option>Contractor</option><option>Fitness</option><option>Nonprofit</option><option>Other local service</option></select></label>
         <label>What do you want?<select name="needs"><option>Social Media ($150)</option><option>Google help ($200)</option><option>Both ($300)</option><option>More than 12 posts</option><option>Not sure yet</option></select></label>
         <label class="wide">Anything else we should know?<textarea name="message" placeholder="Tell us what is happening with your social media right now..."></textarea></label>
-        <button class="button lime wide" type="submit">Get started</button>
+        <button class="button lime wide cta-shine" type="submit">Get started</button>
         <p class="form-status" id="form-status" role="status" aria-live="polite"></p>
       </form>
     </section>
@@ -581,7 +633,6 @@
       '.hero > div:first-child',
       '.section-head',
       '.pain-grid',
-      '.offer-grid',
       '.includes',
       '.process',
       '.portal-intro',
@@ -775,6 +826,55 @@
       }
     });
 
+  </script>
+  <script>
+    /* Spotlight cards + smooth FAQ accordion, adapted from EasyUI (Suraj Maurya, MIT License) */
+    (function () {
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+      document.querySelectorAll('.plan-card').forEach(function (card) {
+        card.addEventListener('pointermove', function (e) {
+          var r = card.getBoundingClientRect();
+          card.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+          card.style.setProperty('--my', (e.clientY - r.top) + 'px');
+        });
+      });
+      var items = Array.prototype.slice.call(document.querySelectorAll('#faq details'));
+      function animate(d, open) {
+        var panel = d.querySelector('.faq-panel');
+        if (!panel || reduce.matches) { d.open = open; return; }
+        panel.classList.add('faq-animating');
+        if (open) {
+          d.open = true;
+          var h = panel.scrollHeight;
+          panel.style.height = '0px'; panel.style.opacity = '0';
+          panel.offsetHeight;
+          panel.style.height = h + 'px'; panel.style.opacity = '1';
+        } else {
+          panel.style.height = panel.scrollHeight + 'px';
+          panel.offsetHeight;
+          panel.style.height = '0px'; panel.style.opacity = '0';
+        }
+        var done = function () {
+          panel.removeEventListener('transitionend', done);
+          clearTimeout(t);
+          if (!open) d.open = false;
+          panel.classList.remove('faq-animating');
+          panel.style.height = ''; panel.style.opacity = '';
+        };
+        var t = setTimeout(done, 420);
+        panel.addEventListener('transitionend', function te(ev) { if (ev.propertyName === 'height') { panel.removeEventListener('transitionend', te); done(); } });
+      }
+      items.forEach(function (d) {
+        var s = d.querySelector('summary');
+        if (!s) return;
+        s.addEventListener('click', function (e) {
+          e.preventDefault();
+          var opening = !d.open;
+          if (opening) items.forEach(function (o) { if (o !== d && o.open) animate(o, false); });
+          animate(d, opening);
+        });
+      });
+    })();
   </script>
 </body>
 </html>
