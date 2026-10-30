@@ -4,16 +4,18 @@ import test from "node:test";
 
 const demoRoot = new URL("../demos/butterfly-links/", import.meta.url);
 
-test("the OWNYOURWEB homepage sells managed visibility outcomes", async () => {
+test("the OWNYOURWEB homepage sells social media marketing and SEO", async () => {
   const html = await readFile(new URL("../index.html", import.meta.url), "utf8");
 
-  assert.match(html, /Managed Visibility for Local Business/);
-  assert.match(html, /Stay visible\. <em>Let us handle the monthly work\.<\/em>/);
-  assert.match(html, /A full month of content, planned and handled\./);
-  assert.match(html, /Apply for the Q3 service/);
+  assert.match(html, /Social Media Marketing \+ SEO for Local Business/);
+  assert.match(html, /Social Media Marketing \+ SEO <em>for Local Businesses<\/em>/);
+  assert.match(html, /SEO \(Local Search\)/);
+  assert.match(html, /\$150/);
+  assert.match(html, /\$200/);
+  assert.match(html, /\$300/);
+  assert.match(html, /Get started/);
   assert.match(html, /href="ecosystem\.css"/);
-  assert.match(html, /\$250/);
-  assert.match(html, /September 30, 2026/);
+  assert.doesNotMatch(html, /Q3|September 30|\$450|\$250/);
   assert.doesNotMatch(html, /AI-Powered Marketing System/i);
   assert.doesNotMatch(html, /AI-assisted draft/i);
 });
