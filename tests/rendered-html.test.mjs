@@ -9,11 +9,14 @@ test("the OWNYOURWEB homepage sells social media marketing and SEO", async () =>
 
   assert.match(html, /Social Media Marketing \+ SEO for Local Business/);
   assert.match(html, /Social Media Marketing \+ SEO <em>for Local Businesses<\/em>/);
-  assert.match(html, /SEO \(Local Search\)/);
+  assert.match(html, /Google Search Help \(SEO\)/);
   assert.match(html, /\$150/);
   assert.match(html, /\$200/);
   assert.match(html, /\$300/);
   assert.match(html, /Get started/);
+  assert.match(html, /We post for you\. We help people find you on Google\./);
+  assert.match(html, /We can't promise a set number of followers/);
+  assert.match(html, /More than 12 posts/);
   assert.match(html, /href="ecosystem\.css"/);
   assert.doesNotMatch(html, /Q3|September 30|\$450|\$250/);
   assert.doesNotMatch(html, /AI-Powered Marketing System/i);
